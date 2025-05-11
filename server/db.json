@@ -1,0 +1,180 @@
+{
+  "user": [
+    {
+      "id": 1,
+      "name": "admin",
+      "lastname": "admin",
+      "email": "admin@gmail.com",
+      "password": "admin12345",
+      "created_at": "2023-01-01T00:00:00Z",
+      "privacy": "public"
+    },
+    {
+      "id": 2,
+      "name": "test",
+      "lastname": "test",
+      "email": "test@gmail.com",
+      "password": "123456789",
+      "created_at": "2024-11-13T18:19:15.258Z",
+      "privacy": "private"
+    }
+  ],
+  "subscription": [
+    {
+      "id": 1,
+      "description": "Premium Plan",
+      "price": 9.99,
+      "month_duration": 6,
+      "updated_at": "",
+      "trial": false,
+      "user_id": 1
+    },
+    {
+      "id": 2,
+      "description": "Basic Plan",
+      "price": 0,
+      "month_duration": 3,
+      "updated_at": "2024-11-13T18:19:15.292Z",
+      "trial": true,
+      "user_id": 2
+    }
+  ],
+  "goal": [
+    {
+      "id": 1,
+      "user_id": 1,
+      "goal_type": "text",
+      "start_date": "2024-07-28",
+      "end_date": "2024-08-28"
+    },
+    {
+      "id": 2,
+      "user_id": 2,
+      "goal_type": "-",
+      "start_date": "-",
+      "end_date": "-"
+    }
+  ],
+  "sleep": [
+    {
+      "id": 1,
+      "user_id": 1,
+      "date": "2024-11-12T03:34:56.789",
+      "hours_slept": 9,
+      "quality": "Good"
+    },
+    {
+      "id": 2,
+      "user_id": 1,
+      "date": "2024-11-12T04:10:59.697",
+      "hours_slept": 1,
+      "quality": "bad"
+    },
+    {
+      "id": 7,
+      "user_id": 1,
+      "date": "2024-11-13T15:48:47.498Z",
+      "hours_slept": 8,
+      "quality": "good"
+    },
+    {
+      "id": 8,
+      "user_id": 1,
+      "date": "2024-11-15T06:54:45.625Z",
+      "hours_slept": 4,
+      "quality": "HASTA LAS HUEVAS"
+    }
+  ],
+  "hydration": [
+    {
+      "id": 1,
+      "user_id": 1,
+      "date": "2024-11-11T15:30:00Z",
+      "quantity_ml": 2000
+    },
+    {
+      "id": 2,
+      "user_id": 1,
+      "date": "2024-11-12T05:12:39.691Z",
+      "quantity_ml": 100
+    },
+    {
+      "id": 3,
+      "user_id": 1,
+      "date": "2024-11-12T05:33:42.443Z",
+      "quantity_ml": 300
+    },
+    {
+      "id": 4,
+      "user_id": 1,
+      "date": "2024-11-12T05:35:53.635Z",
+      "quantity_ml": 100
+    },
+    {
+      "id": 5,
+      "user_id": 1,
+      "date": "2024-11-15T06:53:26.146Z",
+      "quantity_ml": 2000
+    }
+  ],
+  "activities": [
+    {
+      "id": 1,
+      "name": "Post-workout Stretching",
+      "description": "Stretch your whole body for 10-15 minutes to improve flexibility and reduce injury risk.",
+      "duration": 15,
+      "user_id": 1
+    }
+  ],
+  "medical_history": [
+    {
+      "id": 1,
+      "date": "2024-11-06",
+      "condition": "TUMAMACALATA",
+      "description": "GAAAAAAAAAAAAAAAAAA",
+      "user_id": 1
+    }
+  ],
+  "food": [
+    {
+      "id": 1,
+      "name": "Apple",
+      "calories": 95,
+      "proteins": 0,
+      "carbs": 25,
+      "fats": 0,
+      "user_id": 1
+    },
+    {
+      "id": 2,
+      "name": "FANODRIC",
+      "calories": 20,
+      "proteins": 13,
+      "carbs": 26,
+      "fats": 27,
+      "user_id": 1
+    }
+  ],
+  "recommendations": [
+    {
+      "id": 1,
+      "description": "Don't forget to stay hydrated, especially after exercising."
+    },
+    {
+      "id": 2,
+      "description": "Avoid heavy meals before sleep to improve your sleep quality."
+    },
+    {
+      "id": 3,
+      "description": "Take active breaks every 2 hours if you spend long periods sitting."
+    },
+    {
+      "id": 4,
+      "description": "Incorporate a variety of exercises into your routine to target different muscle groups."
+    },
+    {
+      "id": 5,
+      "description": "Prioritize getting 7-9 hours of sleep each night for optimal recovery and health."
+    }
+  ]
+}
