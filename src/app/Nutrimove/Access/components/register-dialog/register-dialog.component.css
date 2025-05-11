@@ -1,0 +1,40 @@
+mat-dialog-content {
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+}
+
+.form-field {
+  display: block; /* Asegura que cada campo ocupe su propia línea */
+  margin-bottom: 20px; /* Espacio entre los campos */
+}
+
+.mat-error {
+  font-size: 0.8em;
+  color: #d32f2f; /* Color rojo para errores */
+}
+
+.error-message {
+  color: #d32f2f;
+  font-weight: bold;
+  margin-top: 10px; /* Espacio superior */
+}
+
+button {
+  background-color: #007bff; /* Color de fondo */
+  color: white; /* Color del texto */
+  font-weight: bold;
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #0056b3; /* Color al pasar el ratón */
+}
+
+button:disabled {
+  background-color: #c0c0c0; /* Color cuando está deshabilitado */
+  cursor: not-allowed; /* Cambia el cursor cuando está deshabilitado */
+}
