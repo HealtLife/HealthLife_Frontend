@@ -1,0 +1,114 @@
+{
+  "welcome": "Welcome back!",
+  "user": "User:",
+  "out_of": "out of",
+  "water_consumed": "ml of water consumed",
+  "calories_consumed": "calories consumed",
+  "sleep_hours": "hours of sleep",
+  "sleep": {
+    "last_24h": "Sleep Hours in the last 24h",
+    "input_hours": "Hours",
+    "quality": "Quality",
+    "quality_plc": "Ej: Good, Bad",
+    "sleep_error": "This field is required",
+    "update": "Update Sleep Hours"
+  },
+  "hydration": {
+    "last_24h": "Hydration in the last 24h",
+    "ml_consumed": "ml consumed",
+    "ml_placeholder": "Enter ml consumed",
+    "ml_error": "This field is required and must be a positive number",
+    "update": "Update Hydration"
+  },
+  "goal": {
+    "info_title": "Goal Information",
+    "type": "Type",
+    "start_date": "Start Date",
+    "end_date": "End Date",
+    "none": "None"
+  },
+  "diet": {
+    "id": "ID",
+    "name": "Name",
+    "calories": "Calories",
+    "proteins": "Proteins",
+    "carbs": "Carbohydrates",
+    "fats": "Fats",
+    "statistics_last_24_hours": "Statistics for the last 24 hours"
+  },
+  "workouts": {
+    "title": "Workouts",
+    "routine": "Routine: ",
+    "name": "Name",
+    "type": "Type",
+    "muscle": "Muscle",
+    "equipment": "Equipment",
+    "difficulty": "Difficulty",
+    "search": "Search",
+    "search_placeholder": "Search a type of muscle"
+  },
+  "community": {
+    "photos": "Photos",
+    "exp": "Experiences",
+    "videos": "Videos"
+  },
+  "activities": {
+    "title": "Activities",
+    "id": "ID",
+    "name": "Name",
+    "description": "Description",
+    "duration": "Duration",
+    "recommendation": "Recommendations"
+  },
+  "health": {
+    "title": "Health Statistics",
+    "bmi": {
+      "title": "Body Mass Index",
+      "height": "Height",
+      "weight": "Weight",
+      "height_placeholder": "Height in cm",
+      "weight_placeholder": "Weight in kg",
+      "calculate": "CALCULATE"
+    },
+    "macros": {
+      "title": "Nutritional Macros (g)",
+      "proteins": "Proteins",
+      "proteins_placeholder": "Proteins",
+      "carbohydrates": "Carbohydrates",
+      "carbohydrates_placeholder": "Carbohydrates",
+      "fats": "Fats",
+      "fats_placeholder": "Fats"
+    },
+    "medical_history": {
+      "title": "Medical History",
+      "date": "Date",
+      "condition": "Condition",
+      "description": "Description",
+      "no_records": "No medical history records found.",
+      "edit_title": "Edit Medical Record",
+      "edit": "Edit",
+      "delete": "Delete",
+      "add": "Add",
+      "add_new": "Add New Medical Record",
+      "save": "Save",
+      "cancel": "Cancel"
+    }
+
+  },
+  "profile": {
+    "title": "Profile Details",
+    "name": "Name",
+    "lastname": "Last Name",
+    "email": "Email",
+    "privacy": "Privacy",
+    "goal": "Goal",
+    "public": "Public",
+    "private": "Private",
+    "lose_weight": "Lose Weight",
+    "gain_muscle": "Gain Muscle Mass",
+    "stay_fit": "Just Stay Fit",
+    "save": "Save",
+    "discard": "Discard",
+    "edit": "Edit Profile"
+  }
+}

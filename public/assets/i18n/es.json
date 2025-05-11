@@ -1,0 +1,113 @@
+{
+  "welcome": "¡Bienvenido de nuevo!",
+  "user": "Usuario:",
+  "out_of": "de",
+  "water_consumed": "ml de agua consumidos",
+  "calories_consumed": "calorías consumidas",
+  "sleep_hours": "horas de sueño",
+  "hydration": {
+    "last_24h": "Hidratación en las últimas 24h",
+    "ml_consumed": "ml consumidos",
+    "ml_placeholder": "Ingrese ml consumidos",
+    "ml_error": "Este campo es obligatorio y debe ser un número positivo",
+    "update": "Actualizar Hidratación"
+  },
+  "sleep": {
+    "last_24h": "Horas de sueño en las últimas 24h",
+    "input_hours": "Horas",
+    "quality": "Calidad",
+    "quality_plc": "Ej: Buena, Mala",
+    "sleep_error": "este campo es requerido",
+    "update": "Actualizar Horas de sueño"
+  },
+  "goal": {
+    "info_title": "Información de la meta",
+    "type": "Tipo",
+    "start_date": "Inicio de la meta",
+    "end_date": "Fin de la meta",
+    "none": "Ninguna"
+  },
+  "diet": {
+    "id": "ID",
+    "name": "Nombre",
+    "calories": "Calorías",
+    "proteins": "Proteínas",
+    "carbs": "Carbohidratos",
+    "fats": "Grasas",
+    "statistics_last_24_hours": "Estadísticas las últimas 24 horas"
+  },
+  "workouts": {
+    "title": "Rutinas",
+    "routine": "Rutina: ",
+    "name": "Nombre",
+    "type": "Tipo",
+    "muscle": "Músculo",
+    "equipment": "Equipo",
+    "difficulty": "Dificultad",
+    "search": "Buscar",
+    "search_placeholder": "Busca un tipo de musculo"
+  },
+  "community": {
+    "photos": "Fotos",
+    "exp": "Experiencias",
+    "videos": "Videos"
+  },
+  "activities": {
+    "title": "Actividades",
+    "id": "ID",
+    "name": "Nombre",
+    "description": "Descripción",
+    "duration": "Duración",
+    "recommendation": "Recomendaciones"
+  },
+  "health": {
+    "title": "Estadísticas de Salud",
+    "bmi": {
+      "title": "Índice de Masa Corporal",
+      "height": "Altura",
+      "weight": "Peso",
+      "height_placeholder": "Altura en cm",
+      "weight_placeholder": "Peso en kg",
+      "calculate": "CALCULAR"
+    },
+    "macros": {
+      "title": "Macros Nutricionales (gr.)",
+      "proteins": "Proteínas",
+      "proteins_placeholder": "Proteínas",
+      "carbohydrates": "Carbohidratos",
+      "carbohydrates_placeholder": "Carbohidratos",
+      "fats": "Grasas",
+      "fats_placeholder": "Grasas"
+    },
+    "medical_history": {
+      "title": "Historial Médico",
+      "date": "Fecha",
+      "condition": "Condición",
+      "description": "Descripción",
+      "no_records": "No se encontraron registros médicos.",
+      "edit_title": "Editar Registro Médico",
+      "edit": "Editar",
+      "delete": "Eliminar",
+      "add": "Añadir",
+      "add_new": "Añadir",
+      "save": "Guardar",
+      "cancel": "Cancelar"
+    }
+  },
+  "profile": {
+    "title": "Detalles de Perfil",
+    "name": "Nombre",
+    "lastname": "Apellido",
+    "email": "Correo",
+    "privacy": "Privacidad",
+    "goal": "Objetivo",
+    "public": "Público",
+    "private": "Privado",
+    "lose_weight": "Bajar de peso",
+    "gain_muscle": "Ganar Masa Muscular",
+    "stay_fit": "Solo estar en forma",
+    "save": "Guardar",
+    "discard": "Descartar",
+    "edit": "Editar Perfil"
+  }
+}
