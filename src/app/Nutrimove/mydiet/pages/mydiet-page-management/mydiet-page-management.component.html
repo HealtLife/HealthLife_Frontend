@@ -1,0 +1,64 @@
+<div class="diet-page-container">
+  <div class="form-container">
+    <app-mydiet-page
+      (cancelRequested)="onCancelRequested()"
+      (mydietAddRequested)="onMydietsAddRequested($event)"
+      (mydietUpdateRequested)="onMydietsUpdateRequested($event)"
+      [mydiet]="mydietData"
+      [editMode]="editMode">
+    </app-mydiet-page>
+  </div>
+
+  <div class="content-container">
+    <div class="table-container">
+      <table mat-table [dataSource]="dataSource" matSort class="custom-mat-table">
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="custom-header">{{ 'diet.id' | translate }}</th>
+          <td mat-cell *matCellDef="let mydiet" class="custom-cell">{{ mydiet.id }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="custom-header">{{ 'diet.name' | translate }}</th>
+          <td mat-cell *matCellDef="let mydiet" class="custom-cell">{{ mydiet.name }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="calories">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="custom-header">{{ 'diet.calories' | translate }}</th>
+          <td mat-cell *matCellDef="let mydiet" class="custom-cell">{{ mydiet.calories }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="proteins">
+          <th mat-header-cell *matHeaderCellDef class="custom-header">{{ 'diet.proteins' | translate }}</th>
+          <td mat-cell *matCellDef="let mydiet" class="custom-cell">{{ mydiet.proteins }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="carbs">
+          <th mat-header-cell *matHeaderCellDef class="custom-header">{{ 'diet.carbs' | translate }}</th>
+          <td mat-cell *matCellDef="let mydiet" class="custom-cell">{{ mydiet.carbs }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="fats">
+          <th mat-header-cell *matHeaderCellDef class="custom-header">{{ 'diet.fats' | translate }}</th>
+          <td mat-cell *matCellDef="let mydiet" class="custom-cell">{{ mydiet.fats }}</td>
+        </ng-container>
+
+
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 15]" [pageSize]="5" showFirstLastButtons class="custom-paginator"></mat-paginator>
+    </div>
+
+
+    <div class="stats-container">
+      <h3 class="stats-title">{{ 'diet.statistics_last_24_hours' | translate }}:</h3>
+      <div class="stats-content">
+        <p>{{ 'diet.calories' | translate }}: {{ dailyStats.calories }}</p>
+        <p>{{ 'diet.proteins' | translate }}: {{ dailyStats.proteins }}</p>
+        <p>{{ 'diet.carbs' | translate }}: {{ dailyStats.carbs }}</p>
+        <p>{{ 'diet.fats' | translate }}: {{ dailyStats.fats }}</p>
+      </div>
+    </div>
+  </div>
+</div>

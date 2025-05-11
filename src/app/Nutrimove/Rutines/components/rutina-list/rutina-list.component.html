@@ -1,0 +1,31 @@
+<div class="container">
+  <h1>{{ 'workouts.title' | translate }}</h1>
+  <h2>{{ 'workouts.routine' | translate }} {{this.type_of_muscle}}</h2>
+
+  <mat-form-field appearance="fill">
+    <mat-label>{{ 'workouts.search' | translate }}</mat-label>
+    <input matInput [(ngModel)]="type_of_muscle" [matAutocomplete]="auto" (input)="filterMuscles()" (ngModelChange)="onSearch()" placeholder="{{ 'workouts.search_placeholder' | translate }}">
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let muscle of filteredMuscles" [value]="muscle">
+        {{ muscle }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+
+  <div class="grid-container">
+    <mat-card *ngFor="let rutina of rutinas" class="grid-item">
+      <mat-card-header>
+        <mat-card-title>
+          <p>{{ 'workouts.name' | translate }}: {{ rutina.name }} <br></p>
+          <p>{{ 'workouts.type' | translate }}: {{ rutina.type }}<br></p>
+          <p>{{ 'workouts.muscle' | translate }}: {{ rutina.muscle }}<br></p>
+          <p>{{ 'workouts.equipment' | translate }}: {{ rutina.equipment }} <br></p>
+          <p>{{ 'workouts.difficulty' | translate }}: {{ rutina.difficulty }}</p>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{ rutina.instructions }}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

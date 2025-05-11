@@ -1,0 +1,47 @@
+.profile-container {
+  max-width: 600px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.radio-options {
+  display: flex;
+  gap: 20px;
+}
+
+.card{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.mat-card-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.subscription-container{
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}

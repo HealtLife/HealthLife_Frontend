@@ -1,0 +1,25 @@
+<div class="community-container">
+
+  <div class="experiences-section">
+    <h2>{{'community.exp' | translate}}</h2>
+    <div class="experience-list">
+      <mat-card class="experience-card" *ngFor="let experience of experiences">
+        {{ experience }}
+      </mat-card>
+    </div>
+  </div>
+</div>
+
+<div class="videos-section">
+  <h2>{{'community.videos'|translate}}:</h2>
+  <div class="video-list">
+    <video
+      *ngFor="let video of videos"
+      [src]="video.video_files[0].link"
+    controls
+    class="video"
+    poster="{{ video.image }}"
+    preload="metadata">
+    </video>
+  </div>
+</div>

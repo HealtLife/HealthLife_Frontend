@@ -1,0 +1,217 @@
+.spacer {
+  flex: 1 1 auto;
+}
+
+.dashboard {
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+.spinner-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.spinner-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 150px;
+  padding: 10px;
+  position: relative;
+
+  background-color: #f2f2f2;
+  border: 2px solid #308C83;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+
+
+}
+
+.spinner-item:hover{
+  cursor: pointer;
+  transition: 0.5s;
+  transform: scale(1.05);
+}
+
+.spinner-value {
+  position: absolute;
+  top: 23%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.1em;
+}
+
+.input-field {
+  margin-right: 16px;
+  width: 100%;
+  max-width: 300px;
+}
+
+button {
+  margin-top: 16px;
+}
+
+.input-container{
+  margin-top: 50px;
+}
+
+.spinner-item p {
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+
+.welcome{
+  text-align: center;
+  margin-top: 10px;
+  font-family: "Helvetica Neue", sans-serif;
+}
+
+.goal-container{
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin-top: 5%;
+  padding-bottom: 5%;
+  width:100%;
+  font-size: 20px;
+
+
+}
+
+.goal-item:hover{
+  background-color: rgba(48, 140, 131, 0.82);
+  cursor: pointer;
+  transition: 1s;
+  transform: scale(1.05);
+}
+
+.goal-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.goal-item {
+  padding: 20px;
+  background-color: #f2f2f2;
+  border: 2px solid #308C83;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+}
+
+.goal-item:hover {
+  background-color: #e8f5f4;
+}
+
+.goal-item strong {
+  font-size: 1.2em;
+  color: #308C83;
+  margin-bottom: 10px;
+  display: block;
+}
+
+
+
+.achievement-container {
+  margin-top: 30px;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 columnas */
+  gap: 20px; /* Espaciado entre las cards */
+  padding: 20px; /* Opcional: espaciado interno */
+}
+
+.medical-record {
+  background-color: #e8f5e9;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.medical-record p {
+  margin: 5px 0;
+}
+
+.medical-record button {
+  background-color: #308C83;
+  padding: 8px 15px;
+  margin-right: 10px;
+}
+
+.new-record-form {
+  background-color: #f1f8f6;
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 20px;
+
+}
+
+.new-record-form input,
+.new-record-form textarea {
+  width: 90%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.new-record-form button {
+  background-color: #308C83;
+  padding: 10px 20px;
+}
+
+.new-record-form button[type="button"] {
+  background-color: #a1a1a1;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.new-record-form label {
+  font-weight: bold;
+  color: #308C83;
+}
+
+.achievement-container {
+
+  display: grid;
+  place-items: center;
+  text-align: center;
+  margin: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+
+}
+
+button {
+  background-color: #308C83;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+button:hover {
+  background-color: #267b71;
+}

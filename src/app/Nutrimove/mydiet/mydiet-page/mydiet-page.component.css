@@ -1,0 +1,139 @@
+.table-wrapper {
+  padding: 20px;
+  background-color: #f3f4f6;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.custom-table {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.button-container {
+  text-align: right;
+  margin-bottom: 15px;
+}
+
+mat-flat-button {
+  background-color: #ff4081; /* Color personalizado para el botón */
+  color: white;
+  font-weight: bold;
+}
+
+mat-flat-button:hover {
+  background-color: #e91e63; /* Color más oscuro al hacer hover */
+}
+
+.card-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.stats-card {
+  width: 300px;
+  padding: 15px;
+  text-align: center;
+  background-color: #ffffff;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+th, td {
+  padding: 10px;
+  font-size: 14px;
+}
+
+mat-paginator {
+  margin-top: 15px;
+}
+
+p {
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+
+/* Estilos generales */
+.title {
+  text-align: center;
+  color: #308C83;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.form-section {
+  background-color: #f4f4f4;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-field {
+  width: 100%;
+}
+
+.mat-form-field {
+  margin-bottom: 15px;
+}
+
+/* Estilos para los botones */
+.button-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.submit-btn {
+  background-color: #308C83; /* Verde azulado */
+  color: white;
+  font-weight: bold;
+  width: 48%;
+}
+
+.submit-btn:hover {
+  background-color: #267a70; /* Verde más oscuro */
+}
+
+.cancel-btn {
+  background-color: #f4a300; /* Naranja cálido */
+  color: white;
+  font-weight: bold;
+  width: 48%;
+}
+
+.cancel-btn:hover {
+  background-color: #e68a00; /* Naranja más oscuro */
+}
+
+/* Estilo para los campos de entrada */
+.mat-input-element {
+  padding: 12px;
+  font-size: 14px;
+}
+
+.mat-form-field-label {
+  color: #308C83;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline {
+  border-color: #308C83; /* Bordes del input en verde azulado */
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline-thick {
+  border-width: 2px;
+}
+

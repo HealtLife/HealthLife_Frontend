@@ -1,0 +1,70 @@
+<div class="health-stats-container">
+  <h2>{{ 'health.title' | translate }}</h2>
+
+  <div class="centered-content">
+    <div class="bmi-section">
+      <h3>{{ 'health.bmi.title' | translate }}:</h3>
+      <p *ngIf="bmi !== null">{{ bmi.toFixed(1) }}</p>
+
+      <form [formGroup]="healthForm">
+        <label for="height">{{ 'health.bmi.height' | translate }} (cm):</label>
+        <input id="height" type="number" formControlName="height" [placeholder]="'health.bmi.height_placeholder' | translate">
+
+        <label for="weight">{{ 'health.bmi.weight' | translate }} (kg):</label>
+        <input id="weight" type="number" formControlName="weight" [placeholder]="'health.bmi.weight_placeholder' | translate">
+
+        <button type="button" (click)="calculateBMI()" [disabled]="healthForm.invalid">{{ 'health.bmi.calculate' | translate }}</button>
+      </form>
+    </div>
+
+    <div class="macros-section">
+      <h3>{{ 'health.macros.title' | translate }}</h3>
+      <form [formGroup]="healthForm">
+        <label for="proteins"><strong>{{ 'health.macros.proteins' | translate }}</strong></label>
+        <textarea id="proteins" formControlName="proteins" [placeholder]="'health.macros.proteins_placeholder' | translate" readonly></textarea>
+
+        <label for="carbohydrates"><strong>{{ 'health.macros.carbohydrates' | translate }}</strong></label>
+        <textarea id="carbohydrates" formControlName="carbohydrates" [placeholder]="'health.macros.carbohydrates_placeholder' | translate" readonly></textarea>
+
+        <label for="fats"><strong>{{ 'health.macros.fats' | translate }}</strong></label>
+        <textarea id="fats" formControlName="fats" [placeholder]="'health.macros.fats_placeholder' | translate" readonly></textarea>
+      </form>
+    </div>
+  </div>
+
+  <div class="medical-history-container">
+    <h2>{{ 'health.medical_history.title' | translate }}</h2>
+    <button (click)="addingNewRecord = true">{{ 'health.medical_history.add' | translate }}</button>
+    <div *ngIf="medicalHistory && medicalHistory.length; else noHistory">
+
+      <div *ngFor="let record of medicalHistory" class="medical-record">
+        <p><strong>{{ 'health.medical_history.date' | translate }}:</strong> {{ record.date }}</p>
+        <p><strong>{{ 'health.medical_history.condition' | translate }}:</strong> {{ record.condition }}</p>
+        <p><strong>{{ 'health.medical_history.description' | translate }}:</strong> {{ record.description }}</p>
+        <button (click)="deleteRecord(record.id)">{{ 'health.medical_history.delete' | translate }}</button>
+      </div>
+    </div>
+
+    <ng-template #noHistory>
+      <p>{{ 'health.medical_history.no_records' | translate }}</p>
+
+    </ng-template>
+
+    <div *ngIf="addingNewRecord" class="new-record-form">
+      <h3>{{ 'health.medical_history.add_new' | translate }}</h3>
+      <form [formGroup]="newRecordForm" (ngSubmit)="addNewRecord()">
+        <label>{{ 'health.medical_history.date' | translate }}</label>
+        <input formControlName="date" type="date" required>
+
+        <label>{{ 'health.medical_history.condition' | translate }}</label>
+        <input formControlName="condition" type="text" required>
+
+        <label>{{ 'health.medical_history.description' | translate }}</label>
+        <textarea formControlName="description" required></textarea>
+
+        <button type="submit">{{ 'health.medical_history.save' | translate }}</button>
+        <button type="button" (click)="addingNewRecord = false">{{ 'health.medical_history.cancel' | translate }}</button>
+      </form>
+    </div>
+  </div>
+</div>

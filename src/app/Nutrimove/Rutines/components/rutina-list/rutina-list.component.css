@@ -1,0 +1,117 @@
+.container {
+  text-align: center;
+  margin: 20px auto;
+}
+
+mat-card {
+  max-width: 100%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  border: 2px solid rgb(48, 140, 131);
+}
+
+mat-card-header, mat-card-content {
+  text-align: left;
+}
+
+mat-card-title {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+:root {
+  --main-color: #308C83; /* Verde azulado principal */
+  --secondary-color: #F1F1F1; /* Fondo claro */
+  --accent-color: #F25C54; /* Color de acento (rojo suave) */
+  --text-color: #333333; /* Color de texto oscuro */
+  --card-bg-color: #FFFFFF; /* Fondo blanco para las tarjetas */
+  --hover-color: #217C6B; /* Color para efectos hover */
+  --card-border-radius: 12px;
+  --shadow-color: rgba(0, 0, 0, 0.1); /* Color para sombra suave */
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: var(--secondary-color);
+  margin: 0;
+  padding: 0;
+  color: var(--text-color);
+}
+
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(700px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.grid-item {
+  background-color: var(--card-bg-color);
+  border-radius: var(--card-border-radius);
+  box-shadow: 0 4px 8px var(--shadow-color);
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+}
+
+.grid-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 2px 8px rgb(48, 140, 131);
+}
+
+mat-card-header {
+  background-color: var(--main-color);
+  color: black;
+  padding: 15px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+mat-card-title {
+  margin: 0;
+}
+
+mat-card-title p {
+  margin: 5px 0;
+}
+
+.mat-card-title p {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+.mat-card-title p span.label {
+  color: black;
+  font-weight: bold;
+}
+
+mat-card-content {
+  padding: 15px;
+  color: var(--text-color);
+  font-size: 16px;
+}
+
+mat-card-content p {
+  margin-bottom: 10px;
+}
+
+
+@media (max-width: 768px) {
+  .grid-container {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .grid-item {
+    margin-bottom: 15px;
+  }
+}
+

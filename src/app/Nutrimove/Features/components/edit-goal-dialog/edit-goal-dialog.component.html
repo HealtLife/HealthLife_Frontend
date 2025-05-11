@@ -1,0 +1,28 @@
+
+<h2 mat-dialog-title>Editar Meta</h2>
+<mat-dialog-content>
+  <mat-form-field appearance="outline">
+    <mat-label>Tipo de Meta</mat-label>
+    <input matInput [(ngModel)]="data.goal_type" placeholder="Tipo de Meta" required />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Fecha de Inicio</mat-label>
+    <input matInput [(ngModel)]="data.start_date" [matDatepicker]="picker1" required />
+    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+    <mat-datepicker #picker1></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Fecha de Fin</mat-label>
+    <input matInput [(ngModel)]="data.end_date" [matDatepicker]="picker2" required />
+    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+    <mat-datepicker #picker2></mat-datepicker>
+  </mat-form-field>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="close()">Cancelar</button>
+  <button mat-raised-button color="primary" (click)="save()">Guardar</button>
+</mat-dialog-actions>

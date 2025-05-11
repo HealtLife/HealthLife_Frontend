@@ -1,0 +1,66 @@
+
+
+
+.activities-page-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  max-width: 90%;
+}
+
+
+.form-container {
+  width: 100%;
+  background-color: #f5f5f5;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.content-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+
+.table-container {
+  flex: 3;
+  padding: 20px;
+  background-color: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+}
+
+
+.stats-container {
+  flex: 1;
+  padding: 20px;
+  border: 1px solid #ddd;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  max-width: 300px;
+}
+
+
+.stats-title {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.stats-content p {
+  font-size: 18px;
+  margin: 5px 0;
+}
+
+
+table.mat-table {
+  width: 100%;
+  text-align: center;
+}
+
+table.mat-table th,
+table.mat-table td {
+  text-align: center;
+  font-weight: 500;
+}

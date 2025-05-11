@@ -1,0 +1,22 @@
+<mat-toolbar>
+  <div class="logo-container">
+    <img src="https://imgur.com/AHUI1ug.png" alt="NutriMove" class="logo" />
+
+  </div>
+  <div class="spacer"></div>
+  <div class="options">
+
+    <ng-container *ngIf="router.url !== '/access'; else accessOptions">
+      <ng-container *ngFor="let option of features; trackBy: trackByTitle">
+        <a mat-button [routerLink]="option.path">{{ option.title }}</a>
+      </ng-container>
+    </ng-container>
+
+    <ng-template #accessOptions>
+      <a mat-button (click)="openRegDialog()">Register</a>
+      <a mat-button (click)="openLoginDialog()">Login</a>
+    </ng-template>
+  </div>
+
+  <app-switcher></app-switcher>
+</mat-toolbar>

@@ -1,0 +1,14 @@
+<div class="recommendations-container">
+  <h2>{{ 'activities.recommendation' | translate }}</h2>
+  <div class="recommendations-wrapper">
+    <button class="scroll-button scroll-left" (click)="scrollLeft()">&#9664;</button>
+    <div class="recommendations-list" #recommendationsList>
+      <mat-card *ngFor="let recommendation of recommendations" class="recommendation-card">
+        <mat-card-content>
+          <p>{{ recommendation.description }}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <button class="scroll-button scroll-right" (click)="scrollRight()">&#9654;</button>
+  </div>
+</div>

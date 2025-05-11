@@ -1,0 +1,13 @@
+.custom-toggle {
+  background-color: #6e9492;
+  color: black;
+}
+
+.custom-toggle.mat-toggle-button-checked {
+  background-color: #308C83;
+  color: white;
+}
+
+.custom-toggle:hover {
+  background-color: #5cb694;
+}

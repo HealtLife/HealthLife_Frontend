@@ -1,0 +1,34 @@
+<h2 class="title">{{ editMode ? 'Edit My Diet' : 'My Diet'}}</h2>
+<div class="form-section">
+  <form #mydietForm="ngForm" (submit)="onSubmit()" class="form-row">
+    <mat-form-field id="name-form-field" class="form-field">
+      <mat-label>Name</mat-label>
+      <input [(ngModel)]="mydiet.name" matInput name="name" placeholder="Enter your name" required>
+    </mat-form-field>
+
+    <mat-form-field id="calories-form-field" class="form-field">
+      <mat-label>Calories</mat-label>
+      <input [(ngModel)]="mydiet.calories" matInput name="calories" placeholder="Enter calories" required>
+    </mat-form-field>
+
+    <mat-form-field id="proteins-form-field" class="form-field">
+      <mat-label>Proteins</mat-label>
+      <input [(ngModel)]="mydiet.proteins" matInput name="proteins" placeholder="Enter proteins" required>
+    </mat-form-field>
+
+    <mat-form-field id="carbohydrates-form-field" class="form-field">
+      <mat-label>Carbohydrates</mat-label>
+      <input [(ngModel)]="mydiet.carbs" matInput name="carbohydrates" placeholder="Enter carbohydrates" required>
+    </mat-form-field>
+
+    <mat-form-field id="fats-form-field" class="form-field">
+      <mat-label>Fats</mat-label>
+      <input [(ngModel)]="mydiet.fats" matInput name="fats" placeholder="Enter fats" required>
+    </mat-form-field>
+
+    <div class="button-container">
+      <button color="primary" mat-raised-button class="submit-btn">{{ isEditMode() ? 'Update' : 'Add'}}</button>
+      <button (click)="onCancel()" color="warn" mat-raised-button class="cancel-btn">Cancel</button>
+    </div>
+  </form>
+</div>
