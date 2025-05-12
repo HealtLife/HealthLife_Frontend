@@ -7,9 +7,9 @@ import {NgForOf, NgIf, NgOptimizedImage} from '@angular/common';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import {MatDialog} from '@angular/material/dialog';
-import {LoginDialogComponent} from '../../../Nutrimove/Access/components/login-dialog/login-dialog.component';
-import {RegisterDialogComponent} from '../../../Nutrimove/Access/components/register-dialog/register-dialog.component';
-import {AccessPagePage} from '../../../Nutrimove/Access/pages/access-page/access-page.page';
+import {LoginDialogComponent} from '../../../HealthLife/Access/components/login-dialog/login-dialog.component';
+import {RegisterDialogComponent} from '../../../HealthLife/Access/components/register-dialog/register-dialog.component';
+import {AccessPagePage} from '../../../HealthLife/Access/pages/access-page/access-page.page';
 
 @Component({
   selector: 'app-toolbar',

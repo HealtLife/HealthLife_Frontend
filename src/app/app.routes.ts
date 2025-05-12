@@ -1,15 +1,15 @@
 import { Routes } from '@angular/router';
 import { NotFoundPage } from './public/pages/not-found/not-found.page';
-import { HomeContentComponent } from './Nutrimove/Features/pages/home-content/home-content.component';
-import { AnalysisContentPage } from './Nutrimove/Features/pages/analysis-content/analysis-content.page';
-import { AccessPagePage } from './Nutrimove/Access/pages/access-page/access-page.page';
-import { ProfileEditComponent } from './Nutrimove/Features/pages/profile-content/profile-edit/profile-edit.component';
-import { ProfileViewComponent } from './Nutrimove/Features/pages/profile-content/profile-view/profile-view.component';
-import {RutinaListComponent} from './Nutrimove/Rutines/components/rutina-list/rutina-list.component';
+import { HomeContentComponent } from './HealthLife/Features/pages/home-content/home-content.component';
+import { AnalysisContentPage } from './HealthLife/Features/pages/analysis-content/analysis-content.page';
+import { AccessPagePage } from './HealthLife/Access/pages/access-page/access-page.page';
+import { ProfileEditComponent } from './HealthLife/Features/pages/profile-content/profile-edit/profile-edit.component';
+import { ProfileViewComponent } from './HealthLife/Features/pages/profile-content/profile-view/profile-view.component';
+import {RutinaListComponent} from './HealthLife/Rutines/components/rutina-list/rutina-list.component';
 import { AuthGuard } from './shared/guards/auth.guard';
-import {MydietManagementComponent} from './Nutrimove/mydiet/pages/mydiet-page-management/mydiet-page-management.component';
-import {CommunityContentComponent} from './Nutrimove/Features/pages/community-content/community-content.component';
-import {ActivitiesPageComponent} from './Nutrimove/Activities/components/activities-page/activities-page.component';
+import {MydietManagementComponent} from './HealthLife/mydiet/pages/mydiet-page-management/mydiet-page-management.component';
+import {CommunityContentComponent} from './HealthLife/Features/pages/community-content/community-content.component';
+import {ActivitiesPageComponent} from './HealthLife/Activities/components/activities-page/activities-page.component';
 
 
 export const routes: Routes = [

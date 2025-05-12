@@ -1,5 +1,5 @@
 import { CanActivateFn } from '@angular/router';
-import {AuthenApiService} from '../../Nutrimove/Access/services/authen-api.service';
+import {AuthenApiService} from '../../HealthLife/Access/services/authen-api.service';
 import {CanActivate, Router} from '@angular/router';
 import {map} from 'rxjs/operators';
 import {Injectable} from '@angular/core';

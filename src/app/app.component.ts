@@ -12,7 +12,7 @@ import {HomePage} from './public/pages/home/home.page';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'NutriMoveTF';
+  title = 'HealthLife';
 
   constructor(translate: TranslateService) {
     translate.setDefaultLang('en');
