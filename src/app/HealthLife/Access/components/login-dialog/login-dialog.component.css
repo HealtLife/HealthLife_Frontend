@@ -1,8 +1,110 @@
-.form-field {
+/* Contenedor del diálogo con scroll y límite de altura */
+:host ::ng-deep .mat-dialog-container {
+  width: 480px;
+  max-width: 95vw;
+  max-height: 90vh;
+  overflow: auto;
+  padding: 0;
+}
+
+/* Fondo blanco, padding y bordes redondeados */
+.dialog-content {
+  background: #ffffff;
+  padding: 16px 24px;
+  border-radius: 8px;
+}
+
+/* Encabezado de marca */
+.top-tagline {
+  text-align: center;
+  font-size: 1.4rem;
+  margin-bottom: 4px;
+  color: #000000;
+  font-weight: 500;
+}
+.top-tagline .brand {
+  color: #308c83;
+}
+
+/* Subtítulo */
+.subtitle {
+  text-align: center;
+  font-size: 1rem;
+  margin-bottom: 16px;
+  color: #555555;
+}
+
+/* Grid responsivo de campos */
+.fields-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+@media (min-width: 600px) {
+  .fields-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+mat-form-field {
   width: 100%;
 }
 
-.auth-links {
+/* Mensaje de error */
+.error-message {
   text-align: center;
-  margin-top: 10px;
+  color: #d32f2f;
+  font-size: 0.9rem;
+  margin: 12px 0;
+}
+
+/* Botones centrados */
+mat-dialog-actions[align="center"] {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+/* Botón Cancelar */
+.cancel-button {
+  text-transform: none;
+}
+
+/* Botón Ingresar con color #308c83 y animación pulse */
+.login-button {
+  min-width: 120px;
+  text-transform: none;
+  color: #ffffff;
+  background-color: #308c83 !important;
+  animation: pulse 2s infinite ease-in-out;
+}
+.login-button:disabled {
+  background-color: #a6d8d0 !important;
+  animation: none;
+}
+
+/* Animación pulse */
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* Enlace de registro */
+.register-link {
+  text-align: center;
+  margin-top: 16px;
+  font-size: 0.9rem;
+}
+.register-link a {
+  color: #308c83;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: 500;
+}
+.register-link a:hover {
+  text-decoration: underline;
 }

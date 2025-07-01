@@ -1,34 +1,71 @@
-<h2 mat-dialog-title>Iniciar sesión</h2>
-<mat-dialog-content>
-  <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
-    <mat-form-field appearance="fill" class="form-field">
-      <mat-label>Correo</mat-label>
-      <input matInput type="email" formControlName="email" placeholder="Ingresa tu correo" />
-      <mat-error *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
-        Correo inválido
-      </mat-error>
-    </mat-form-field>
+<mat-dialog-content class="dialog-content">
+  <!-- Encabezado -->
+  <h2 class="top-tagline">
+    Bienvenido a <span class="brand">HealthLife</span>
+  </h2>
+  <p class="subtitle">Inicia sesión para continuar tu camino hacia el bienestar.</p>
 
-    <mat-form-field appearance="fill" class="form-field">
-      <mat-label>Contraseña</mat-label>
-      <input matInput type="password" formControlName="password" placeholder="Ingresa tu contraseña" />
-      <mat-error *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
-        La contraseña es requerida
-      </mat-error>
-    </mat-form-field>
+  <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="login-form">
+    <!-- Campos en grid -->
+    <div class="fields-grid">
+      <mat-form-field appearance="outline">
+        <mat-label>Correo</mat-label>
+        <input
+          matInput
+          type="email"
+          formControlName="email"
+          placeholder="Ingresa tu correo"
+        />
+        <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
+          El correo es obligatorio
+        </mat-error>
+        <mat-error *ngIf="loginForm.get('email')?.hasError('email')">
+          Ingresa un correo válido
+        </mat-error>
+      </mat-form-field>
 
+      <mat-form-field appearance="outline">
+        <mat-label>Contraseña</mat-label>
+        <input
+          matInput
+          type="password"
+          formControlName="password"
+          placeholder="Ingresa tu contraseña"
+        />
+        <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+          La contraseña es obligatoria
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Mensaje de error -->
     <div *ngIf="errorMessage" class="error-message">
       {{ errorMessage }}
     </div>
 
+    <!-- Botones de acción -->
     <mat-dialog-actions align="center">
-      <button mat-button type="button" (click)="onCancel()">Cancelar</button>
-      <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">Ingresar</button>
+      <button
+        mat-flat-button
+        class="cancel-button"
+        type="button"
+        (click)="onCancel()"
+      >
+        Cancelar
+      </button>
+      <button
+        mat-flat-button
+        class="login-button"
+        type="submit"
+        [disabled]="loginForm.invalid"
+      >
+        Ingresar
+      </button>
     </mat-dialog-actions>
   </form>
-</mat-dialog-content>
 
-<p class="auth-links">
-  ¿No tienes una cuenta? <a href="#">Regístrate</a><br />
-  ¿Olvidaste tu contraseña? <a href="#">Recuperar cuenta</a>
-</p>
+  <!-- Solo el enlace a registro -->
+  <div class="register-link">
+    ¿No tienes cuenta? <a (click)="openRegisterDialog()">Regístrate</a>
+  </div>
+</mat-dialog-content>
