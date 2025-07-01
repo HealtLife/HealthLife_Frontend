@@ -1,141 +1,163 @@
-<div class="content">
-  <div class="dashboard">
-    <h1 class="welcome">{{ 'welcome' | translate }}</h1>
-    <p *ngIf="currentUser">{{ 'user' | translate }} {{ currentUser.name }} {{ currentUser.lastname }}</p>
+<div class="dashboard">
+  <!-- Título traducible -->
+  <h1 class="welcome">{{ 'welcome' | translate }}</h1>
 
-    <div class="spinner-container">
-      <div class="spinner-item">
-        <p>{{ 'hydration.last_24h' | translate }} </p>
-        <mat-progress-spinner
-          mode="determinate"
-          [value]="progress_hyd"
-          [diameter]="100">
-        </mat-progress-spinner>
-        <div class="spinner-value">
-          {{ progress_hyd }}%
-        </div>
-        <div style="text-align: center; margin-top: 10px;" *ngIf="latestHydrationData">
-          {{ latestHydrationData }} {{ 'out_of' | translate }} 2500 {{ 'water_consumed' | translate }}
-        </div>
+  <!-- Casilla de usuario -->
+  <div class="user-card" *ngIf="currentUser">
+    <span class="user-label">{{ 'user' | translate }}</span>
+    <span class="user-name">{{ currentUser.name }} {{ currentUser.lastname }}</span>
+  </div>
 
-        <div class="input-container">
-          <form [formGroup]="hydrationForm">
-            <div class="inputs">
-              <mat-form-field appearance="outline">
-                <mat-label>{{ 'hydration.ml_consumed' | translate }}</mat-label>
-                <input matInput type="number" formControlName="ml" required min="0"/>
-                <mat-error *ngIf="hydrationForm.controls['ml'].invalid">
-                  {{ 'hydration.ml_error' | translate }}
-                </mat-error>
-              </mat-form-field>
-            </div>
-            <button mat-raised-button color="primary" (click)="openModal()" [disabled]="hydrationForm.invalid">
-              {{ 'hydration.update' | translate }}
-            </button>
-          </form>
-        </div>
+  <!-- Gráficos de hidratación y sueño -->
+  <div class="spinner-container">
+    <div class="spinner-item">
+      <p>{{ 'hydration.last_24h' | translate }}</p>
+      <mat-progress-spinner
+        mode="determinate"
+        [value]="progress_hyd"
+        [diameter]="100">
+      </mat-progress-spinner>
+      <div class="spinner-value">{{ progress_hyd }}%</div>
+      <div style="text-align: center; margin-top: 10px;" *ngIf="latestHydrationData">
+        {{ latestHydrationData }} {{ 'out_of' | translate }} 2500 {{ 'water_consumed' | translate }}
       </div>
-
-
-      <div class="spinner-item">
-        <p>{{ 'sleep.last_24h' | translate }} </p>
-        <mat-progress-spinner
-          mode="determinate"
-          [value]="progress_sleep"
-          [diameter]="100">
-        </mat-progress-spinner>
-        <div class="spinner-value">
-          {{ progress_sleep }}%
-        </div>
-        <div style="text-align: center; margin-top: 10px;">
-          {{ latestSleepData || 0 }} {{ 'out_of' | translate }} {{ this.GOAL_SLEEP }} {{ 'sleep_hours' | translate }}
-        </div>
-
-        <div class="input-container">
-          <form [formGroup]="sleepForm">
-            <div class="inputs">
-              <mat-form-field appearance="outline" class="input-field">
-                <mat-label>{{ 'sleep.input_hours' | translate }}</mat-label>
-                <input
-                  matInput
-                  type="number"
-                  formControlName="hours"
-                  required
-                  min="0"
-                />
-                <mat-error *ngIf="sleepForm.controls['hours'].invalid">
-                  {{ 'sleep.sleep_error' | translate }}
-                </mat-error>
-              </mat-form-field>
-
-              <mat-form-field appearance="outline" class="input-field">
-                <mat-label>{{ 'sleep.quality' | translate }}</mat-label>
-                <input
-                  matInput
-                  formControlName="quality"
-                  required
-                  placeholder="{{ 'sleep.quality_plc' | translate }}"
-                />
-                <mat-error *ngIf="sleepForm.controls['quality'].invalid">
-                  {{ 'sleep.sleep_error' | translate }}
-                </mat-error>
-              </mat-form-field>
-
-            </div>
-            <button
-              mat-raised-button
-              color="primary"
-              (click)="openModalSleep()"
-              [disabled]="sleepForm.invalid"
-            >
-              {{ 'sleep.update' | translate }}
-            </button>
-          </form>
-        </div>
-
-      </div>
-    </div>
-    <div class="goal-container">
-      <div class="goal-item" (click)="openEditGoalModal()">
-        <strong>{{ 'goal.info_title' | translate }}</strong>
-        <p>{{ 'goal.type' | translate }}: {{ goal?.goal_type || ('goal.none' | translate) }}</p>
-        <p>{{ 'goal.start_date' | translate }}: {{ goal?.start_date || ('goal.none' | translate) }}</p>
-        <p>{{ 'goal.end_date' | translate }}: {{ goal?.end_date || ('goal.none' | translate) }}</p>
-      </div>
-    </div>
-
-    <div class="achievement-container">
-      <h2>Achievements</h2>
-      <button (click)="addingNewAchievement = true" style="margin-bottom: 10px;">Add</button>
-      <div *ngIf="achievement && achievement.length; else noHistory" class="grid-container">
-
-        <div *ngFor="let data of achievement" class="medical-record">
-          <p><strong>Achievement:</strong> {{ data.achievement }}</p>
-          <p><strong>Date:</strong> {{ data.date }}</p>
-          <button (click)="deleteAchievement(data.id)">Delete</button>
-        </div>
-      </div>
-
-      <ng-template #noHistory>
-        <p>No Achievement</p>
-
-      </ng-template>
-
-      <div *ngIf="addingNewAchievement" class="new-record-form">
-        <h3>{{ 'health.medical_history.add_new' | translate }}</h3>
-        <form [formGroup]="newAchievementForm" (ngSubmit)="addNewAchievement()">
-          <label>Date:</label>
-          <input formControlName="date" type="date" required>
-
-          <label>Description</label>
-          <input formControlName="achievement" type="text" required>
-
-          <button type="submit">Submit</button>
-          <button type="button"
-                  (click)="addingNewAchievement = false">{{ 'health.medical_history.cancel' | translate }}
+      <div class="input-container">
+        <form [formGroup]="hydrationForm">
+          <div class="inputs">
+            <mat-form-field appearance="outline">
+              <mat-label>{{ 'hydration.ml_consumed' | translate }}</mat-label>
+              <input matInput type="number" formControlName="ml" required min="0" />
+              <mat-error *ngIf="hydrationForm.controls['ml'].invalid">
+                {{ 'hydration.ml_error' | translate }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <button mat-raised-button color="primary" (click)="openModal()" [disabled]="hydrationForm.invalid">
+            {{ 'hydration.update' | translate }}
           </button>
         </form>
       </div>
+    </div>
+
+    <div class="spinner-item">
+      <p>{{ 'sleep.last_24h' | translate }}</p>
+      <mat-progress-spinner
+        mode="determinate"
+        [value]="progress_sleep"
+        [diameter]="100">
+      </mat-progress-spinner>
+      <div class="spinner-value">{{ progress_sleep }}%</div>
+      <div style="text-align: center; margin-top: 10px;">
+        {{ latestSleepData || 0 }} {{ 'out_of' | translate }} {{ GOAL_SLEEP }} {{ 'sleep_hours' | translate }}
+      </div>
+      <div class="input-container">
+        <form [formGroup]="sleepForm">
+          <div class="inputs">
+            <mat-form-field appearance="outline" class="input-field">
+              <mat-label>{{ 'sleep.input_hours' | translate }}</mat-label>
+              <input matInput type="number" formControlName="hours" required min="0" />
+              <mat-error *ngIf="sleepForm.controls['hours'].invalid">
+                {{ 'sleep.sleep_error' | translate }}
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="input-field">
+              <mat-label>{{ 'sleep.quality' | translate }}</mat-label>
+              <input
+                matInput
+                formControlName="quality"
+                required
+                placeholder="{{ 'sleep.quality_plc' | translate }}"
+              />
+              <mat-error *ngIf="sleepForm.controls['quality'].invalid">
+                {{ 'sleep.sleep_error' | translate }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <button mat-raised-button color="primary" (click)="openModalSleep()" [disabled]="sleepForm.invalid">
+            {{ 'sleep.update' | translate }}
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Información de la meta -->
+  <div class="goal-container">
+    <div class="goal-item" (click)="openEditGoalModal()">
+      <strong>{{ 'goal.info_title' | translate }}</strong>
+      <p>{{ 'goal.type' | translate }}: {{ goal?.goal_type || ('goal.none' | translate) }}</p>
+      <p>{{ 'goal.start_date' | translate }}: {{ goal?.start_date || ('goal.none' | translate) }}</p>
+      <p>{{ 'goal.end_date' | translate }}: {{ goal?.end_date || ('goal.none' | translate) }}</p>
+    </div>
+  </div>
+
+  <!-- Achievements -->
+  <!-- Achievements -->
+  <div class="achievement-container">
+    <h2>{{ 'Achievements' | translate }}</h2>
+
+    <button
+      mat-flat-button
+      color="primary"
+      class="add-button"
+      (click)="addingNewAchievement = true"
+    >
+      {{ 'Add' | translate }}
+    </button>
+
+    <ng-container *ngIf="achievement?.length; else noHistory">
+      <div class="grid-container">
+        <mat-card *ngFor="let a of achievement" class="achievement-card">
+          <mat-card-content>
+            <p>
+              <strong>{{ 'label' | translate }}:</strong>
+              {{ a.achievement }}
+            </p>
+            <p>
+              <strong>{{ 'date' | translate }}:</strong>
+              {{ a.date }}
+            </p>
+          </mat-card-content>
+          <mat-card-actions align="end">
+            <button
+              mat-icon-button
+              color="warn"
+              aria-label="Delete"
+              (click)="deleteAchievement(a.id)"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </ng-container>
+
+    <ng-template #noHistory>
+      <p class="no-history">{{ 'None' | translate }}</p>
+    </ng-template>
+
+    <div *ngIf="addingNewAchievement" class="new-record-form">
+      <h3>{{ 'New_Achievements' | translate }}</h3>
+      <form [formGroup]="newAchievementForm" (ngSubmit)="addNewAchievement()">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>{{ 'Date' | translate }}</mat-label>
+          <input matInput type="date" formControlName="date" required />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>{{ 'Label' | translate }}</mat-label>
+          <input matInput type="text" formControlName="achievement" required />
+        </mat-form-field>
+
+        <div class="form-actions">
+          <button mat-flat-button color="primary" type="submit">
+            {{ 'submit' | translate }}
+          </button>
+          <button mat-stroked-button type="button" (click)="addingNewAchievement = false">
+            {{ 'cancel' | translate }}
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

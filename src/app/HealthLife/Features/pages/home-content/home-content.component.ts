@@ -9,33 +9,36 @@ import {MatButton} from '@angular/material/button';
 import {MatInput} from '@angular/material/input';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatCard, MatCardContent, MatCardHeader} from '@angular/material/card';
+import {MatCard, MatCardActions, MatCardContent, MatCardHeader} from '@angular/material/card';
 import {MatProgressBar} from '@angular/material/progress-bar';
 import {EditGoalDialogComponent} from '../../components/edit-goal-dialog/edit-goal-dialog.component';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {MatNativeDateModule} from '@angular/material/core';
+import {MatIcon} from '@angular/material/icon';
 
 @Component({
   selector: 'app-home-content',
   standalone: true,
-    imports: [
-        MatNativeDateModule,
-        EditGoalDialogComponent,
-        MatDialogModule,
-        NgIf,
-        MatProgressSpinner,
-        TranslateModule,
-        MatButton,
-        MatInput,
-        ReactiveFormsModule,
-        FormsModule,
-        MatFormFieldModule,
-        MatCard,
-        MatCardHeader,
-        MatCardContent,
-        MatProgressBar,
-        NgForOf,
-    ],
+  imports: [
+    MatNativeDateModule,
+    EditGoalDialogComponent,
+    MatDialogModule,
+    NgIf,
+    MatProgressSpinner,
+    TranslateModule,
+    MatButton,
+    MatInput,
+    ReactiveFormsModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatCard,
+    MatCardHeader,
+    MatCardContent,
+    MatProgressBar,
+    NgForOf,
+    MatCardActions,
+    MatIcon,
+  ],
   templateUrl: './home-content.component.html',
   styleUrl: './home-content.component.css'
 })

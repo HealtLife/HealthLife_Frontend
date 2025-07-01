@@ -1,12 +1,22 @@
+/* ----------------------------------------
+   Espaciador flexible
+   ---------------------------------------- */
 .spacer {
   flex: 1 1 auto;
 }
 
+/* ----------------------------------------
+   Layout general del Dashboard
+   ---------------------------------------- */
 .dashboard {
   text-align: center;
   font-family: Arial, sans-serif;
 }
 
+/* ----------------------------------------
+   Gráficos de hidratación y sueño
+   (sin modificar su tamaño ni lógica)
+   ---------------------------------------- */
 .spinner-container {
   display: flex;
   justify-content: space-around;
@@ -30,12 +40,9 @@
   width: 100%;
   max-width: 500px;
   text-align: center;
-
-
 }
 
-.spinner-item:hover{
-  cursor: pointer;
+.spinner-item:hover {
   transition: 0.5s;
   transform: scale(1.05);
 }
@@ -48,49 +55,41 @@
   font-size: 1.1em;
 }
 
+/* ----------------------------------------
+   Inputs dentro de los gráficos
+   ---------------------------------------- */
 .input-field {
   margin-right: 16px;
   width: 100%;
   max-width: 300px;
 }
-
+.input-container {
+  margin-top: 50px;
+}
 button {
   margin-top: 16px;
 }
 
-.input-container{
-  margin-top: 50px;
-}
-
-.spinner-item p {
-  font-weight: bold;
-  margin-top: 10px;
-}
-
-
-.welcome{
+/* ----------------------------------------
+   Título principal de bienvenida
+   ---------------------------------------- */
+.welcome {
   text-align: center;
   margin-top: 10px;
   font-family: "Helvetica Neue", sans-serif;
 }
 
-.goal-container{
+/* ----------------------------------------
+   Meta del usuario
+   ---------------------------------------- */
+.goal-container {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
   margin-top: 5%;
   padding-bottom: 5%;
-  width:100%;
+  width: 100%;
   font-size: 20px;
-
-
-}
-
-.goal-item:hover{
-  background-color: rgba(48, 140, 131, 0.82);
-  cursor: pointer;
-  transition: 1s;
-  transform: scale(1.05);
 }
 
 .goal-container {
@@ -109,55 +108,131 @@ button {
   width: 100%;
   max-width: 500px;
   text-align: center;
+  transition: background-color 0.3s, transform 0.3s;
 }
-
 .goal-item:hover {
   background-color: #e8f5f4;
+  transform: scale(1.05);
 }
 
-.goal-item strong {
-  font-size: 1.2em;
+/* ----------------------------------------
+   Achievements / Historial
+   ---------------------------------------- */
+.achievement-container h2 {
+  font-size: 2rem;
   color: #308C83;
-  margin-bottom: 10px;
-  display: block;
+  margin-bottom: 12px;
 }
 
+.add-button {
+  margin-bottom: 16px;
+  animation: pulse 2s infinite;
+}
 
+.delete-button {
+  margin-top: 8px;
+}
 
+/* Layout de acciones en el formulario */
+.new-record-form .form-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+/* Asegura que los mat-form-field ocupen todo el ancho */
+.new-record-form .full-width {
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+/* Mensaje “no achievements” */
+.no-history {
+  color: #777;
+  margin: 16px 0;
+}
+
+/* Contenedor general */
 .achievement-container {
-  margin-top: 30px;
+  padding: 24px;
 }
 
+/* Título */
+.achievement-container h2 {
+  font-size: 2rem;
+  color: #308C83;
+  margin-bottom: 16px;
+}
+
+/* Botón Add */
+.add-button {
+  margin-bottom: 16px;
+  animation: pulse 2s infinite ease-in-out;
+}
+
+/* Estado “no achievements” */
+.no-history {
+  color: #777;
+  margin: 24px 0;
+  font-style: italic;
+}
+
+/* Grid responsive de cards */
 .grid-container {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 columnas */
-  gap: 20px; /* Espaciado entre las cards */
-  padding: 20px; /* Opcional: espaciado interno */
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
 }
 
-.medical-record {
-  background-color: #e8f5e9;
-  padding: 15px;
+/* Card de logro */
+.achievement-card {
+  border: 1px solid #308C83;
   border-radius: 8px;
-  margin-bottom: 15px;
 }
 
-.medical-record p {
-  margin: 5px 0;
+/* Formulario de nuevo logro */
+.new-record-form {
+  background-color: #e8f5f4;
+  border-radius: 8px;
+  padding: 24px;
+  max-width: 600px;
+  margin: 24px auto 0;
 }
 
-.medical-record button {
-  background-color: #308C83;
-  padding: 8px 15px;
-  margin-right: 10px;
+/* Campos a ancho completo */
+.full-width {
+  width: 100%;
+  margin-bottom: 16px;
 }
 
+/* Acciones del formulario */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+/* Animación pulse (ya la tenías, la volvemos a usar) */
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.05); }
+}
+
+/* Reusa keyframes pulse (ya definidos) */
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.05); }
+}
+/* ----------------------------------------
+   Formulario de nuevo logro
+   ---------------------------------------- */
 .new-record-form {
   background-color: #f1f8f6;
   border-radius: 10px;
   padding: 20px;
   margin-top: 20px;
-
 }
 
 .new-record-form input,
@@ -185,33 +260,79 @@ button {
   color: #308C83;
 }
 
-.achievement-container {
+/* ----------------------------------------
+   Animación de pulse (para botones)
+   ---------------------------------------- */
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
 
-  display: grid;
-  place-items: center;
+/* ----------------------------------------
+   AÑADIDO: Colores de marca en títulos
+   ---------------------------------------- */
+.welcome,
+.spinner-item > p,
+.goal-item strong,
+.achievement-container h2 {
+  color: #308C83;
+}
+
+/* ----------------------------------------
+   AÑADIDO: Casilla de Usuario
+   ---------------------------------------- */
+.user-card {
+  display: inline-block;
+  background: #f2f2f2;
+  border: 2px solid #308C83;
+  border-radius: 8px;
+  padding: 12px 24px;
+  margin: 16px auto 32px;
   text-align: center;
-  margin: auto;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-
-
+  max-width: 400px;
 }
 
-button {
-  background-color: #308C83;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
+.user-card .user-label {
+  display: block;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 4px;
+  color: #555;
+}
+
+.user-card .user-name {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+}
+
+/* ----------------------------------------
+   AÑADIDO: Diseño y animación para botones
+   ---------------------------------------- */
+button,
+button[mat-raised-button] {
+  background-color: #308C83 !important;
+  color: #fff !important;
   border-radius: 5px;
-  transition: background-color 0.3s;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  animation: pulse 2s infinite ease-in-out;
 }
 
-button:disabled {
-  background-color: #ccc;
+button:disabled,
+button[mat-raised-button]:disabled {
+  background-color: #ccc !important;
+  animation: none;
+  opacity: 0.7;
   cursor: not-allowed;
 }
 
-button:hover {
-  background-color: #267b71;
+button:hover:not(:disabled),
+button[mat-raised-button]:hover:not(:disabled) {
+  transform: scale(1.05);
 }
+
