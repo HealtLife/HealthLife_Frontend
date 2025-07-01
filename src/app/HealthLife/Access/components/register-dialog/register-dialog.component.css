@@ -1,40 +1,105 @@
-mat-dialog-content {
-  padding: 20px;
-  background-color: #f5f5f5;
+/* Contenedor del diálogo con scroll automático y límite de altura */
+:host ::ng-deep .mat-dialog-container {
+  width: 480px;
+  max-width: 95vw;
+  max-height: 90vh;
+  overflow: auto;
+  padding: 0;
+}
+
+/* Fondo blanco, padding interior y bordes redondeados */
+.dialog-content {
+  background: #ffffff;
+  padding: 16px 24px;
   border-radius: 8px;
 }
 
-.form-field {
-  display: block; /* Asegura que cada campo ocupe su propia línea */
-  margin-bottom: 20px; /* Espacio entre los campos */
+/* Frase superior */
+.top-tagline {
+  text-align: center;
+  font-size: 1.3rem;
+  margin-bottom: 24px;
+  color: #000000;
+  font-weight: 500;
+}
+.top-tagline .brand {
+  color: #308c83;
 }
 
-.mat-error {
-  font-size: 0.8em;
-  color: #d32f2f; /* Color rojo para errores */
+/* Grid de campos: 2 columnas en desktop, 1 en móvil */
+.fields-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
 }
-
-.error-message {
-  color: #d32f2f;
-  font-weight: bold;
-  margin-top: 10px; /* Espacio superior */
+@media (max-width: 600px) {
+  .fields-grid {
+    grid-template-columns: 1fr;
+  }
 }
-
-button {
-  background-color: #007bff; /* Color de fondo */
-  color: white; /* Color del texto */
-  font-weight: bold;
+mat-form-field {
   width: 100%;
-  padding: 10px;
-  border-radius: 5px;
-  transition: background-color 0.3s;
 }
 
-button:hover {
-  background-color: #0056b3; /* Color al pasar el ratón */
+/* Grupo de radios para el plan */
+.plan-group {
+  margin: 16px 0;
+}
+.plan-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+.plan-options {
+  display: flex;
+  gap: 24px;
+}
+.plan-option {
+  flex: 1;
 }
 
-button:disabled {
-  background-color: #c0c0c0; /* Color cuando está deshabilitado */
-  cursor: not-allowed; /* Cambia el cursor cuando está deshabilitado */
+/* Texto motivacional antes del botón */
+.start-life {
+  text-align: center;
+  font-size: 1rem;
+  color: #555555;
+  margin: 16px 0;
+}
+
+/* Mensaje de error */
+.error-message {
+  text-align: center;
+  color: #d32f2f;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+}
+
+/* Alinea y centra el botón */
+mat-dialog-actions[align="center"] {
+  display: flex;
+  justify-content: center;
+  padding-top: 8px;
+}
+
+/* Botón Registrarse con color #308c83 y animación pulsante */
+.register-button {
+  min-width: 140px;
+  text-transform: none;
+  color: #ffffff;
+  background-color: #308c83 !important;
+  animation: pulse 2s infinite ease-in-out;
+}
+.register-button:disabled {
+  background-color: #a6d8d0 !important;
+  animation: none;
+}
+
+/* Keyframes de animación pulse */
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
 }

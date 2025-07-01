@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from "@angular/forms";
-import { MatDialogContent, MatDialogRef, MatDialogTitle } from "@angular/material/dialog";
+import {MatDialogActions, MatDialogContent, MatDialogRef, MatDialogTitle} from "@angular/material/dialog";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
@@ -24,7 +24,8 @@ import { TranslateModule } from '@ngx-translate/core';
     NgIf,
     MatRadioButton,
     MatRadioGroup,
-    TranslateModule
+    TranslateModule,
+    MatDialogActions
   ],
   templateUrl: './register-dialog.component.html',
   styleUrl: './register-dialog.component.css'
