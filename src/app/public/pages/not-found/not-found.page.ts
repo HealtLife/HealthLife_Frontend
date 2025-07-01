@@ -1,11 +1,12 @@
 import { Component, OnInit, Inject, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatButton } from '@angular/material/button';
+import {MatIcon} from '@angular/material/icon';
 
 @Component({
   selector: 'app-not-found',
   standalone: true,
-  imports: [MatButton],
+  imports: [MatButton, MatIcon],
   templateUrl: './not-found.page.html',
   styleUrl: './not-found.page.css',
 })
