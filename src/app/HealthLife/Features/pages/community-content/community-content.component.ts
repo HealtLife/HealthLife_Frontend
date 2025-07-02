@@ -30,8 +30,15 @@ export class CommunityContentComponent implements OnInit {
     'El apoyo de la comunidad me ha mantenido motivado.',
     'He logrado mejorar mis tiempos en carrera gracias a las recomendaciones.',
     'Logrando avanzar con mis metas cada vez más.',
-    'Cambiando todo para que me pueda sentir mejor.'
+    'Cambiando todo para que me pueda sentir mejor.',
+    'Gracias a los consejos sobre nutrición, ahora puedo mantenerme en forma y disfrutar de la comida.',
+    'Estoy perdiendo peso sin sentirme agotado, ¡todo gracias a la disciplina y las recomendaciones que me han dado!',
+    'El mejor cambio que he experimentado fue en mi energía. Ahora me siento más activo y con más vitalidad.',
+    'Mis tiempos de carrera han mejorado mucho. ¡Nunca imaginé que podría correr tanto y tan rápido!',
+    'Me siento más motivado cada día, especialmente porque tengo el apoyo de la comunidad y mis amigos.',
+    'Al principio no vi mucho cambio, pero después de unas semanas empecé a ver los resultados. ¡Fue increíble!'
   ];
+
 
   constructor(private pexelsService: PexelsService) {}
 
