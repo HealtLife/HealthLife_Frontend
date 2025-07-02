@@ -1,34 +1,90 @@
-<h2 class="title">{{ editMode ? 'Edit My Diet' : 'My Diet'}}</h2>
-<div class="form-section">
-  <form #mydietForm="ngForm" (submit)="onSubmit()" class="form-row">
-    <mat-form-field id="name-form-field" class="form-field">
-      <mat-label>Name</mat-label>
-      <input [(ngModel)]="mydiet.name" matInput name="name" placeholder="Enter your name" required>
-    </mat-form-field>
+<div class="mydiet-form-container">
+  <h2 class="form-title">{{ editMode ? 'Editar Mi Dieta' : 'Mi Dieta' }}</h2>
 
-    <mat-form-field id="calories-form-field" class="form-field">
-      <mat-label>Calories</mat-label>
-      <input [(ngModel)]="mydiet.calories" matInput name="calories" placeholder="Enter calories" required>
-    </mat-form-field>
+  <div class="form-grid">
+    <!-- 1) Formulario (izquierda) -->
+    <section class="form-section">
+      <form #mydietForm="ngForm" (ngSubmit)="onSubmit()" class="form-column">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Nombre*</mat-label>
+          <input matInput name="name" [(ngModel)]="mydiet.name" placeholder="Ingresa tu nombre" required />
+        </mat-form-field>
 
-    <mat-form-field id="proteins-form-field" class="form-field">
-      <mat-label>Proteins</mat-label>
-      <input [(ngModel)]="mydiet.proteins" matInput name="proteins" placeholder="Enter proteins" required>
-    </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Calorías*</mat-label>
+          <input matInput type="number" name="calories" [(ngModel)]="mydiet.calories" placeholder="Ingresa las calorías" required />
+        </mat-form-field>
 
-    <mat-form-field id="carbohydrates-form-field" class="form-field">
-      <mat-label>Carbohydrates</mat-label>
-      <input [(ngModel)]="mydiet.carbs" matInput name="carbohydrates" placeholder="Enter carbohydrates" required>
-    </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Proteínas*</mat-label>
+          <input matInput type="number" name="proteins" [(ngModel)]="mydiet.proteins" placeholder="Ingresa las proteínas" required />
+        </mat-form-field>
 
-    <mat-form-field id="fats-form-field" class="form-field">
-      <mat-label>Fats</mat-label>
-      <input [(ngModel)]="mydiet.fats" matInput name="fats" placeholder="Enter fats" required>
-    </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Carbohidratos*</mat-label>
+          <input matInput type="number" name="carbohydrates" [(ngModel)]="mydiet.carbs" placeholder="Ingresa los carbohidratos" required />
+        </mat-form-field>
 
-    <div class="button-container">
-      <button color="primary" mat-raised-button class="submit-btn">{{ isEditMode() ? 'Update' : 'Add'}}</button>
-      <button (click)="onCancel()" color="warn" mat-raised-button class="cancel-btn">Cancel</button>
-    </div>
-  </form>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Grasas*</mat-label>
+          <input matInput type="number" name="fats" [(ngModel)]="mydiet.fats" placeholder="Ingresa las grasas" required />
+        </mat-form-field>
+
+        <div class="button-container">
+          <button mat-raised-button color="primary" type="submit">{{ editMode ? 'Actualizar' : 'Agregar' }}</button>
+          <button mat-raised-button color="warn" type="button" (click)="onCancel()">Cancelar</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- 2) Definiciones (derecha) -->
+    <section class="definition-section">
+      <div class="definition-box">
+        <h3>¿Qué son los Macronutrientes?</h3>
+        <p><strong>Calorías</strong>: Una unidad de energía que nuestros cuerpos obtienen de los alimentos. Las calorías son necesarias para mantener la energía durante el día y realizar funciones corporales.</p>
+
+        <p><strong>Ejemplos de alimentos ricos en calorías:</strong></p>
+        <ul>
+          <li><strong>Arroz (200 g)</strong>: ~260 kcal</li>
+          <li><strong>Pan integral (1 rebanada)</strong>: ~80 kcal</li>
+          <li><strong>Aguacate (1 pieza)</strong>: ~240 kcal</li>
+        </ul>
+
+        <p><strong>Promedio recomendado</strong>: Varía según la edad, el género, el nivel de actividad y los objetivos personales. En promedio, los hombres necesitan entre <strong>2,000 y 2,500 kcal</strong> al día, y las mujeres entre <strong>1,800 y 2,200 kcal</strong>.</p>
+
+        <p><strong>Proteínas</strong>: Esenciales para la construcción y reparación de tejidos en el cuerpo.</p>
+
+        <p><strong>Ejemplos de alimentos ricos en proteínas:</strong></p>
+        <ul>
+          <li><strong>Pechuga de pollo (100 g)</strong>: ~31 g de proteína</li>
+          <li><strong>Huevo (1 unidad)</strong>: ~6 g de proteína</li>
+          <li><strong>Lentejas (1 taza cocida)</strong>: ~18 g de proteína</li>
+        </ul>
+
+        <p><strong>Promedio recomendado</strong>: La ingesta diaria recomendada (IDR) de proteínas para un adulto promedio es de <strong>0.8 g por kilogramo de peso corporal</strong>. Esto varía según la actividad física y el objetivo de la persona.</p>
+
+        <p><strong>Carbohidratos</strong>: Proporcionan energía al cuerpo, especialmente para el cerebro.</p>
+
+        <p><strong>Ejemplos de alimentos ricos en carbohidratos:</strong></p>
+        <ul>
+          <li><strong>Pasta integral (100 g cocida)</strong>: ~25 g de carbohidratos</li>
+          <li><strong>Patatas (100 g)</strong>: ~17 g de carbohidratos</li>
+          <li><strong>Avena (1/2 taza cocida)</strong>: ~27 g de carbohidratos</li>
+        </ul>
+
+        <p><strong>Promedio recomendado</strong>: Aproximadamente <strong>45-65%</strong> de las calorías totales diarias deben provenir de los carbohidratos, lo que equivale a entre <strong>225 y 325 gramos</strong> para una dieta de 2,000 calorías al día.</p>
+
+        <p><strong>Grasas</strong>: Son esenciales para absorber vitaminas, proteger los órganos y proporcionar energía almacenada.</p>
+
+        <p><strong>Ejemplos de alimentos ricos en grasas saludables:</strong></p>
+        <ul>
+          <li><strong>Aceite de oliva (1 cucharada)</strong>: ~14 g de grasa</li>
+          <li><strong>Almendras (28 g)</strong>: ~14 g de grasa</li>
+          <li><strong>Salmón (100 g)</strong>: ~13 g de grasa</li>
+        </ul>
+
+        <p><strong>Promedio recomendado</strong>: Las grasas deben constituir aproximadamente <strong>20-35%</strong> de las calorías totales diarias. Para una dieta de 2,000 calorías, esto equivale a entre <strong>44 y 78 gramos de grasa</strong> al día.</p>
+      </div>
+    </section>
+  </div>
 </div>

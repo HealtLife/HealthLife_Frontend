@@ -1,21 +1,39 @@
-<h2>{{ editMode ? 'Edit Activity' : 'Add Activity' }}</h2>
+<h2>{{ editMode ? 'Editar Actividad' : 'Agregar Actividad' }}</h2>
 <div class="form-section">
   <form #activityForm="ngForm" (submit)="onSubmit()" class="form-row">
+
+    <!-- Campo de nombre de actividad -->
     <mat-form-field id="name-form-field" class="field">
-      <input [(ngModel)]="activity.name" matInput name="name" placeholder="Name" required>
+      <mat-label>Nombre de la Actividad*</mat-label>
+      <input [(ngModel)]="activity.name" matInput name="name" placeholder="Ingresa el nombre de la actividad" required />
     </mat-form-field>
 
+    <!-- Campo de descripción -->
     <mat-form-field id="description-form-field" class="field">
-      <input [(ngModel)]="activity.description" matInput name="description" placeholder="Description" required>
+      <mat-label>Descripción*</mat-label>
+      <input [(ngModel)]="activity.description" matInput name="description" placeholder="Descripción de la actividad" required />
     </mat-form-field>
 
+    <!-- Campo de duración -->
     <mat-form-field id="duration-form-field" class="field">
-      <input [(ngModel)]="activity.duration" matInput name="duration" placeholder="Duration (minutes)" type="number" required>
+      <mat-label>Duración (minutos)*</mat-label>
+      <input [(ngModel)]="activity.duration" matInput name="duration" placeholder="Duración en minutos" type="number" required />
     </mat-form-field>
 
-    <ng-container>
-      <button color="primary" mat-raised-button>{{ isEditMode() ? 'Update' : 'Add' }}</button>
-      <button (click)="onCancel()" color="warn" mat-raised-button>Cancel</button>
-    </ng-container>
+    <!-- Botones -->
+    <div class="button-container">
+      <button color="primary" mat-raised-button>{{ editMode ? 'Actualizar' : 'Agregar' }}</button>
+      <button (click)="onCancel()" color="warn" mat-raised-button>Cancelar</button>
+    </div>
   </form>
+</div>
+
+<!-- Ejemplos de actividades -->
+<div class="activity-examples">
+  <h3>Ejemplos de Actividades</h3>
+  <ul>
+    <li><strong>Correr:</strong> Actividad cardiovascular que mejora la resistencia y salud del corazón.</li>
+    <li><strong>Hacer Yoga:</strong> Mejora la flexibilidad y reduce el estrés.</li>
+    <li><strong>Entrenamiento de fuerza:</strong> Ayuda a aumentar la masa muscular y mejorar la fuerza.</li>
+  </ul>
 </div>

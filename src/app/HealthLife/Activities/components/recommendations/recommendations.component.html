@@ -1,14 +1,61 @@
 <div class="recommendations-container">
-  <h2>{{ 'activities.recommendation' | translate }}</h2>
-  <div class="recommendations-wrapper">
-    <button class="scroll-button scroll-left" (click)="scrollLeft()">&#9664;</button>
-    <div class="recommendations-list" #recommendationsList>
-      <mat-card *ngFor="let recommendation of recommendations" class="recommendation-card">
-        <mat-card-content>
-          <p>{{ recommendation.description }}</p>
-        </mat-card-content>
-      </mat-card>
+  <h2>Recomendaciones para tu dieta</h2>
+
+  <!-- Recomendaciones Generales -->
+  <div class="general-recommendations">
+    <h3>Recomendaciones Generales</h3>
+    <div class="recommendations-wrapper">
+      <button class="scroll-button scroll-left" (click)="scrollLeft()">&#9664;</button>
+      <div class="recommendations-list" #recommendationsList>
+        <!-- Recomendación 1 -->
+        <mat-card class="recommendation-card">
+          <mat-card-content>
+            <p>Consume más frutas y verduras para mejorar tu salud digestiva y obtener vitaminas esenciales.</p>
+          </mat-card-content>
+        </mat-card>
+        <!-- Recomendación 2 -->
+        <mat-card class="recommendation-card">
+          <mat-card-content>
+            <p>Asegúrate de mantenerte hidratado. Beber suficiente agua ayuda a la digestión y la piel.</p>
+          </mat-card-content>
+        </mat-card>
+        <!-- Recomendación 3 -->
+        <mat-card class="recommendation-card">
+          <mat-card-content>
+            <p>Incorpora fuentes de proteína magra como pollo, pescado y legumbres en tus comidas diarias.</p>
+          </mat-card-content>
+        </mat-card>
+        <!-- Recomendación 4 -->
+        <mat-card class="recommendation-card">
+          <mat-card-content>
+            <p>Reduce el consumo de carbohidratos refinados y opta por carbohidratos complejos como avena y quinoa.</p>
+          </mat-card-content>
+        </mat-card>
+        <!-- Recomendación 5 -->
+        <mat-card class="recommendation-card">
+          <mat-card-content>
+            <p>Incluir grasas saludables, como el aguacate y frutos secos, puede ayudar a reducir el colesterol malo.</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <button class="scroll-button scroll-right" (click)="scrollRight()">&#9654;</button>
     </div>
-    <button class="scroll-button scroll-right" (click)="scrollRight()">&#9654;</button>
+  </div>
+
+  <!-- Recomendaciones Específicas (Por ingresar) -->
+  <div class="specific-recommendations">
+    <h3>Recomendaciones Específicas</h3>
+    <div class="recommendations-wrapper">
+      <button class="scroll-button scroll-left" (click)="scrollLeft()">&#9664;</button>
+      <div class="recommendations-list" #specificRecommendationsList>
+        <!-- Placeholder para las futuras recomendaciones personalizadas -->
+        <mat-card class="recommendation-card">
+          <mat-card-content>
+           <!-- <p>Aquí aparecerán recomendaciones específicas más adelante.</p> -->
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <button class="scroll-button scroll-right" (click)="scrollRight()">&#9654;</button>
+    </div>
   </div>
 </div>

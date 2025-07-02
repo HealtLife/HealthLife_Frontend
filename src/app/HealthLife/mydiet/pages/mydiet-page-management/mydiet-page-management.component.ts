@@ -17,6 +17,7 @@ import {MydietPageComponent} from "../../mydiet-page/mydiet-page.component";
 import {ToolbarComponent} from "../../../../public/components/toolbar/toolbar.component";
 import {TranslateModule} from '@ngx-translate/core';
 import {AuthenApiService} from '../../../Access/services/authen-api.service';
+import {MatCard, MatCardContent, MatCardTitle} from '@angular/material/card';
 
 
 @Component({
@@ -40,7 +41,10 @@ import {AuthenApiService} from '../../../Access/services/authen-api.service';
     MatPaginator,
     MydietPageComponent,
     ToolbarComponent,
-    TranslateModule
+    TranslateModule,
+    MatCard,
+    MatCardTitle,
+    MatCardContent
   ],
   templateUrl: './mydiet-page-management.component.html',
   styleUrl: './mydiet-page-management.component.css'
