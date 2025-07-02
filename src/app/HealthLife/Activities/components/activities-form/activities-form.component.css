@@ -1,84 +1,119 @@
-/* Contenedor principal */
-.form-section {
-  padding: 20px;
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
+:host {
+  --clr-primary:   #308C83;
+  --clr-secondary: #f9f9f9;
+  --clr-bg:        #ffffff;
+  --clr-text:      #333333;
+  --radius:        6px;
+  --sp:            12px;
+  --font-base:     Arial, sans-serif;
 }
 
-h2 {
-  font-size: 24px;
-  color: #308C83;
-  margin-bottom: 16px;
+/* Animaciones */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-h3 {
-  font-size: 20px;
-  color: #308C83;
-  margin-bottom: 10px;
+/* Contenedor Principal */
+.mydiet-form-container {
+  animation: fadeIn 0.5s ease-out;
+  padding: var(--sp);
+  background: var(--clr-secondary);
+  border-radius: var(--radius);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+  font-family: var(--font-base);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: var(--sp);
 }
 
-.field {
-  margin-bottom: 20px;
-  padding: 8px 12px;
-  border-radius: 6px;
-  background-color: #fff;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+/* Título */
+h2.form-title {
+  font-size: 1.8rem;
+  color: var(--clr-primary);
+  text-align: center;
+  margin-bottom: calc(var(--sp) / 2);
 }
 
-.field:focus-within {
-  box-shadow: 0px 8px 8px rgb(48, 140, 131);
-  border-color: #308C83;
+/* Grid de dos columnas */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Dos columnas: formulario a la izquierda y definiciones a la derecha */
+  gap: calc(var(--sp) * 0.8);
+  width: 100%;
+  max-width: 1200px;
 }
 
-.field input:focus {
-  border-color: #308C83;
-  outline: none;
+/* Sección del Formulario y Definición */
+.form-section,
+.definition-section {
+  background: var(--clr-bg);
+  padding: calc(var(--sp) * 0.75);
+  border-radius: var(--radius);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
 
-.field mat-label {
-  font-size: 16px;
-  font-weight: bold;
-  color: #308C83;
-  margin-bottom: 8px;
-  display: block;
+/* Centrar el formulario en la columna izquierda */
+.form-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
+/* Grupo de Inputs */
+.input-group {
+  margin-bottom: calc(var(--sp) * 0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Campos Mat-Form-Field */
+.mat-form-field {
+  width: 100%;
+  margin-bottom: 0;
+}
+.mat-form-field-appearance-outline .mat-form-field-outline {
+  border-color: var(--clr-primary);
+}
+.mat-form-field-label {
+  color: var(--clr-primary);
+  font-weight: 600;
+}
+
+/* Botones */
 .button-container {
   display: flex;
-  gap: 16px;
-  justify-content: space-between;
-  margin-top: 16px;
+  justify-content: center;
+  gap: var(--sp);
+  margin-top: var(--sp);
 }
-
 button {
+  min-width: 100px;
+  border-radius: var(--radius);
+  padding: 0.5rem 1.2rem;
   transition: transform 0.2s ease;
 }
-
 button:hover:not(:disabled) {
   transform: scale(1.05);
 }
 
-/* Estilo para ejemplos de actividades */
-.activity-examples {
-  margin-top: 30px;
-  background-color: #f4f7f6;
-  padding: 16px;
-  border-radius: 8px;
+/* Sección de Definiciones */
+.definition-box h3,
+.definition-box h4 {
+  color: var(--clr-primary);
+  margin: 0.5rem 0 0.75rem;
+  font-size: 1.2rem;
 }
-
-.activity-examples ul {
-  list-style-type: none;
-  padding-left: 0;
+.definition-box p,
+.definition-box li {
+  color: var(--clr-text);
+  font-size: 0.95rem;
+  line-height: 1.4;
+  margin: 0.3rem 0;
 }
-
-.activity-examples li {
-  font-size: 16px;
-  margin-bottom: 10px;
-}
-
-.activity-examples li strong {
-  color: #308C83;
+.definition-box ul {
+  padding-left: 1.2rem;
 }

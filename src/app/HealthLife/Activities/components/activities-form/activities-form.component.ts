@@ -1,78 +1,71 @@
-import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
-import {MatCell, MatColumnDef, MatHeaderCell, MatHeaderRow, MatTable} from '@angular/material/table';
-import {FormsModule, NgForm} from '@angular/forms';
-import {MatFormField} from '@angular/material/form-field';
-import {MatInput} from '@angular/material/input';
-import {MatButton} from '@angular/material/button';
-import {ToolbarComponent} from '../../../../public/components/toolbar/toolbar.component';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatCard, MatCardContent} from '@angular/material/card';
-import {RouterOutlet} from '@angular/router';
-import {Activities} from '../../models/activities.entity';
-import {AuthenApiService} from '../../../Access/services/authen-api.service';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import {FormsModule, NgForm, ReactiveFormsModule} from '@angular/forms';  // Asegúrate de que NgForm esté bien importado
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTableModule, MatTableDataSource } from '@angular/material/table';
+import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
+import { MatCardModule } from '@angular/material/card';
+import { AuthenApiService } from '../../../Access/services/authen-api.service';
+import { Activities } from '../../models/activities.entity';  // Ajusta la ruta de tu modelo
 
 @Component({
   selector: 'app-activities-form',
   standalone: true,
   imports: [
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatCardModule,
+    ReactiveFormsModule,
     FormsModule,
-    MatFormField,
-    MatInput,
-    MatButton,
-    ToolbarComponent,
-    MatHeaderCell,
-    MatCell,
-    MatHeaderRow,
-    MatPaginator,
-    MatCard,
-    MatCardContent,
-    MatColumnDef,
-    MatTable,
-    RouterOutlet
   ],
   templateUrl: './activities-form.component.html',
-  styleUrl: './activities-form.component.css'
+  styleUrls: ['./activities-form.component.css']
 })
 export class ActivitiesFormComponent {
-  //#region Attributes
   @Input() activity!: Activities;
   @Input() editMode: boolean = false;
-  @Output() protected activityAddRequested = new EventEmitter<Activities>();
-  @Output() protected activityUpdateRequested = new EventEmitter<Activities>();
-  @Output() protected cancelRequested = new EventEmitter<void>();
-  @ViewChild('activityForm', { static: false }) protected activityForm!: NgForm;
-  currentUser: any = null;
+  @Output() activityAddRequested = new EventEmitter<Activities>();
+  @Output() activityUpdateRequested = new EventEmitter<Activities>();
+  @Output() cancelRequested = new EventEmitter<void>();
+  @ViewChild('activityForm', { static: false }) activityForm!: NgForm;
 
+  currentUser: any = null;
 
   constructor(private authenService: AuthenApiService) {
     this.authenService.getCurrentUser().subscribe((user) => {
       this.currentUser = user;
-
     });
 
     this.activity = new Activities({});
     this.activity.userId = this.currentUser.id;
-
   }
 
+  // Restablece el estado de la edición
   private resetEditState() {
     this.activity = new Activities({});
     this.editMode = false;
     this.activityForm.reset();
   }
 
+  // Método para cancelar la edición o el registro
   protected onCancel() {
     this.cancelRequested.emit();
     this.resetEditState();
   }
 
+  // Validación del formulario
   private isValid = () => this.activityForm.valid;
 
+  // Verifica si está en modo edición
   protected isEditMode = (): boolean => this.editMode;
 
+  // Enviar formulario (agregar o actualizar)
   protected onSubmit() {
     if (this.isValid()) {
-
       if (this.currentUser) {
         this.activity.userId = this.currentUser.id;
       } else {
@@ -84,8 +77,7 @@ export class ActivitiesFormComponent {
       emitter.emit(this.activity);
       this.resetEditState();
     } else {
-      console.error('Invalid form data');
+      console.error('Formulario inválido');
     }
   }
-
 }

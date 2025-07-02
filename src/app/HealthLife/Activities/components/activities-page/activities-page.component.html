@@ -1,4 +1,5 @@
-<app-recommendations />
+<app-recommendations></app-recommendations>
+
 <div class="activities-page-container">
   <div class="form-container">
     <app-activities-form
@@ -10,27 +11,27 @@
     </app-activities-form>
   </div>
 
-  <h2>{{ 'activities.title' | translate }}</h2>
+  <h2>Actividades Registradas</h2>
   <div class="content-container">
     <div class="table-container">
       <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
         <ng-container matColumnDef="id">
-          <th mat-header-cell *matHeaderCellDef> {{ 'activities.id' | translate }} </th>
+          <th mat-header-cell *matHeaderCellDef> ID </th>
           <td mat-cell *matCellDef="let activity">{{ activity.id }}</td>
         </ng-container>
 
         <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef> {{ 'activities.name' | translate }} </th>
+          <th mat-header-cell *matHeaderCellDef> Nombre </th>
           <td mat-cell *matCellDef="let activity">{{ activity.name }}</td>
         </ng-container>
 
         <ng-container matColumnDef="description">
-          <th mat-header-cell *matHeaderCellDef> {{ 'activities.description' | translate }} </th>
+          <th mat-header-cell *matHeaderCellDef> Descripción </th>
           <td mat-cell *matCellDef="let activity">{{ activity.description }}</td>
         </ng-container>
 
         <ng-container matColumnDef="duration">
-          <th mat-header-cell *matHeaderCellDef> {{ 'activities.duration' | translate }} (minutes) </th>
+          <th mat-header-cell *matHeaderCellDef> Duración (minutos) </th>
           <td mat-cell *matCellDef="let activity">{{ activity.duration }}</td>
         </ng-container>
 
