@@ -1,69 +1,74 @@
 <div class="health-stats-container">
-  <h2>{{ 'health.title' | translate }}</h2>
+  <h2>Estadísticas de Salud</h2>
 
   <div class="centered-content">
+    <!-- Sección de BMI (Índice de Masa Corporal) -->
     <div class="bmi-section">
-      <h3>{{ 'health.bmi.title' | translate }}:</h3>
+      <h3>Índice de Masa Corporal (IMC):</h3>
       <p *ngIf="bmi !== null">{{ bmi.toFixed(1) }}</p>
 
       <form [formGroup]="healthForm">
-        <label for="height">{{ 'health.bmi.height' | translate }} (cm):</label>
-        <input id="height" type="number" formControlName="height" [placeholder]="'health.bmi.height_placeholder' | translate">
+        <label for="height">Altura (cm):</label>
+        <input id="height" type="number" formControlName="height" placeholder="Introduce tu altura">
 
-        <label for="weight">{{ 'health.bmi.weight' | translate }} (kg):</label>
-        <input id="weight" type="number" formControlName="weight" [placeholder]="'health.bmi.weight_placeholder' | translate">
+        <label for="weight">Peso (kg):</label>
+        <input id="weight" type="number" formControlName="weight" placeholder="Introduce tu peso">
 
-        <button type="button" (click)="calculateBMI()" [disabled]="healthForm.invalid">{{ 'health.bmi.calculate' | translate }}</button>
+        <button type="button" (click)="calculateBMI()" [disabled]="healthForm.invalid">Calcular</button>
       </form>
+      <p>El índice de masa corporal (IMC) es una medida que se usa para evaluar el peso en relación con la altura.</p>
     </div>
 
+    <!-- Sección de Macronutrientes -->
     <div class="macros-section">
-      <h3>{{ 'health.macros.title' | translate }}</h3>
+      <h3>Macronutrientes</h3>
       <form [formGroup]="healthForm">
-        <label for="proteins"><strong>{{ 'health.macros.proteins' | translate }}</strong></label>
-        <textarea id="proteins" formControlName="proteins" [placeholder]="'health.macros.proteins_placeholder' | translate" readonly></textarea>
+        <label for="proteins"><strong>Proteínas</strong></label>
+        <textarea id="proteins" formControlName="proteins" placeholder="Proteínas" readonly></textarea>
 
-        <label for="carbohydrates"><strong>{{ 'health.macros.carbohydrates' | translate }}</strong></label>
-        <textarea id="carbohydrates" formControlName="carbohydrates" [placeholder]="'health.macros.carbohydrates_placeholder' | translate" readonly></textarea>
+        <label for="carbohydrates"><strong>Carbohidratos</strong></label>
+        <textarea id="carbohydrates" formControlName="carbohydrates" placeholder="Carbohidratos" readonly></textarea>
 
-        <label for="fats"><strong>{{ 'health.macros.fats' | translate }}</strong></label>
-        <textarea id="fats" formControlName="fats" [placeholder]="'health.macros.fats_placeholder' | translate" readonly></textarea>
+        <label for="fats"><strong>Grasas</strong></label>
+        <textarea id="fats" formControlName="fats" placeholder="Grasas" readonly></textarea>
       </form>
+      <p>Los macronutrientes son los nutrientes que nuestro cuerpo necesita en grandes cantidades para obtener energía.</p>
     </div>
   </div>
 
+  <!-- Sección de Historial Médico -->
   <div class="medical-history-container">
-    <h2>{{ 'health.medical_history.title' | translate }}</h2>
-    <button (click)="addingNewRecord = true">{{ 'health.medical_history.add' | translate }}</button>
-    <div *ngIf="medicalHistory && medicalHistory.length; else noHistory">
+    <h2>Historial Médico</h2>
+    <button (click)="addingNewRecord = true">Agregar nuevo registro</button>
 
+    <div *ngIf="medicalHistory && medicalHistory.length; else noHistory">
       <div *ngFor="let record of medicalHistory" class="medical-record">
-        <p><strong>{{ 'health.medical_history.date' | translate }}:</strong> {{ record.date }}</p>
-        <p><strong>{{ 'health.medical_history.condition' | translate }}:</strong> {{ record.condition }}</p>
-        <p><strong>{{ 'health.medical_history.description' | translate }}:</strong> {{ record.description }}</p>
-        <button (click)="deleteRecord(record.id)">{{ 'health.medical_history.delete' | translate }}</button>
+        <p><strong>Fecha:</strong> {{ record.date }}</p>
+        <p><strong>Condición:</strong> {{ record.condition }}</p>
+        <p><strong>Descripción:</strong> {{ record.description }}</p>
+        <button (click)="deleteRecord(record.id)">Eliminar</button>
       </div>
     </div>
 
     <ng-template #noHistory>
-      <p>{{ 'health.medical_history.no_records' | translate }}</p>
-
+      <p>No hay registros médicos</p>
     </ng-template>
 
+    <!-- Formulario para agregar un nuevo registro médico -->
     <div *ngIf="addingNewRecord" class="new-record-form">
-      <h3>{{ 'health.medical_history.add_new' | translate }}</h3>
+      <h3>Agregar nuevo registro médico</h3>
       <form [formGroup]="newRecordForm" (ngSubmit)="addNewRecord()">
-        <label>{{ 'health.medical_history.date' | translate }}</label>
+        <label>Fecha</label>
         <input formControlName="date" type="date" required>
 
-        <label>{{ 'health.medical_history.condition' | translate }}</label>
+        <label>Condición</label>
         <input formControlName="condition" type="text" required>
 
-        <label>{{ 'health.medical_history.description' | translate }}</label>
+        <label>Descripción</label>
         <textarea formControlName="description" required></textarea>
 
-        <button type="submit">{{ 'health.medical_history.save' | translate }}</button>
-        <button type="button" (click)="addingNewRecord = false">{{ 'health.medical_history.cancel' | translate }}</button>
+        <button type="submit">Guardar</button>
+        <button type="button" (click)="addingNewRecord = false">Cancelar</button>
       </form>
     </div>
   </div>
