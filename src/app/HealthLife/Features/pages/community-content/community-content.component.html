@@ -1,25 +1,33 @@
 <div class="community-container">
 
+  <!-- Sección de Experiencias -->
   <div class="experiences-section">
-    <h2>{{'community.exp' | translate}}</h2>
+    <h2>Experiencias de la Comunidad</h2>
     <div class="experience-list">
       <mat-card class="experience-card" *ngFor="let experience of experiences">
-        {{ experience }}
+        <div class="message__username">
+          <strong>Usuario Anónimo</strong>
+        </div>
+        <div class="message__text">
+          {{ experience }}
+        </div>
       </mat-card>
     </div>
   </div>
-</div>
 
-<div class="videos-section">
-  <h2>{{'community.videos'|translate}}:</h2>
-  <div class="video-list">
-    <video
-      *ngFor="let video of videos"
-      [src]="video.video_files[0].link"
-    controls
-    class="video"
-    poster="{{ video.image }}"
-    preload="metadata">
-    </video>
+  <!-- Sección de Videos -->
+  <div class="videos-section">
+    <h2>Videos de la Comunidad:</h2>
+    <div class="video-list">
+      <video
+        *ngFor="let video of videos"
+        [src]="video.video_files[0].link"
+        controls
+        class="video"
+        poster="{{ video.image }}"
+        preload="metadata">
+      </video>
+    </div>
   </div>
+
 </div>
