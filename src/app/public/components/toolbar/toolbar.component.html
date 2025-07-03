@@ -17,6 +17,7 @@
           mat-button
           [routerLink]="option.path"
           routerLinkActive="active"
+          class="nav-link"
         >
           {{ option.title }}
         </a>
@@ -28,6 +29,4 @@
       <a mat-button (click)="openLoginDialog()">Login</a>
     </ng-template>
   </nav>
-
-  <app-switcher></app-switcher>
 </mat-toolbar>

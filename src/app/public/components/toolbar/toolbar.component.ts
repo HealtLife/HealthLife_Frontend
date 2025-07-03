@@ -32,8 +32,9 @@ export class ToolbarComponent implements OnInit {
 
   features = [
     { path: 'home', title: 'Home' },
-    { path: 'home/mydiet', title: 'My Diet' },
+    { path: 'home/nutrition', title: 'Nutrition' },
     { path: 'home/activities', title: 'Activities' },
+    { path: 'notifications', title: 'Notifications' },
     { path: 'home/analysis', title: 'Analysis' },
     { path: 'home/community', title: 'Community' },
     { path: 'home/rutines', title: 'Rutines' },
