@@ -1,43 +1,58 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {environment} from '../../../environments/environment';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-
 export class BaseService<T> {
 
-  protected apiUrl: string = `${environment.serverBasePath}`;
+  protected http: HttpClient;  // Cambié 'private' a 'protected'
 
-  protected resourceEndPoint: string = '/resources';
-
-  protected resourcePath(): string {
-    return `${this.apiUrl}${this.resourceEndPoint}`;
+  constructor(http: HttpClient) {
+    this.http = http;
   }
 
-  constructor(protected http: HttpClient) {}
-
-  getAll(endpoint: string): Observable<T[]> {
-    return this.http.get<T[]>(`${this.apiUrl}/${endpoint}`);
-  }
-  getById(endpoint: string, id: number): Observable<T> {
-    return this.http.get<T>(`${this.apiUrl}/${endpoint}/${id}`);
-  }
-  create(endpoint: string, item: T): Observable<T> {
-
-    return this.http.post<T>(`${this.apiUrl}/${endpoint}`, item);
-  }
-  update(endpoint: string, id: number, item: T): Observable<T> {
-    return this.http.put<T>(`${this.apiUrl}/${endpoint}/${id}`, item);
-  }
-  delete(endpoint: string, id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${endpoint}/${id}`);
+  private getBasePath(resource: string): string {
+    // Decidir la URL base en función del recurso
+    switch (resource) {
+      case 'users':
+        return environment.serverBasePathUsers;
+      case 'subscriptions':
+        return environment.serverBasePathSubscription;
+      default:
+        return environment.serverBasePath;
+    }
   }
 
-  deleteByFk(endpoint: string, id: number, userId: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${endpoint}/${id}/${userId}`);
+  // Método genérico para obtener todos los elementos de un recurso
+  getAll(resource: string): Observable<T[]> {
+    const basePath = this.getBasePath(resource);
+    return this.http.get<T[]>(`${basePath}/${resource}`);
+  }
+
+  // Método genérico para obtener un elemento por id
+  getById(resource: string, id: number): Observable<T> {
+    const basePath = this.getBasePath(resource);
+    return this.http.get<T>(`${basePath}/${resource}/${id}`);
+  }
+
+  // Método genérico para crear un nuevo elemento
+  create(resource: string, data: T): Observable<T> {
+    const basePath = this.getBasePath(resource);
+    return this.http.post<T>(`${basePath}/${resource}`, data);
+  }
+
+  // Método genérico para actualizar un elemento
+  update(resource: string, id: number, data: T): Observable<T> {
+    const basePath = this.getBasePath(resource);
+    return this.http.put<T>(`${basePath}/${resource}/${id}`, data);
+  }
+
+  // Método genérico para eliminar un elemento
+  delete(resource: string, id: number): Observable<void> {
+    const basePath = this.getBasePath(resource);
+    return this.http.delete<void>(`${basePath}/${resource}/${id}`);
   }
 }
-
