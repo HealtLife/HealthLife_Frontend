@@ -1,10 +1,11 @@
 /* ----------------------------------------
-   Layout general del hero
+   Colores generales para el fondo y las cards
    ---------------------------------------- */
 .hero {
   padding: 2rem;
   max-width: 1800px;
   margin: 0 auto;
+  background-color: #f0f8ff;  /* Color de fondo del héroe */
 }
 
 .hero-container {
@@ -14,12 +15,13 @@
 }
 
 /* ----------------------------------------
-   Imagen
+   Estilo de la imagen
    ---------------------------------------- */
 .hero-image {
   flex: 0 0 40%;
   padding: 1rem;
 }
+
 .hero-image img {
   width: 100%;
   height: auto;
@@ -28,7 +30,7 @@
 }
 
 /* ----------------------------------------
-   Contenido
+   Estilo del contenido
    ---------------------------------------- */
 .hero-content {
   flex: 1;
@@ -37,10 +39,13 @@
 
 .hero-content h1 {
   margin-bottom: 0.5rem;
-  font-size: 2rem;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #13547a;  /* Color primario */
 }
+
 .hero-content .brand {
-  color: #308c83;
+  color: #80d0c7;  /* Color secundario */
 }
 
 .subtitle {
@@ -57,6 +62,7 @@
 .features-title {
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
+  font-weight: 600;
 }
 
 .features {
@@ -73,19 +79,18 @@
 .cta-button {
   display: inline-block;
   padding: 0.75rem 1.5rem;
-  background-color: #308c83;
+  background-color: #308c83;  /* Color de fondo del botón */
   color: #fff;
   border-radius: 0.5rem;
   text-decoration: none;
   font-weight: 500;
-
-  /* parpadeo */
   animation: blink 2s infinite ease-in-out;
-  /* transición para el hover */
   transition: transform 0.3s ease;
 }
+
 .cta-button:hover {
   transform: scale(1.1);
+  background-color: #13547a;  /* Cambio de color del botón al pasar el mouse */
 }
 
 /* ----------------------------------------
@@ -109,5 +114,57 @@
 
 @keyframes blink {
   0%, 50%, 100% { opacity: 1; }
-  25%, 75%     { opacity: 0.5; }
+}
+
+/* ----------------------------------------
+   Estilo de las cards
+   ---------------------------------------- */
+.card {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background-color: #ffffff;  /* Fondo blanco de las cards */
+  border-radius: 1rem;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+.card h3 {
+  color: #13547a;  /* Color de los títulos dentro de las cards */
+}
+
+.card p {
+  color: #717275;  /* Color de los párrafos dentro de las cards */
+}
+
+/* ----------------------------------------
+   Efectos de las cards
+   ---------------------------------------- */
+.card:hover {
+  transform: translateY(-5px);  /* Efecto de movimiento suave al pasar el mouse */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);  /* Sombra más intensa al pasar el mouse */
+}
+
+/* ----------------------------------------
+   Botón de las cards
+   ---------------------------------------- */
+.card .cta-button {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background-color: #80d0c7;  /* Color de fondo del botón dentro de la card */
+  color: #fff;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.card .cta-button:hover {
+  background-color: #13547a;  /* Cambio de color al pasar el mouse */
+}
+
+/* ----------------------------------------
+   Color del fondo de la sección
+   ---------------------------------------- */
+.section-bg {
+  background-color: #f0f8ff;  /* Color del fondo de la sección */
 }

@@ -10,14 +10,16 @@ import { AuthGuard } from './shared/guards/auth.guard';
 import {MydietManagementComponent} from './HealthLife/mydiet/pages/mydiet-page-management/mydiet-page-management.component';
 import {CommunityContentComponent} from './HealthLife/Features/pages/community-content/community-content.component';
 import {ActivitiesPageComponent} from './HealthLife/Activities/components/activities-page/activities-page.component';
+import {NotificationsComponent} from './HealthLife/Activities/components/notifications/notifications.component';
 
 
 export const routes: Routes = [
   { path: 'home', component: HomeContentComponent}, // { path: 'home', component: HomeContentComponent, canActivate: [AuthGuard] },
   { path: 'home/analysis', component: AnalysisContentPage },
-  { path: 'home/mydiet', component: MydietManagementComponent},
+  { path: 'home/nutrition', component: MydietManagementComponent},
   {path: 'home/rutines', component: RutinaListComponent},
   { path: 'home/activities', component: ActivitiesPageComponent},
+  { path: 'notifications', component: NotificationsComponent},
   { path: 'access', component: AccessPagePage },
   { path: 'profile/view', component: ProfileViewComponent, canActivate: [AuthGuard] },
   { path: 'profile/edit', component: ProfileEditComponent, canActivate: [AuthGuard] },
