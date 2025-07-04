@@ -1,24 +1,12 @@
-import {AfterViewInit, Component, inject, OnInit, ViewChild} from '@angular/core';
-import {Food} from "../../model/food.entity";
-import {
-  MatCell, MatCellDef,
-  MatColumnDef,
-  MatHeaderCell,
-  MatHeaderCellDef, MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef,
-  MatTable,
-  MatTableDataSource
-} from "@angular/material/table";
-import {MatPaginator} from "@angular/material/paginator";
+import { AfterViewInit, Component, inject, OnInit, ViewChild } from '@angular/core';
+import { MatCell, MatCellDef, MatColumnDef, MatHeaderCell, MatHeaderCellDef, MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef, MatTable, MatTableDataSource } from "@angular/material/table";
+import { MatPaginator } from "@angular/material/paginator";
 import {MatSort, MatSortHeader} from "@angular/material/sort";
-import {FoodService} from "../../services/food.service";
-import {NgClass} from "@angular/common";
-import {MatIcon} from "@angular/material/icon";
-import {MydietPageComponent} from "../../mydiet-page/mydiet-page.component";
-import {ToolbarComponent} from "../../../../public/components/toolbar/toolbar.component";
-import {TranslateModule} from '@ngx-translate/core';
-import {AuthenApiService} from '../../../Access/services/authen-api.service';
-import {MatCard, MatCardContent, MatCardTitle} from '@angular/material/card';
-
+import { NgClass } from "@angular/common";
+import { MatIcon } from "@angular/material/icon";
+import { AuthenApiService } from '../../../Access/services/authen-api.service';
+import { MatCard, MatCardContent, MatCardTitle } from '@angular/material/card';
+import {MydietPageComponent} from '../../mydiet-page/mydiet-page.component';
 
 @Component({
   selector: 'app-mydiet-management',
@@ -39,19 +27,16 @@ import {MatCard, MatCardContent, MatCardTitle} from '@angular/material/card';
     MatRow,
     MatIcon,
     MatPaginator,
-    MydietPageComponent,
-    ToolbarComponent,
-    TranslateModule,
     MatCard,
     MatCardTitle,
-    MatCardContent
+    MatCardContent,
+    MydietPageComponent
   ],
   templateUrl: './mydiet-page-management.component.html',
-  styleUrl: './mydiet-page-management.component.css'
+  styleUrls: ['./mydiet-page-management.component.css']
 })
 
 export class MydietManagementComponent implements OnInit, AfterViewInit {
-  protected mydietData!: Food;
   protected columnsToDisplay: string[] = [
     'id',
     'name',
@@ -61,7 +46,7 @@ export class MydietManagementComponent implements OnInit, AfterViewInit {
     'fats',
   ];
   protected editMode: boolean = false;
-  protected dataSource!: MatTableDataSource<Food>;
+  protected dataSource!: MatTableDataSource<any>;  // Usamos "any" para datos genéricos
 
   protected dailyStats = {
     calories: 0,
@@ -74,21 +59,21 @@ export class MydietManagementComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) protected sort!: MatSort;
 
   currentUser: any = null;
-  private foodService: FoodService = inject(FoodService);
+  private authenService: AuthenApiService = inject(AuthenApiService);  // Inyectamos el servicio de autenticación
 
-  constructor(private authenService: AuthenApiService) {
+  constructor() {
     this.editMode = false;
-    this.mydietData = new Food({});
-    this.dataSource = new MatTableDataSource<Food>();
+    this.dataSource = new MatTableDataSource<any>();  // Usamos "any" para datos genéricos
 
+    // Cargar datos del usuario al momento de iniciar
     this.authenService.getCurrentUser().subscribe((user) => {
       this.currentUser = user;
     });
   }
 
   ngOnInit(): void {
+    // Obtiene los datos de la dieta del usuario
     this.getAllMydiets(this.currentUser.id);
-
   }
 
   ngAfterViewInit(): void {
@@ -102,11 +87,11 @@ export class MydietManagementComponent implements OnInit, AfterViewInit {
     let totalCarbs = 0;
     let totalFats = 0;
 
-    this.dataSource.data.forEach((food: Food) => {
-      totalCalories += food.calories ?? 0;
-      totalProteins += food.proteins ?? 0;
-      totalCarbs += food.carbs ?? 0;
-      totalFats += food.fats ?? 0;
+    this.dataSource.data.forEach((item: any) => {
+      totalCalories += item.calories ?? 0;
+      totalProteins += item.proteins ?? 0;
+      totalCarbs += item.carbs ?? 0;
+      totalFats += item.fats ?? 0;
     });
 
     this.dailyStats.calories = totalCalories;
@@ -115,86 +100,55 @@ export class MydietManagementComponent implements OnInit, AfterViewInit {
     this.dailyStats.fats = totalFats;
   }
 
-
-  /*
-  protected onDeleteItem(item: Food) {
-    this.deleteMydiet(item.id);
-  }*/
-
   protected onCancelRequested() {
     this.resetEditState();
     this.getAllMydiets(this.currentUser.id);
   }
 
   private resetEditState(): void {
-    this.mydietData = new Food({});
     this.editMode = false;
   }
 
-  protected onEditItem(item: Food) {
+  protected onEditItem(item: any) {
     this.editMode = true;
-    this.mydietData = item;
   }
 
-  protected onMydietsUpdateRequested(item: Food) {
-    this.mydietData = item;
-    //this.updateMydiets();
+  protected onMydietsUpdateRequested(item: any) {
     this.resetEditState();
   }
 
-  protected onMydietsAddRequested(item: Food) {
-    this.mydietData = item;
+  protected onMydietsAddRequested(item: any) {
     this.createMydiets();
     this.resetEditState();
   }
 
   private getAllMydiets(userId: number) {
-    this.foodService.getAll(this.foodService.endpoint).subscribe((response: Array<Food>) => {
-      this.dataSource.data = response.filter(food => food.userId === userId);
-      this.calculateDailyStats();
-
-    });
-  }
-
-
-
-  /*
-  private deleteMydiet(id: number) {
-    this.foodService.delete(this.foodService.endpoint, id).subscribe(() => {
-      this.dataSource.data = this.dataSource.data.filter((mydiet: Food) => mydiet.id !== id);
+    // Aquí deberías reemplazar con el servicio adecuado para obtener los datos
+    // Por ejemplo, llamando a un servicio que recupere datos de la dieta o historial
+    // Este código es un ejemplo genérico, necesitarás actualizarlo según la lógica de tu aplicación
+    this.authenService.getSubscription(userId).subscribe((response: any[]) => {
+      this.dataSource.data = response.filter(item => item.userId === userId);
       this.calculateDailyStats();
     });
   }
-  */
-
 
   private createMydiets() {
+    const newItem = {
+      calories: Number(0),
+      proteins: Number(0),
+      carbs: Number(0),
+      fats: Number(0),
+      userId: Number(this.currentUser.id)
+    };
 
-    this.mydietData.calories = Number(this.mydietData.calories);
-    this.mydietData.proteins = Number(this.mydietData.proteins);
-    this.mydietData.carbs = Number(this.mydietData.carbs);
-    this.mydietData.fats = Number(this.mydietData.fats);
-    this.mydietData.userId = Number(this.currentUser.id);
+    console.log(newItem);
 
-    console.log(this.mydietData);
-
-    this.foodService.create(this.foodService.endpoint, this.mydietData).subscribe((response: Food) => {
+    // Aquí deberías realizar la lógica para crear el nuevo ítem en la base de datos
+    // Asegúrate de que el servicio correspondiente lo maneje correctamente
+    this.authenService.registerSubscription(newItem).subscribe((response: any) => {
       this.dataSource.data.push(response);
       this.dataSource.data = [...this.dataSource.data];
       this.calculateDailyStats();
     });
   }
-
-
-  /*
-  private updateMydiets() {
-    this.foodService.update(this.foodService.endpoint, this.mydietData?.id, this.mydietData).subscribe((response: Food) => {
-      const index = this.dataSource.data.findIndex((mydiet: Food) => mydiet.id === response.id);
-      this.dataSource.data[index] = response;
-      this.dataSource.data = [...this.dataSource.data];
-      this.calculateDailyStats();
-    });
-  }
-  */
-
 }

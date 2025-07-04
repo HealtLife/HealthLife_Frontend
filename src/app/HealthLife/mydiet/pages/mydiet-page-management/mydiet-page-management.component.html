@@ -2,7 +2,6 @@
   <!-- Formulario -->
   <div class="form-area">
     <app-mydiet-page
-      [mydiet]="mydietData"
       [editMode]="editMode"
       (mydietAddRequested)="onMydietsAddRequested($event)"
       (mydietUpdateRequested)="onMydietsUpdateRequested($event)"
@@ -16,42 +15,42 @@
       <table mat-table [dataSource]="dataSource" matSort class="custom-table">
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef mat-sort-header class="custom-header">
-            {{ 'diet.id' | translate }}
+            ID
           </th>
           <td mat-cell *matCellDef="let r" class="custom-cell">{{ r.id }}</td>
         </ng-container>
 
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef mat-sort-header class="custom-header">
-            {{ 'diet.name' | translate }}
+            Nombre
           </th>
           <td mat-cell *matCellDef="let r" class="custom-cell">{{ r.name }}</td>
         </ng-container>
 
         <ng-container matColumnDef="calories">
           <th mat-header-cell *matHeaderCellDef mat-sort-header class="custom-header">
-            {{ 'diet.calories' | translate }}
+            Calorías
           </th>
           <td mat-cell *matCellDef="let r" class="custom-cell">{{ r.calories }}</td>
         </ng-container>
 
         <ng-container matColumnDef="proteins">
           <th mat-header-cell *matHeaderCellDef class="custom-header">
-            {{ 'diet.proteins' | translate }}
+            Proteínas
           </th>
           <td mat-cell *matCellDef="let r" class="custom-cell">{{ r.proteins }}</td>
         </ng-container>
 
         <ng-container matColumnDef="carbs">
           <th mat-header-cell *matHeaderCellDef class="custom-header">
-            {{ 'diet.carbs' | translate }}
+            Carbohidratos
           </th>
           <td mat-cell *matCellDef="let r" class="custom-cell">{{ r.carbs }}</td>
         </ng-container>
 
         <ng-container matColumnDef="fats">
           <th mat-header-cell *matHeaderCellDef class="custom-header">
-            {{ 'diet.fats' | translate }}
+            Grasas
           </th>
           <td mat-cell *matCellDef="let r" class="custom-cell">{{ r.fats }}</td>
         </ng-container>
@@ -65,12 +64,12 @@
 
     <section class="stats-section">
       <mat-card class="stats-card">
-        <mat-card-title>{{ 'diet.statistics_last_24_hours' | translate }}</mat-card-title>
+        <mat-card-title>Estadísticas últimas 24 horas</mat-card-title>
         <mat-card-content>
-          <p>{{ 'diet.calories' | translate }}: {{ dailyStats.calories }}</p>
-          <p>{{ 'diet.proteins' | translate }}: {{ dailyStats.proteins }}</p>
-          <p>{{ 'diet.carbs' | translate }}: {{ dailyStats.carbs }}</p>
-          <p>{{ 'diet.fats' | translate }}: {{ dailyStats.fats }}</p>
+          <p>Calorías: {{ dailyStats.calories }}</p>
+          <p>Proteínas: {{ dailyStats.proteins }}</p>
+          <p>Carbohidratos: {{ dailyStats.carbs }}</p>
+          <p>Grasas: {{ dailyStats.fats }}</p>
         </mat-card-content>
       </mat-card>
     </section>
