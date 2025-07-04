@@ -118,6 +118,7 @@ export class RegisterDialogComponent implements OnInit {
           );
 
           // registro de suscripción (igual que antes)
+          //Actualizacion
           this.data = {
             description: plan,
             price: price,
@@ -147,3 +148,4 @@ export class RegisterDialogComponent implements OnInit {
     }
   }
 }
+
