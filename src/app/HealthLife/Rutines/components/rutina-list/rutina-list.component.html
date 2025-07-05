@@ -1,10 +1,10 @@
 <div class="container">
-  <h1>Estadísticas de Rutinas</h1>
+  <h1 class="title">Recomendación de Rutinas</h1>
   <h2>Rutina de {{this.type_of_muscle}}</h2>
 
   <div class="content">
-    <!-- Lado izquierdo: Explicación de los músculos -->
-    <div class="left-side">
+    <!-- Columna izquierda: Imágenes de los músculos -->
+    <div class="column left-side">
       <div class="muscle-images">
         <h3>¿Qué músculos trabajas?</h3>
         <img src="https://outlift.com/wp-content/uploads/2021/02/musculos-trabajados-con-flexiones-de-brazos.jpg" alt="Músculos trabajados con flexiones de brazos">
@@ -13,9 +13,10 @@
       </div>
     </div>
 
-    <!-- Lado central: Buscador y tarjetas de rutinas -->
-    <div class="centered">
-      <mat-form-field appearance="fill" class="search-field">
+    <!-- Columna central: Buscador y tarjetas de rutinas -->
+    <div class="column centered">
+      <!-- Buscador Simplificado -->
+      <mat-form-field appearance="outline" class="search-field">
         <mat-label>Buscar músculos</mat-label>
         <input matInput [(ngModel)]="type_of_muscle" [matAutocomplete]="auto" (input)="filterMuscles()" (ngModelChange)="onSearch()" placeholder="Buscar...">
         <mat-autocomplete #auto="matAutocomplete">
@@ -25,15 +26,18 @@
         </mat-autocomplete>
       </mat-form-field>
 
+      <!-- Grid container para las tarjetas -->
       <div class="grid-container">
         <mat-card *ngFor="let rutina of rutinas" class="grid-item">
           <mat-card-header>
             <mat-card-title>
-              <p>Nombre: {{ rutina.name }} <br></p>
-              <p>Tipo: {{ rutina.type }}<br></p>
-              <p>Músculo trabajado: {{ rutina.muscle }}<br></p>
-              <p>Equipo necesario: {{ rutina.equipment }} <br></p>
-              <p>Dificultad: {{ rutina.difficulty }}</p>
+              <div class="card-text">
+                <p>Nombre: {{ rutina.name }}</p>
+                <p>Tipo: {{ rutina.type }}</p>
+                <p>Músculo trabajado: {{ rutina.muscle }}</p>
+                <p>Equipo necesario: {{ rutina.equipment }}</p>
+                <p>Dificultad: {{ rutina.difficulty }}</p>
+              </div>
             </mat-card-title>
           </mat-card-header>
           <mat-card-content>
@@ -43,8 +47,8 @@
       </div>
     </div>
 
-    <!-- Lado derecho: Lista de músculos -->
-    <div class="right-side">
+    <!-- Columna derecha: Lista de músculos -->
+    <div class="column right-side">
       <h3>Lista de Músculos</h3>
       <ul>
         <li><strong>Pecho</strong> (Chest): Músculo principal del torso que incluye el pectoral mayor.</li>

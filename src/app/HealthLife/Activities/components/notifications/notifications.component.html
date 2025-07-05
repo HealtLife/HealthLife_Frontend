@@ -1,1 +1,24 @@
-<p>notifications works!</p>
+<div class="notification-container">
+  <!-- Mensaje mientras no hay notificaciones -->
+  <div *ngIf="notifications.length === 0 && !loading" class="no-notifications">
+    <p>Esperando mensajes...</p>
+  </div>
+  <!-- Mensaje mientras se cargan las notificaciones -->
+  <div *ngIf="loading" class="loading">
+    <p>Cargando notificaciones...</p>
+  </div>
+
+  <!-- Mostrar las notificaciones -->
+  <div class="notification" *ngFor="let notification of notifications">
+    <div class="notification-header">
+      <h3>{{ notification.title }}</h3>
+      <span class="notification-time">{{ notification.timestamp | date: 'short' }}</span>
+    </div>
+    <p>{{ notification.message }}</p>
+  </div>
+
+  <!-- Mostrar error si no se pudieron cargar las notificaciones -->
+  <div *ngIf="error" class="error">
+    <p>Error al cargar las notificaciones. Intenta nuevamente.</p>
+  </div>
+</div>

@@ -19,91 +19,182 @@ body {
   margin: 0;
   padding: 0;
   color: var(--text-color);
+  text-align: center;
 }
 
-/* Layout */
+/* Container y Títulos */
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: var(--gap-l);
+  padding: 1rem 0;  /* quitar padding lateral */
   max-width: 1200px;
   margin: 0 auto;
 }
-
-h1, h2 {
+.container h1 {
+  font-size: 2rem;   /* un poco más pequeño */
+  margin: 0.5rem 0;
   color: var(--main-color);
-  margin-bottom: var(--gap-s);
+  font-weight: bold;
+}
+.container h2 {
+  font-size: 1.5rem; /* un poco más pequeño */
+  margin: 0.5rem 0;
+  color: var(--main-color);
+  font-weight: bold;
 }
 
+/* Content: tres columnas */
 .content {
   display: flex;
   justify-content: space-between;
   gap: var(--gap-l);
   width: 100%;
-  max-width: 100%;
+  animation: slideIn 1s ease-out;
 }
 
-.left-side, .right-side {
+/* Column Layout */
+.column {
   flex: 1;
   max-width: 300px;
-  margin-right: var(--gap-l);
+}
+
+/* Columna izquierda pegada */
+.left-side {
+  margin-left: 0;
+  padding-left: 0;
+}
+
+/* Columna derecha pegada */
+.right-side {
+  margin-right: 0;
+  padding-right: 0;
 }
 
 /* Muscle images */
+.muscle-images {
+  text-align: left;
+}
 .muscle-images img {
-  max-width: 100%;
+  width: 100%;
   border-radius: var(--card-border-radius);
   margin-bottom: var(--gap-m);
   box-shadow: 0 4px 8px var(--shadow-color);
+  transition: transform 0.3s ease;
+}
+.muscle-images img:hover {
+  transform: scale(1.05);
 }
 
+/* Buscador simplificado, ancho y desplazado */
+.centered .search-field {
+  width: 90% !important;
+  margin: 2rem auto 1rem;
+}
 .search-field {
-  width: 80%;
-  margin-bottom: var(--gap-l);
+  width: 100%;
+}
+.search-field input {
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 5px;
+  width: 100%;
+  border: 1px solid #ccc;
+  outline: none;
+}
+.search-field input:focus {
+  border-color: var(--main-color);
 }
 
-/* Grid layout for cards */
+/* Grid layout para que las cards sean más anchas */
+/* Cards más anchas, fondo blanco y texto en #308c83ff */
 .grid-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   gap: var(--gap-l);
   padding: var(--gap-l);
   width: 100%;
 }
 
-/* Card styles */
 .grid-item {
-  background-color: var(--card-bg-color);
+  background-color: #ffffff;       /* fondo blanco */
+  color: #308c83ff !important;     /* texto en verde azulado */
   padding: var(--gap-m);
   border-radius: var(--card-border-radius);
   box-shadow: 0 4px 8px var(--shadow-color);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  font-size: 0.9rem;
+  margin: 0 1rem;
+  min-width: 400px;
+  max-width: 600px;
 }
 
+/* Asegurarnos que todo el texto dentro de la card sea ese color */
+.grid-item,
+.grid-item p,
+.mat-card-title p,
+.mat-card-content p {
+  color: #308c83ff !important;
+}
+
+/* Hover mantiene texto y fondo */
 .grid-item:hover {
   transform: scale(1.05);
   box-shadow: 0 2px 8px var(--main-color);
 }
 
+/* Encabezado de tarjeta */
 mat-card-header {
-  background-color: var(--main-color);
+  background-color: #308c83ff;  /* header en verde azulado */
   color: white;
-  text-align: center;
   padding: var(--gap-s);
-  font-weight: bold;
 }
 
+mat-card-header .mat-card-title {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+
+/* Encabezado de tarjeta */
+mat-card-header {
+  background-color: #308c83ff;
+  color: white;
+  padding: var(--gap-s);
+}
+
+mat-card-header .mat-card-title {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+
+/* Título de contenido dentro de tarjeta */
+.card-text p {
+  color: white !important; /* color específico solicitado */
+  padding: 0 1rem;
+}
+.card-text p:last-child {
+  margin-bottom: 1rem; /* espacio extra después de “Dificultad” */
+}
+
+/* Contenido de tarjeta */
 mat-card-content {
-  text-align: center;
+  text-align: left;
   padding: var(--gap-m);
 }
+mat-card-content p {
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: #000; /* instrucciones en negro */
+}
 
+/* Lista derecha */
 .right-side ul {
   list-style: none;
   padding: 0;
+  text-align: left;
 }
-
 .right-side li {
   font-size: 1rem;
   margin: var(--gap-s) 0;
@@ -112,14 +203,26 @@ mat-card-content {
   line-height: 1.5;
 }
 
+/* Animations */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @media (max-width: 768px) {
   .content {
     flex-direction: column;
     gap: 1rem;
   }
-
   .left-side, .right-side {
     max-width: 100%;
-    margin-right: 0;
+    margin: 0;
+    padding: 0;
   }
 }
