@@ -1,75 +1,153 @@
-<div class="health-stats-container">
-  <h2>Estadísticas de Salud</h2>
+<div class="health-container">
+  <!-- Título general -->
+  <header class="health-header">
+    <h1>📊 Estadísticas de Salud</h1>
+  </header>
 
-  <div class="centered-content">
-    <!-- Sección de BMI (Índice de Masa Corporal) -->
-    <div class="bmi-section">
-      <h3>Índice de Masa Corporal (IMC):</h3>
-      <p *ngIf="bmi !== null">{{ bmi.toFixed(1) }}</p>
+  <!-- Dos columnas lado a lado -->
+  <section class="cards-wrapper">
+    <!-- Card IMC -->
+    <article class="card bmi-card">
+      <h2>⚖️ Índice de Masa Corporal (IMC)</h2>
+      <p *ngIf="bmi !== null" class="bmi-value">{{ bmi.toFixed(1) }}</p>
 
-      <form [formGroup]="healthForm">
-        <label for="height">Altura (cm):</label>
-        <input id="height" type="number" formControlName="height" placeholder="Introduce tu altura">
-
-        <label for="weight">Peso (kg):</label>
-        <input id="weight" type="number" formControlName="weight" placeholder="Introduce tu peso">
-
-        <button type="button" (click)="calculateBMI()" [disabled]="healthForm.invalid">Calcular</button>
+      <form [formGroup]="healthForm" class="form-group">
+        <div class="field">
+          <label for="height">Altura (cm)</label>
+          <input
+            id="height"
+            type="number"
+            formControlName="height"
+            placeholder="Ej. 170"
+          />
+          <span class="icon">📏</span>
+        </div>
+        <div class="field">
+          <label for="weight">Peso (kg)</label>
+          <input
+            id="weight"
+            type="number"
+            formControlName="weight"
+            placeholder="Ej. 65"
+          />
+          <span class="icon">🏋️</span>
+        </div>
+        <button
+          type="button"
+          class="btn btn-calc"
+          (click)="calculateBMI()"
+          [disabled]="healthForm.invalid"
+        >
+          Calcular
+        </button>
       </form>
-      <p>El índice de masa corporal (IMC) es una medida que se usa para evaluar el peso en relación con la altura.</p>
-    </div>
+      <p class="help-text">
+        El IMC es una medida para evaluar el peso en relación con la altura.
+      </p>
+    </article>
 
-    <!-- Sección de Macronutrientes -->
-    <div class="macros-section">
-      <h3>Macronutrientes</h3>
-      <form [formGroup]="healthForm">
-        <label for="proteins"><strong>Proteínas</strong></label>
-        <textarea id="proteins" formControlName="proteins" placeholder="Proteínas" readonly></textarea>
-
-        <label for="carbohydrates"><strong>Carbohidratos</strong></label>
-        <textarea id="carbohydrates" formControlName="carbohydrates" placeholder="Carbohidratos" readonly></textarea>
-
-        <label for="fats"><strong>Grasas</strong></label>
-        <textarea id="fats" formControlName="fats" placeholder="Grasas" readonly></textarea>
+    <!-- Card Macronutrientes -->
+    <article class="card macros-card">
+      <h2>🥗 Macronutrientes</h2>
+      <form [formGroup]="healthForm" class="form-group">
+        <div class="field">
+          <label for="proteins">Proteínas (g)</label>
+          <textarea
+            id="proteins"
+            formControlName="proteins"
+            readonly
+          ></textarea>
+          <span class="icon">🍗</span>
+        </div>
+        <div class="field">
+          <label for="carbohydrates">Carbohidratos (g)</label>
+          <textarea
+            id="carbohydrates"
+            formControlName="carbohydrates"
+            readonly
+          ></textarea>
+          <span class="icon">🍞</span>
+        </div>
+        <div class="field">
+          <label for="fats">Grasas (g)</label>
+          <textarea id="fats" formControlName="fats" readonly></textarea>
+          <span class="icon">🥑</span>
+        </div>
       </form>
-      <p>Los macronutrientes son los nutrientes que nuestro cuerpo necesita en grandes cantidades para obtener energía.</p>
-    </div>
-  </div>
+      <p class="help-text">
+        Los macronutrientes son necesarios en grandes cantidades para obtener energía.
+      </p>
+    </article>
+  </section>
 
-  <!-- Sección de Historial Médico -->
-  <div class="medical-history-container">
-    <h2>Historial Médico</h2>
-    <button (click)="addingNewRecord = true">Agregar nuevo registro</button>
-
-    <div *ngIf="medicalHistory && medicalHistory.length; else noHistory">
-      <div *ngFor="let record of medicalHistory" class="medical-record">
-        <p><strong>Fecha:</strong> {{ record.date }}</p>
-        <p><strong>Condición:</strong> {{ record.condition }}</p>
-        <p><strong>Descripción:</strong> {{ record.description }}</p>
-        <button (click)="deleteRecord(record.id)">Eliminar</button>
-      </div>
+  <!-- Historial Médico -->
+  <section class="history-card">
+    <div class="history-header">
+      <h2>🗂️ Historial Médico</h2>
+      <button class="btn btn-add" (click)="addingNewRecord = true">Agregar</button>
     </div>
 
+    <div *ngIf="medicalHistory?.length; else noHistory">
+      <ul class="history-list">
+        <li *ngFor="let record of medicalHistory" class="history-item">
+          <div class="item-header">
+            <span class="item-date">📅 {{ record.date }}</span>
+            <span class="item-condition">💡 {{ record.condition }}</span>
+            <button
+              class="btn btn-del"
+              (click)="deleteRecord(record.id)"
+            >
+              Eliminar
+            </button>
+          </div>
+          <p class="item-desc">{{ record.description }}</p>
+        </li>
+      </ul>
+    </div>
     <ng-template #noHistory>
-      <p>No hay registros médicos</p>
+      <p class="no-history">No hay registros médicos.</p>
     </ng-template>
 
-    <!-- Formulario para agregar un nuevo registro médico -->
+    <!-- Formulario de nuevo registro -->
     <div *ngIf="addingNewRecord" class="new-record-form">
-      <h3>Agregar nuevo registro médico</h3>
+      <h3>➕ Nuevo registro médico</h3>
       <form [formGroup]="newRecordForm" (ngSubmit)="addNewRecord()">
-        <label>Fecha</label>
-        <input formControlName="date" type="date" required>
-
-        <label>Condición</label>
-        <input formControlName="condition" type="text" required>
-
-        <label>Descripción</label>
-        <textarea formControlName="description" required></textarea>
-
-        <button type="submit">Guardar</button>
-        <button type="button" (click)="addingNewRecord = false">Cancelar</button>
+        <div class="field-inline">
+          <div class="field">
+            <label for="date">Fecha</label>
+            <input id="date" type="date" formControlName="date" required />
+          </div>
+          <div class="field">
+            <label for="condition">Condición</label>
+            <input
+              id="condition"
+              type="text"
+              formControlName="condition"
+              placeholder="Ej. Hipertensión"
+              required
+            />
+          </div>
+        </div>
+        <div class="field">
+          <label for="description">Descripción</label>
+          <textarea
+            id="description"
+            formControlName="description"
+            placeholder="Detalles..."
+            required
+          ></textarea>
+        </div>
+        <div class="btn-group">
+          <button
+            type="button"
+            class="btn btn-cancel"
+            (click)="addingNewRecord = false"
+          >
+            Cancelar
+          </button>
+          <button type="submit" class="btn btn-save">Guardar</button>
+        </div>
       </form>
     </div>
-  </div>
+  </section>
 </div>

@@ -1,140 +1,217 @@
-body, html {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  max-height: 100%;
-  overflow-x: hidden;
-}
-
-.health-stats-container {
-  width: 90%;
-  max-width: 1200px;
+.health-container {
+  max-width: 1000px;
+  margin: 30px auto;
+  padding: 0 20px;
   font-family: Arial, sans-serif;
-  margin: 20px;
-  color: #333;
+  background: #fafafa;
 }
 
-h2, h3 {
-  color: #308C83;
-  margin-bottom: 20px;
+/* Header */
+.health-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+.health-header h1 {
+  font-size: 2rem;
+  color: #308c83ff;
 }
 
-.centered-content {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  gap: 20px;
-  background-color: #f9f9f9;
+/* Grid de dos columnas con separación */
+.cards-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 30px;
+  grid-row-gap: 30px;
+  margin-bottom: 30px;
+}
+@media (max-width: 768px) {
+  .cards-wrapper {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Card base */
+.card {
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  margin-bottom: 40px;
+  box-sizing: border-box;
+  border-left: 5px solid #308c83ff;
 }
 
-.bmi-section, .macros-section {
-  flex: 1;
-  padding: 20px;
-  background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+/* Fondos específicos */
+.bmi-card {
+  background: #fff3e0;
+}
+.macros-card {
+  background: #e8f5e9;
 }
 
-form {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+/* Títulos de card */
+.card h2 {
+  margin-top: 0;
+  margin-bottom: 30px;
+  font-size: 1.4rem;
+  color: #267b71;
 }
 
-label {
+/* Valor IMC */
+.bmi-value {
+  font-size: 2.5rem;
   font-weight: bold;
-  color: #308C83;
-  margin-bottom: 8px;
+  text-align: center;
+  margin-bottom: 30px;
 }
 
-input, textarea {
-  margin-bottom: 15px;
-  padding: 10px;
-  font-size: 16px;
-  width: 100%;
-  max-width: 100%;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-button {
-  background-color: #308C83;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s;
+/* Formularios y campos */
+.form-group {
   margin-top: 10px;
 }
-
-button:hover {
-  background-color: #267b71;
+.field {
+  position: relative;
+  margin-bottom: 20px;
+}
+.field label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #267b71;
+}
+.field input,
+.field textarea {
+  width: 100%;
+  padding: 12px 40px 12px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+.field .icon {
+  position: absolute;
+  right: 12px;
+  top: calc(50% + 2px);
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+  color: #666;
+  pointer-events: none;
 }
 
-button:disabled {
-  background-color: #ccc;
+/* Botones comunes */
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.2s;
+}
+
+/* Botón Calcular */
+.btn-calc {
+  background: #308c83ff;
+  color: #fff;
+  margin-top: 10px;
+}
+.btn-calc:disabled {
+  background: #ccc;
   cursor: not-allowed;
 }
 
-p {
-  font-size: 16px;
-  line-height: 1.6;
+/* Texto de ayuda */
+.help-text {
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 30px;
 }
 
-.medical-history-container {
-  background-color: #ffffff;
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.medical-record {
-  background-color: #e8f5e9;
-  padding: 15px;
+/* Historial Médico */
+.history-card {
+  background: #ffffff;
   border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  padding: 30px;
+  box-sizing: border-box;
+  margin-bottom: 30px;
+  border-left: 5px solid #308c83ff;
+}
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+.history-header h2 {
+  margin: 0;
+  font-size: 1.4rem;
+  color: #267b71;
+}
+.btn-add {
+  background: #308c83ff;
+  color: #fff;
+}
+.history-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.history-item {
+  background: #e8f5e9;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 12px;
+}
+.item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.item-date,
+.item-condition {
+  font-weight: bold;
+}
+.item-desc {
+  margin: 8px 0 0;
+}
+.btn-del {
+  background: transparent;
+  color: #c0392b;
+  font-size: 0.9rem;
+  border: none;
+  cursor: pointer;
+}
+.btn-del:hover {
+  text-decoration: underline;
+}
+.no-history {
+  text-align: center;
+  color: #666;
+  font-style: italic;
+}
+
+/* Formulario nuevo registro */
+.new-record-form h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: #267b71;
+}
+.field-inline {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
   margin-bottom: 20px;
 }
-
-.new-record-form {
-  background-color: #f1f8f6;
-  border-radius: 10px;
-  padding: 20px;
-  margin-top: 20px;
+.btn-group {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
 }
-
-.new-record-form input, .new-record-form textarea {
-  width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+.btn-cancel {
+  background: #aaa;
+  color: #fff;
 }
-
-.new-record-form button {
-  background-color: #308C83;
-  padding: 10px 20px;
-}
-
-.new-record-form button[type="button"] {
-  background-color: #a1a1a1;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-.new-record-form label {
-  font-weight: bold;
-  color: #308C83;
-}
-
-p {
-  font-size: 16px;
-}
-
-textarea[readonly] {
-  background-color: #f9f9f9;
+.btn-save {
+  background: #308c83ff;
+  color: #fff;
 }
