@@ -7,6 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { AuthenApiService } from '../../../Access/services/authen-api.service';
 import { Router } from '@angular/router';
+import {NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-register-dialog',
@@ -18,7 +19,8 @@ import { Router } from '@angular/router';
     MatFormFieldModule,
     MatInputModule,
     MatRadioModule,
-    MatButtonModule
+    MatButtonModule,
+    NgIf
   ],
   styleUrls: ['./register-dialog.component.css']
 })
@@ -50,6 +52,12 @@ export class RegisterDialogComponent implements OnInit {
     if (this.registerForm.valid) {
       const { name, lastname, email, password } = this.registerForm.value;
 
+      // Definir valores predeterminados para los campos
+      const plan = "Basic Plan"; // Ejemplo de valor predeterminado
+      const price = 9.99; // Ejemplo de precio
+      const duration = 12; // Ejemplo de duración en meses
+      const setTrial = true; // Ejemplo de si es una suscripción de prueba
+
       // Creamos el objeto newUser con la suscripción como "no suscribed" por defecto
       const newUser = {
         name,
@@ -65,37 +73,8 @@ export class RegisterDialogComponent implements OnInit {
         userResponse => {
           console.log('User Created:', userResponse);
 
-          const formatDate = (date: Date) => {
-            const year = date.getFullYear();
-            const month = String(date.getMonth() + 1).padStart(2, '0');
-            const day = String(date.getDate()).padStart(2, '0');
-            return `${year}-${month}-${day}`;
-          };
-
-          const today = new Date();
-          const nextWeek = new Date();
-          nextWeek.setDate(today.getDate() + 7);
-
-          const createData = {
-            goal_type: "-",
-            start_date: formatDate(today),
-            end_date: formatDate(nextWeek),
-            userId: userResponse.id
-          };
-
-          // creación de goal (igual que antes)
-          this.authenService.createGoal(createData).subscribe(
-            response => {
-              console.log('Goal Created:', response);
-            },
-            error => {
-              console.error('Error creating Goal:', error);
-            }
-          );
-
-          // registro de suscripción (igual que antes)
-          //Actualizacion
-          this.data = {
+          // Actualización con los valores predeterminados
+          const data = {
             description: plan,
             price: price,
             monthDuration: duration,
@@ -103,7 +82,8 @@ export class RegisterDialogComponent implements OnInit {
             userId: userResponse.id,
           };
 
-          this.authenService.registerSubscription(this.data).subscribe(
+          // Registra la suscripción
+          this.authenService.registerSubscription(data).subscribe(
             subscriptionResponse => {
               console.log('Subscription Created:', subscriptionResponse);
               this.router.navigate(['/access']);
@@ -118,16 +98,9 @@ export class RegisterDialogComponent implements OnInit {
         },
         error => {
           console.error('Error creating user:', error);
-          // Mostrar el mensaje de error en el frontend
           this.errorMessage = error.error.message || 'Error registering user';
         }
       );
     }
   }
-
-  // Método que maneja la cancelación del registro
-  onCancel(): void {
-    this.dialogRef.close(); // Si el usuario cancela, simplemente cerramos el diálogo
-  }
 }
-
