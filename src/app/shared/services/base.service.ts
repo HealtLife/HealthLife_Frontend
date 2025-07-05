@@ -3,56 +3,38 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class BaseService<T> {
 
-  protected http: HttpClient;  // Cambié 'private' a 'protected'
+  constructor(protected http: HttpClient) {}
 
-  constructor(http: HttpClient) {
-    this.http = http;
+  /** Devuelve siempre la URL base (sin resource ni versión) */
+  private getBasePath(): string {
+    return environment.serverBasePath;
   }
 
-  private getBasePath(resource: string): string {
-    // Decidir la URL base en función del recurso
-    switch (resource) {
-      case 'users':
-        return environment.serverBasePathUsers;
-      case 'subscriptions':
-        return environment.serverBasePathSubscription;
-      default:
-        return environment.serverBasePath;
-    }
-  }
-
-  // Método genérico para obtener todos los elementos de un recurso
+  /** Obtener todos */
   getAll(resource: string): Observable<T[]> {
-    const basePath = this.getBasePath(resource);
-    return this.http.get<T[]>(`${basePath}/${resource}`);
+    return this.http.get<T[]>(`${this.getBasePath()}/${resource}`);
   }
 
-  // Método genérico para obtener un elemento por id
+  /** Obtener por ID */
   getById(resource: string, id: number): Observable<T> {
-    const basePath = this.getBasePath(resource);
-    return this.http.get<T>(`${basePath}/${resource}/${id}`);
+    return this.http.get<T>(`${this.getBasePath()}/${resource}/${id}`);
   }
 
-  // Método genérico para crear un nuevo elemento
+  /** Crear */
   create(resource: string, data: T): Observable<T> {
-    const basePath = this.getBasePath(resource);
-    return this.http.post<T>(`${basePath}/${resource}`, data);
+    return this.http.post<T>(`${this.getBasePath()}/${resource}`, data);
   }
 
-  // Método genérico para actualizar un elemento
+  /** Actualizar */
   update(resource: string, id: number, data: T): Observable<T> {
-    const basePath = this.getBasePath(resource);
-    return this.http.put<T>(`${basePath}/${resource}/${id}`, data);
+    return this.http.put<T>(`${this.getBasePath()}/${resource}/${id}`, data);
   }
 
-  // Método genérico para eliminar un elemento
+  /** Eliminar */
   delete(resource: string, id: number): Observable<void> {
-    const basePath = this.getBasePath(resource);
-    return this.http.delete<void>(`${basePath}/${resource}/${id}`);
+    return this.http.delete<void>(`${this.getBasePath()}/${resource}/${id}`);
   }
 }

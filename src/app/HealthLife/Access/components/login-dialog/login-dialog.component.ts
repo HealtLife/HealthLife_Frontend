@@ -58,24 +58,39 @@ export class LoginDialogComponent {
   }
 
   onLogin(): void {
-    if (!this.loginForm.valid) {
+    if (this.loginForm.invalid) {
       return;
     }
+
     const { email, password } = this.loginForm.value;
-    this.authenService.login(email, password).subscribe(
-      user => {
-        if (user) {
+
+    // 1) Obtenemos el usuario por email
+    this.authenService.getUserByEmail(email).subscribe(
+      users => {
+        if (!users || users.length === 0) {
+          this.errorMessage = 'Email o contraseña incorrectos';
+          return;
+        }
+
+        // 2) Tomamos el primer (único) usuario
+        const user = users[0];
+
+        // 3) Comparamos contraseña
+        if (user.password === password) {
+          // Login exitoso: navegamos y cerramos el diálogo
           this.router.navigate(['/home']);
           this.dialogRef.close();
         } else {
           this.errorMessage = 'Email o contraseña incorrectos';
         }
       },
-      error => {
+      err => {
+        console.error('Error al obtener usuario por email', err);
         this.errorMessage = 'Error al iniciar sesión';
       }
     );
   }
+
 
   openRegisterDialog(): void {
     // cierro el diálogo de login

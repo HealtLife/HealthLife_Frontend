@@ -48,57 +48,59 @@ export class RegisterDialogComponent implements OnInit {
   }
 
   // Método que maneja el registro del usuario
+  // Método que maneja el registro del usuario
   onRegister(): void {
     if (this.registerForm.valid) {
       const { name, lastname, email, password } = this.registerForm.value;
 
-      // Definir valores predeterminados para los campos
-      const plan = "Basic Plan"; // Ejemplo de valor predeterminado
-      const price = 9.99; // Ejemplo de precio
-      const duration = 12; // Ejemplo de duración en meses
-      const setTrial = true; // Ejemplo de si es una suscripción de prueba
+      // Valores predeterminados de suscripción
+      const plan = "Basic Plan";
+      const price = 9.99;
+      const duration = 12;
+      const setTrial = true;
 
-      // Creamos el objeto newUser con la suscripción como "no suscribed" por defecto
+      // Creamos el usuario
       const newUser = {
         name,
         lastname,
         email,
         password,
-        privacy: "PRIVATE", // Asegúrate de incluir todos los campos requeridos por tu backend
-        suscription: "no suscribed" // Valor por defecto para suscripción
+        privacy: "PRIVATE",
+        suscription: "no suscribed"
       };
 
-      // Llamamos al servicio para registrar el usuario
       this.authenService.register(newUser).subscribe(
         userResponse => {
           console.log('User Created:', userResponse);
 
-          // Actualización con los valores predeterminados
-          const data = {
+          // Ahora preparamos sólo los datos de suscripción
+          const subscriptionData = {
             description: plan,
             price: price,
             monthDuration: duration,
-            trial: setTrial,
-            userId: userResponse.id,
+            trial: setTrial
           };
 
-          // Registra la suscripción
-          this.authenService.registerSubscription(data).subscribe(
-            subscriptionResponse => {
-              console.log('Subscription Created:', subscriptionResponse);
-              this.router.navigate(['/access']);
-              alert("Registro completado");
-              this.dialogRef.close();
-            },
-            error => {
-              console.error('Error al crear la suscripción', error);
-              this.errorMessage = 'Error al crear la suscripción';
-            }
-          );
+          // Llamamos correctamente con dos argumentos:
+          // 1) userResponse.id
+          // 2) subscriptionData
+          this.authenService.registerSubscription(userResponse.id, subscriptionData)
+            .subscribe(
+              subscriptionResponse => {
+                console.log('Subscription Created:', subscriptionResponse);
+                this.router.navigate(['/access']);
+                alert("Registro completado");
+                this.dialogRef.close();
+              },
+              err => {
+                console.error('Error al crear la suscripción', err);
+                this.errorMessage = 'Error al crear la suscripción';
+              }
+            );
         },
-        error => {
-          console.error('Error creating user:', error);
-          this.errorMessage = error.error.message || 'Error registering user';
+        err => {
+          console.error('Error creating user:', err);
+          this.errorMessage = err.error?.message || 'Error registering user';
         }
       );
     }

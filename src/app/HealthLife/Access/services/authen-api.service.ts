@@ -1,45 +1,60 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../../../environments/environment';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class AuthenApiService {
 
-  private baseUrl: string = 'http://localhost:8081/api/v1';  // URL del backend
+  private baseUrl = environment.serverBasePath;
 
   constructor(private http: HttpClient) { }
 
-  // Método para crear un usuario sin suscripción
+  /** Registro de usuario sin suscripción */
   register(userData: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/users`, userData);
   }
 
-  // Método para crear una suscripción
-  registerSubscription(subscriptionData: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/subscriptions/user-subscription`, subscriptionData);
+  /** Registro de suscripción para un usuario */
+  registerSubscription(userId: number, subscriptionData: any): Observable<any> {
+    return this.http.post(
+      `${this.baseUrl}/users/${userId}/subscription`,
+      subscriptionData
+    );
   }
 
-  // Obtener el usuario actual
-  getCurrentUser(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/users/current`);
-  }
-
-  // Método para obtener la suscripción de un usuario por ID
-  getSubscription(id: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/subscriptions/${id}`);
-  }
-
-  // Método para realizar el login de un usuario
+  /** Login */
   login(email: string, password: string): Observable<any> {
-    const loginData = { email, password };
-    return this.http.post(`${this.baseUrl}/users/login`, loginData);
+    return this.http.post(
+      `${this.baseUrl}/users`,
+      { email, password }
+    );
   }
 
-  // Método para actualizar la información del usuario
+  /** Actualizar perfil de usuario */
   updateUserStorage(id: number, formattedData: any): Observable<any> {
-    // Aquí se hace la solicitud PUT para actualizar el usuario
-    return this.http.put(`${this.baseUrl}/users/${id}`, formattedData);
+    return this.http.put(
+      `${this.baseUrl}/users/${id}`,
+      formattedData
+    );
+  }
+
+  /** Obtener datos del usuario actualmente logueado */
+  getCurrentUser(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/users/me`);
+  }
+
+  /**
+   * Obtener la suscripción del usuario
+   * Asume endpoint: GET /users/{userId}/subscription
+   */
+  getSubscription(userId: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/users/${userId}/subscription`);
+  }
+
+  getUserByEmail(email: string): Observable<any[]> {
+    return this.http.get<any[]>(
+      `${this.baseUrl}/users/email/${encodeURIComponent(email)}`
+    );
   }
 }
