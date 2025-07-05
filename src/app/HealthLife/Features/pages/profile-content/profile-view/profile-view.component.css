@@ -1,98 +1,117 @@
+/* profile-view.component.css */
 .profile-container {
-  max-width: 700px;
+  max-width: 720px;
   margin: 0 auto;
+  padding: 30px;
   font-family: 'Montserrat', sans-serif;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
 }
 
-.form-group {
-  margin-bottom: 20px;
-}
-
-.mat-form-field {
-  width: 100%;
-  margin-bottom: 15px;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-}
-
-.radio-group {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 20px;
-}
-
-.radio-options {
-  display: flex;
-  gap: 20px;
-}
-
-.button-group {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-}
-
-button[type="submit"] {
-  background-color: #308C83;
-  color: white;
-  font-weight: 600;
-  border-radius: 25px;
-  padding: 10px 20px;
-  transition: background-color 0.3s ease;
-}
-
-button[type="submit"]:hover {
-  background-color: #13547a;
-}
-
-button[type="button"] {
-  border: 2px solid #f44336;
-  color: #f44336;
-  font-weight: 600;
-  border-radius: 25px;
-  padding: 10px 20px;
-}
-
-button[type="button"]:hover {
-  background-color: #f44336;
-  color: white;
+h2 {
+  text-align: center;
+  color: #308C83;
+  margin-bottom: 24px;
 }
 
 .card {
-  margin-top: 20px;
-  margin-bottom: 20px;
-  background-color: #ffffff;
-  border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin: 24px 0;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
-.mat-card-actions {
+.mat-card-content {
+  padding: 24px;
+}
+
+.actions-top {
+  padding: 0 24px 16px;
   display: flex;
   justify-content: flex-end;
 }
 
-.mat-label {
-  font-weight: 600;
-  font-size: 16px;
+button[mat-raised-button] mat-icon {
+  margin-right: 6px;
 }
 
-p {
-  color: #717275;
-  font-size: 16px;
-  font-weight: 500;
+button[color="primary"] {
+  background-color: #308C83;
+  color: #fff;
 }
 
-.subscription-container {
-  margin-top: 20px;
+button[color="primary"]:hover {
+  background-color: #276b66;
 }
 
-.subscription-container p {
-  font-size: 14px;
+.subscription-card {
+  border-top: 4px solid #308C83;
+}
+
+.subscription-header {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(90deg, #308C83 0%, #3fb59a 100%);
+  color: #fff;
+  padding: 16px 24px;
+}
+
+.subscription-header mat-icon {
+  margin-right: 8px;
+}
+
+.subscription-info {
+  margin-top: 16px;
+}
+
+.sub-name {
+  font-size: 18px;
+  font-weight: 700;
   color: #308C83;
-  margin: 5px 0;
+  margin: 4px 0;
+}
+
+.sub-detail {
+  font-size: 14px;
+  color: #555;
+  margin: 2px 0;
+}
+
+.sub-tag {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  background-color: #e0f2f1;
+  color: #00695c;
+}
+
+.sub-tag.complete {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.promo-text {
+  margin: 20px 0;
+  font-size: 15px;
+  color: #666;
+  font-style: italic;
+  text-align: center;
+}
+
+.subscription-actions {
+  padding: 16px 24px;
+  background-color: #fafafa;
+  display: flex;
+  justify-content: center;
+}
+
+button[color="accent"] {
+  background-color: #fbc02d;
+  color: #fff;
+}
+
+button[color="accent"]:hover {
+  background-color: #c79500;
 }

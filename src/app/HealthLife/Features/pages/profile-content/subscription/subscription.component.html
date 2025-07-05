@@ -1,0 +1,102 @@
+<div class="subscription-container">
+  <button class="btn-back" (click)="goBack()" aria-label="Volver">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <path d="M15 18l-6-6 6-6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <div class="forms-wrapper">
+
+    <!-- Selección de Plan -->
+    <section class="card update-container">
+      <h2>Selecciona un Plan</h2>
+      <div class="plans-list">
+        <label *ngFor="let plan of plans"
+               class="plan-option"
+               [class.selected]="plan.key === selectedPlanKey">
+
+          <input
+            type="radio"
+            name="plan"
+            [value]="plan.key"
+            [(ngModel)]="selectedPlanKey"
+          />
+
+          <div class="plan-content">
+            <h3>
+              {{ plan.title }}
+              <!-- Precio y duración según plan -->
+              <span class="plan-price" *ngIf="plan.key === 'regular'">Gratis</span>
+              <span class="plan-price" *ngIf="plan.key === 'plus'">$29</span>
+              <span class="plan-price" *ngIf="plan.key === 'premium'">$49</span>
+              <span class="plan-duration" *ngIf="plan.key === 'plus'">(6 meses)</span>
+              <span class="plan-duration" *ngIf="plan.key === 'premium'">(12 meses)</span>
+            </h3>
+            <ul>
+              <li *ngFor="let feat of plan.features">{{ feat }}</li>
+              <li *ngIf="plan.key !== 'regular'">Contenido extra</li>
+            </ul>
+          </div>
+        </label>
+      </div>
+
+      <button
+        class="btn btn-update"
+        [disabled]="!isUpdateValid()"
+        (click)="updateItem()"
+      >
+        Actualizar Plan
+      </button>
+    </section>
+
+    <!-- Simulación de pago -->
+    <section class="card payment-container">
+      <h2>Simulación de Pago</h2>
+
+      <div class="form-group">
+        <label for="cardNumber">Número de Tarjeta</label>
+        <input
+          id="cardNumber"
+          type="text"
+          [(ngModel)]="payment.cardNumber"
+          class="form-control"
+          placeholder="0000 0000 0000 0000"
+        />
+        <i class="icon icon-card"></i>
+      </div>
+
+      <div class="form-group">
+        <label for="expiryDate">Fecha de Expiración</label>
+        <input
+          id="expiryDate"
+          type="text"
+          [(ngModel)]="payment.expiryDate"
+          class="form-control"
+          placeholder="MM/YY"
+        />
+        <i class="icon icon-calendar"></i>
+      </div>
+
+      <div class="form-group">
+        <label for="cvv">CVV</label>
+        <input
+          id="cvv"
+          type="text"
+          [(ngModel)]="payment.cvv"
+          class="form-control"
+          placeholder="123"
+        />
+        <i class="icon icon-lock"></i>
+      </div>
+
+      <button
+        class="btn btn-pay"
+        [disabled]="!isPaymentValid()"
+        (click)="processPayment()"
+      >
+        Realizar Pago
+      </button>
+    </section>
+
+  </div>
+</div>

@@ -11,6 +11,7 @@ import {MydietManagementComponent} from './HealthLife/mydiet/pages/mydiet-page-m
 import {CommunityContentComponent} from './HealthLife/Features/pages/community-content/community-content.component';
 import {ActivitiesPageComponent} from './HealthLife/Activities/components/activities-page/activities-page.component';
 import {NotificationsComponent} from './HealthLife/Activities/components/notifications/notifications.component';
+import {SubscriptionComponent} from './HealthLife/Features/pages/profile-content/subscription/subscription.component';
 
 
 export const routes: Routes = [
@@ -23,6 +24,7 @@ export const routes: Routes = [
   { path: 'access', component: AccessPagePage },
   { path: 'profile/view', component: ProfileViewComponent }, //{ path: 'profile/view', component: ProfileViewComponent, canActivate: [AuthGuard] },
   { path: 'profile/edit', component: ProfileEditComponent}, // { path: 'profile/edit', component: ProfileEditComponent, canActivate: [AuthGuard] },
+  { path: 'profile/payment', component: SubscriptionComponent},
   { path: 'home/community', component: CommunityContentComponent },
   { path: '', redirectTo: '/access', pathMatch: 'full' },
   { path: '**', component: NotFoundPage },

@@ -13,6 +13,7 @@ import {CommonModule} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {ProfileEditComponent} from '../profile-edit/profile-edit.component';
+import {MatIcon} from '@angular/material/icon';
 
 
 @Component({
@@ -34,7 +35,8 @@ import {ProfileEditComponent} from '../profile-edit/profile-edit.component';
     MatRadioModule,
     MatButtonModule,
     CommonModule,
-    TranslateModule
+    TranslateModule,
+    MatIcon
   ],
   styleUrls: ['./profile-view.component.css']
 })
@@ -42,42 +44,42 @@ export class ProfileViewComponent implements OnInit {
   currentUser: any = null;
   subscription: any = null;
 
-  constructor(private authenService: AuthenApiService, private router: Router, private dialog: MatDialog) {
-  }
+  constructor(
+    private authenService: AuthenApiService,
+    private router: Router,
+    private dialog: MatDialog
+  ) { }
 
   ngOnInit(): void {
-    this.authenService.getCurrentUser().subscribe((user) => {
+    this.authenService.getCurrentUser().subscribe(user => {
       this.currentUser = user;
-
       if (this.currentUser?.id) {
-        this.authenService.getSubscription(this.currentUser.id).subscribe((subscription) => {
-          this.subscription = subscription;
+        this.authenService.getSubscription(this.currentUser.id).subscribe(sub => {
+          this.subscription = sub;
         });
       }
     });
-  };
+  }
 
   onEdit(): void {
     const dialogRef = this.dialog.open(ProfileEditComponent, {
       width: '400px',
-      data: {user: this.currentUser} // Opcional: pasar datos actuales al editor
+      data: { user: this.currentUser }
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        // Recargar datos después de editar
-        this.currentUser = {...this.currentUser, ...result};
-        console.log("si");
-        console.log(this.currentUser);
-
-        // Si es necesario, actualizar la suscripción también
-        if (result.privacy) {
-          this.authenService.getSubscription(this.currentUser.id).subscribe((subscription) => {
-            this.subscription = subscription;
-          });
-        }
+        this.currentUser = { ...this.currentUser, ...result };
+        // Si cambió privacidad o algo que afecte suscripción,
+        this.authenService.getSubscription(this.currentUser.id).subscribe(sub => {
+          this.subscription = sub;
+        });
       }
     });
   }
 
+  onUpgrade(): void {
+    // Navega a la ruta de suscripción
+    this.router.navigate(['/profile/payment']);
+  }
 }

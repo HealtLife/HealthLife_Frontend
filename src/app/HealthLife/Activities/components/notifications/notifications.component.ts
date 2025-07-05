@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { NotificationService } from '../../services/notification.service';
-import {DatePipe} from '@angular/common';
+import {DatePipe, NgForOf, NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-notifications',
   templateUrl: './notifications.component.html',
   standalone: true,
   imports: [
-    DatePipe
+    DatePipe,
+    NgIf,
+    NgForOf
   ],
   styleUrls: ['./notifications.component.css']
 })
