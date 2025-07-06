@@ -1,4 +1,3 @@
-/* profile-view.component.css */
 .profile-container {
   max-width: 720px;
   margin: 0 auto;
@@ -25,6 +24,28 @@ h2 {
   padding: 24px;
 }
 
+.form-group {
+  margin-bottom: 16px;
+  display: flex;
+  align-items: baseline;
+}
+
+.form-group mat-label {
+  width: 150px;
+  font-weight: 600;
+  color: #308C83;
+}
+
+.form-group p {
+  margin: 0;
+  color: #333;
+}
+
+.edit-form mat-form-field {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
 .actions-top {
   padding: 0 24px 16px;
   display: flex;
@@ -39,79 +60,6 @@ button[color="primary"] {
   background-color: #308C83;
   color: #fff;
 }
-
 button[color="primary"]:hover {
   background-color: #276b66;
-}
-
-.subscription-card {
-  border-top: 4px solid #308C83;
-}
-
-.subscription-header {
-  display: flex;
-  align-items: center;
-  background: linear-gradient(90deg, #308C83 0%, #3fb59a 100%);
-  color: #fff;
-  padding: 16px 24px;
-}
-
-.subscription-header mat-icon {
-  margin-right: 8px;
-}
-
-.subscription-info {
-  margin-top: 16px;
-}
-
-.sub-name {
-  font-size: 18px;
-  font-weight: 700;
-  color: #308C83;
-  margin: 4px 0;
-}
-
-.sub-detail {
-  font-size: 14px;
-  color: #555;
-  margin: 2px 0;
-}
-
-.sub-tag {
-  display: inline-block;
-  margin-top: 8px;
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 13px;
-  background-color: #e0f2f1;
-  color: #00695c;
-}
-
-.sub-tag.complete {
-  background-color: #e8f5e9;
-  color: #2e7d32;
-}
-
-.promo-text {
-  margin: 20px 0;
-  font-size: 15px;
-  color: #666;
-  font-style: italic;
-  text-align: center;
-}
-
-.subscription-actions {
-  padding: 16px 24px;
-  background-color: #fafafa;
-  display: flex;
-  justify-content: center;
-}
-
-button[color="accent"] {
-  background-color: #fbc02d;
-  color: #fff;
-}
-
-button[color="accent"]:hover {
-  background-color: #c79500;
 }
