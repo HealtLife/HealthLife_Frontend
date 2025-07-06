@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { MatToolbar } from '@angular/material/toolbar';
-import { RouterLink } from '@angular/router';
+import {RouterLink, RouterLinkActive} from '@angular/router';
 import { SwitcherComponent } from '../switcher/switcher.component';
-import { MatAnchor } from '@angular/material/button';
+import {MatAnchor, MatButton, MatIconButton} from '@angular/material/button';
 import {NgForOf, NgIf, NgOptimizedImage} from '@angular/common';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
@@ -10,6 +10,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {LoginDialogComponent} from '../../../HealthLife/Access/components/login-dialog/login-dialog.component';
 import {RegisterDialogComponent} from '../../../HealthLife/Access/components/register-dialog/register-dialog.component';
 import {AccessPagePage} from '../../../HealthLife/Access/pages/access-page/access-page.page';
+import {MatIcon, MatIconModule} from '@angular/material/icon';
 
 @Component({
   selector: 'app-toolbar',
@@ -22,9 +23,14 @@ import {AccessPagePage} from '../../../HealthLife/Access/pages/access-page/acces
     NgIf,
     NgForOf,
     NgOptimizedImage,
+    MatIcon,
+    MatButton,
+    RouterLinkActive,
+    MatIconButton,
+    MatIconModule
   ],
   templateUrl: './toolbar.component.html',
-  styleUrls: ['./toolbar.component.css'] // Aquí corregí de styleUrl a styleUrls
+  styleUrls: ['./toolbar.component.css']
 })
 export class ToolbarComponent implements OnInit {
 

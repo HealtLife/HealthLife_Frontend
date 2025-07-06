@@ -1,32 +1,39 @@
+<!-- toolbar.component.html -->
 <mat-toolbar class="app-toolbar">
-  <div class="logo-container">
+  <div class="logo-container" (click)="router.navigate(['/'])">
     <img
       src="https://imgur.com/AHUI1ug.png"
       alt="NutriMove"
       class="logo"
-      (click)="router.navigate(['/'])"
     />
   </div>
 
-  <div class="spacer"></div>
+  <span class="spacer"></span>
 
-  <nav class="options">
-    <ng-container *ngIf="router.url !== '/access'; else accessOptions">
-      <ng-container *ngFor="let option of features; trackBy: trackByTitle">
-        <a
-          mat-button
-          [routerLink]="option.path"
-          routerLinkActive="active"
-          class="nav-link"
-        >
-          {{ option.title }}
-        </a>
+  <!-- Contenedor “píldora” detrás de los botones -->
+  <div class="nav-container">
+    <nav class="options">
+      <ng-container *ngIf="router.url !== '/access'; else accessOptions">
+        <ng-container *ngFor="let option of features; trackBy: trackByTitle">
+          <button
+            mat-button
+            [routerLink]="option.path"
+            routerLinkActive="active"
+            class="nav-button"
+          >
+            <span class="nav-text">{{ option.title }}</span>
+          </button>
+        </ng-container>
       </ng-container>
-    </ng-container>
 
-    <ng-template #accessOptions>
-      <a mat-button (click)="openRegDialog()">Register</a>
-      <a mat-button (click)="openLoginDialog()">Login</a>
-    </ng-template>
-  </nav>
+      <ng-template #accessOptions>
+        <button mat-icon-button (click)="openRegDialog()" aria-label="Register">
+          <mat-icon>person_add</mat-icon>
+        </button>
+        <button mat-icon-button (click)="openLoginDialog()" aria-label="Login">
+          <mat-icon>login</mat-icon>
+        </button>
+      </ng-template>
+    </nav>
+  </div>
 </mat-toolbar>
