@@ -1,0 +1,286 @@
+<mat-toolbar color="primary" class="toolbar">
+  <mat-icon>restaurant_menu</mat-icon>
+  <span>Mi Perfil Nutricional</span>
+</mat-toolbar>
+
+<div class="page-container" [formGroup]="form">
+
+  <!-- Información Personal -->
+  <mat-card class="section-card">
+    <mat-card-header class="header-flex">
+      <mat-card-title>
+        <mat-icon>person</mat-icon>
+        Información Personal
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content formGroupName="personalInfo">
+      <!-- Primera fila: DNI + Nombre -->
+      <div class="grid-two-cols">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>DNI</mat-label>
+          <input matInput formControlName="dni">
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Nombre</mat-label>
+          <input matInput formControlName="firstName">
+        </mat-form-field>
+      </div>
+
+      <!-- Segunda fila: Apellido + Género -->
+      <div class="grid-two-cols">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Apellido</mat-label>
+          <input matInput formControlName="lastName">
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Género</mat-label>
+          <input matInput formControlName="gender">
+          <mat-select formControlName="gender" placeholder="Selecciona...">
+            <mat-option value="Masculino">Masculino</mat-option>
+            <mat-option value="Femenino">Femenino</mat-option>
+            <mat-option value="Otro">Otro</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <!-- Tercera fila: Fecha de nacimiento -->
+      <div class="grid-two-cols">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Fecha de Nacimiento</mat-label>
+          <input matInput type="date" formControlName="birthDate">
+        </mat-form-field>
+        <div></div>
+      </div>
+
+      <!-- Cuarta fila: Tipo de cuerpo + IMC -->
+      <div class="grid-two-cols">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Tipo de Cuerpo</mat-label>
+          <mat-select formControlName="tipoCuerpo" placeholder="Selecciona...">
+            <mat-option value="ectomorfo">Ectomorfo</mat-option>
+            <mat-option value="mesomorfo">Mesomorfo</mat-option>
+            <mat-option value="endomorfo">Endomorfo</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>IMC</mat-label>
+          <input matInput type="number" formControlName="imc" readonly>
+          <mat-hint align="end">
+            ¿No sabes tu IMC?
+            <a routerLink="/home/analysis">Calcúlalo aquí</a>
+          </mat-hint>
+        </mat-form-field>
+      </div>
+
+      <!-- Ayuda: descripción de cada tipo de cuerpo -->
+      <div class="body-types">
+        <p><strong>Ectomorfo:</strong> metabolismo rápido, bajo % de grasa, dificultad para ganar masa.</p>
+        <p><strong>Mesomorfo:</strong> facilidad para ganar músculo, forma atlética natural.</p>
+        <p><strong>Endomorfo:</strong> mayor tendencia a acumular grasa, cuerpo redondeado.</p>
+      </div>
+
+      <!-- Botones Crear / Actualizar al final -->
+      <div class="actions">
+        <button mat-stroked-button color="primary" (click)="createPersonalInfo()">
+          <mat-icon>add</mat-icon> Crear
+        </button>
+        <button mat-flat-button class="btn-save" (click)="savePersonalInfo()">
+          <mat-icon>save</mat-icon> Actualizar
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+
+  <!-- Alergias -->
+  <mat-card class="section-card">
+    <mat-card-header class="header-flex">
+      <mat-card-title>
+        <mat-icon>healing</mat-icon>
+        Alergias
+      </mat-card-title>
+      <button mat-mini-fab class="btn-add" (click)="addAllergy()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </mat-card-header>
+    <mat-card-content>
+      <div formArrayName="allergies">
+        <div *ngFor="let ctrl of allergies.controls; let i = index"
+             [formGroupName]="i"
+             class="grid-three-cols">
+          <mat-form-field appearance="outline">
+            <mat-label>Alergia</mat-label>
+            <input matInput formControlName="name">
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Severidad</mat-label>
+            <input matInput formControlName="severity">
+          </mat-form-field>
+          <button mat-icon-button color="warn" (click)="allergies.removeAt(i)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+      <div class="actions">
+        <button mat-flat-button class="btn-save" (click)="saveAllergies()">
+          <mat-icon>save</mat-icon>
+          Guardar Alergias
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Peso & Altura -->
+  <mat-card class="section-card">
+    <mat-card-header class="header-flex">
+      <mat-card-title>
+        <mat-icon>fitness_center</mat-icon>
+        Peso & Altura
+      </mat-card-title>
+      <button mat-mini-fab class="btn-add" (click)="addWeightEntry()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </mat-card-header>
+    <mat-card-content>
+      <div formArrayName="weightHeight">
+        <div *ngFor="let ctrl of weightHeight.controls; let i = index"
+             [formGroupName]="i"
+             class="grid-three-cols">
+          <mat-form-field appearance="outline">
+            <mat-label>Peso (kg)</mat-label>
+            <input matInput type="number" formControlName="weightKg">
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Altura (cm)</mat-label>
+            <input matInput type="number" formControlName="heightCm">
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Fecha</mat-label>
+            <input matInput type="date" formControlName="date">
+          </mat-form-field>
+          <button mat-icon-button color="warn" (click)="weightHeight.removeAt(i)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+      <div class="actions">
+        <button mat-flat-button class="btn-save" (click)="saveWeight()">
+          <mat-icon>save</mat-icon>
+          Guardar Peso
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Vacunas -->
+  <mat-card class="section-card">
+    <mat-card-header class="header-flex">
+      <mat-card-title>
+        <mat-icon>vaccines</mat-icon>
+        Vacunas
+      </mat-card-title>
+      <button mat-mini-fab class="btn-add" (click)="addVaccine()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </mat-card-header>
+    <mat-card-content formArrayName="vaccines">
+      <div *ngFor="let ctrl of vaccines.controls; let i = index"
+           [formGroupName]="i"
+           class="grid-three-cols">
+        <mat-form-field appearance="outline">
+          <mat-label>Vacuna</mat-label>
+          <input matInput formControlName="name">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Fecha</mat-label>
+          <input matInput type="date" formControlName="date">
+        </mat-form-field>
+        <button mat-icon-button color="warn" (click)="vaccines.removeAt(i)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+      <div class="actions">
+        <button mat-flat-button class="btn-save" (click)="saveVaccines()">
+          <mat-icon>save</mat-icon>
+          Guardar Vacunas
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Prescripciones -->
+  <mat-card class="section-card">
+    <mat-card-header class="header-flex">
+      <mat-card-title>
+        <mat-icon>medication</mat-icon>
+        Prescripciones
+      </mat-card-title>
+      <button mat-mini-fab class="btn-add" (click)="addPrescription()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </mat-card-header>
+    <mat-card-content formArrayName="prescriptions">
+      <div *ngFor="let ctrl of prescriptions.controls; let i = index"
+           [formGroupName]="i"
+           class="grid-three-cols">
+        <mat-form-field appearance="outline">
+          <mat-label>Medicamento</mat-label>
+          <input matInput formControlName="medication">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Dosificación</mat-label>
+          <input matInput formControlName="dosage">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Frecuencia</mat-label>
+          <input matInput formControlName="frequency">
+        </mat-form-field>
+        <button mat-icon-button color="warn" (click)="prescriptions.removeAt(i)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+      <div class="actions">
+        <button mat-flat-button class="btn-save" (click)="savePrescriptions()">
+          <mat-icon>save</mat-icon>
+          Guardar Prescripciones
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Notas Médicas -->
+  <mat-card class="section-card">
+    <mat-card-header class="header-flex">
+      <mat-card-title>
+        <mat-icon>note_add</mat-icon>
+        Notas Médicas
+      </mat-card-title>
+      <button mat-mini-fab class="btn-add" (click)="addMedicalNote()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </mat-card-header>
+    <mat-card-content formArrayName="medicalNotes">
+      <div *ngFor="let ctrl of medicalNotes.controls; let i = index"
+           [formGroupName]="i"
+           class="grid-three-cols">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Nota</mat-label>
+          <textarea matInput formControlName="note"></textarea>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Fecha</mat-label>
+          <input matInput type="date" formControlName="date">
+        </mat-form-field>
+        <button mat-icon-button color="warn" (click)="medicalNotes.removeAt(i)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+      <div class="actions">
+        <button mat-flat-button class="btn-save" (click)="saveMedicalNotes()">
+          <mat-icon>save</mat-icon>
+          Guardar Notas Médicas
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

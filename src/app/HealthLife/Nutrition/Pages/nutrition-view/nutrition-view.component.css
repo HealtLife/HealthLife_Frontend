@@ -1,0 +1,185 @@
+:host {
+  display: block;
+  padding: 1rem;
+  background: #f9fafd;
+}
+
+/* Toolbar */
+.toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #308c83ff;
+  color: white;
+  font-size: 1.2rem;
+}
+
+/* Contenedor principal */
+.page-container {
+  max-width: 960px;
+  margin: 1rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Tarjeta de sección */
+.section-card {
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* Grid de dos columnas */
+.grid-two-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* Grid de tres columnas para arrays */
+.grid-three-cols {
+  display: grid;
+  grid-template-columns: 2fr 2fr auto;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+/* Full width para campos en grid */
+.full-width {
+  width: 100%;
+}
+
+/* Botones */
+.btn-save {
+  background: #308c83ff;
+  color: white;
+  margin-top: 1rem;
+}
+
+.btn-add {
+  background: #308c83ff;
+  color: white;
+}
+
+/* Asegura padding interno a mat-card-content */
+mat-card-content {
+  padding: 1.5rem;
+}
+
+/* Form fields más altos y espaciados */
+mat-form-field {
+  width: 100%;
+}
+
+/* mueve los botones al extremo derecho */
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+
+/* un poco más de espacio vertical entre filas */
+.grid-two-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.grid-three-cols {
+  margin-bottom: 1.5rem;
+}
+
+/* campos con más altura y padding interno */
+mat-form-field {
+  height: 56px;
+}
+
+/* para el DNI y el resto de inputs */
+.grid-two-cols input[matInput] {
+  background: #f1f3f5;
+}
+
+/* ajusta el botón principal */
+.btn-save {
+  background: #308c83ff;
+  color: white;
+}
+
+button[mat-stroked-button]{
+  background: #308c83ff;
+  color: white;
+  margin-top: 1rem;
+  margin-right: 1rem;
+}
+
+/* Mat-card-header con flex */
+.header-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Contenedor para alinear el botón Save a la derecha */
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1.5rem;
+}
+
+/* Inputs con fondo suave y mayor padding */
+mat-form-field.full-width .mat-form-field-flex {
+  background-color: #f1f3f5;
+  padding: 0 0.5rem;
+}
+
+/* Aumenta la altura mínima de cada form-field */
+mat-form-field.full-width {
+  min-height: 80px;
+}
+
+/* Padding interno más amplio para el área de texto */
+mat-form-field .mat-form-field-infix {
+  padding: 1rem 10rem;
+}
+
+/* Ajusta la fuente y el tamaño del placeholder para mayor legibilidad */
+mat-form-field .mat-form-field-label {
+  font-size: 0.95rem;
+  padding-left: 1rem;
+}
+
+/* Los inputs ocupan todo el espacio vertical disponible */
+mat-form-field.full-width .mat-input-element {
+  height: 1.5rem;
+  line-height: 1.5rem;
+}
+
+/* Más espacio entre filas */
+.grid-two-cols, .grid-three-cols {
+  margin-bottom: 2rem;
+}
+
+mat-form-field .mat-form-field-subscript-wrapper {
+  margin-top: 0.25rem;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.body-types {
+  background: #eef5f3;
+  padding: 1rem;
+  border-radius: 6px;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+/* Hints y enlaces */
+.mat-hint a {
+  font-weight: 600;
+  text-decoration: none;
+  color: #308c83ff;
+}

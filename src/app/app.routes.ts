@@ -7,18 +7,18 @@ import { ProfileEditComponent } from './HealthLife/Features/pages/profile-conten
 import { ProfileViewComponent } from './HealthLife/Features/pages/profile-content/profile-view/profile-view.component';
 import {RutinaListComponent} from './HealthLife/Rutines/components/rutina-list/rutina-list.component';
 import { AuthGuard } from './shared/guards/auth.guard';
-import {MydietManagementComponent} from './HealthLife/mydiet/pages/mydiet-page-management/mydiet-page-management.component';
 import {CommunityContentComponent} from './HealthLife/Features/pages/community-content/community-content.component';
 import {ActivitiesPageComponent} from './HealthLife/Activities/components/activities-page/activities-page.component';
 import {NotificationsComponent} from './HealthLife/Activities/components/notifications/notifications.component';
 import {SubscriptionComponent} from './HealthLife/Features/pages/profile-content/subscription/subscription.component';
 import {RecommendationsComponent} from './HealthLife/Activities/components/recommendations/recommendations.component';
+import {NutritionViewComponent} from './HealthLife/Nutrition/Pages/nutrition-view/nutrition-view.component';
 
 
 export const routes: Routes = [
   { path: 'home', component: HomeContentComponent}, // { path: 'home', component: HomeContentComponent, canActivate: [AuthGuard] },
   { path: 'home/analysis', component: AnalysisContentPage },
-  { path: 'home/nutrition', component: MydietManagementComponent},
+  { path: 'home/nutrition', component: NutritionViewComponent},
   {path: 'home/rutines', component: RutinaListComponent},
   { path: 'home/activities', component: ActivitiesPageComponent},
   { path: 'notifications', component: NotificationsComponent},
