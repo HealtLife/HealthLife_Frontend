@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 
 export interface Recommendation {
-  id: number;
+  
   userId: number;
   nutritionistId: number | null;
   message: string;
@@ -33,4 +33,8 @@ export class RecommendationService {
   update(id: number, rec: Partial<Recommendation>): Observable<Recommendation> {
     return this.http.put<Recommendation>(`${this.baseUrl}/recomendations/${id}`, rec);
   }
+  getByUserId(userId: number): Observable<Recommendation[]> {
+  return this.http.get<Recommendation[]>(`${this.baseUrl}/recomendations/user/${userId}`);
+}
+
 }

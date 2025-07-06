@@ -3,6 +3,14 @@
   <span>Recomendaciones</span>
 </mat-toolbar>
 
+<mat-card class="summary-card" *ngIf="recommendations.length">
+  <mat-card-title>
+    <mat-icon color="accent">list_alt</mat-icon>
+    Total de Recomendaciones: {{ recommendations.length }}
+  </mat-card-title>
+</mat-card>
+
+
 <mat-card class="send-card">
   <mat-form-field appearance="outline" class="send-field">
     <mat-label>Escribe una nueva recomendación</mat-label>

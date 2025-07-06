@@ -53,7 +53,8 @@ export class RecommendationsComponent implements OnInit {
 
   fetch(): void {
     this.loading = true;
-    this.recSvc.getAll().subscribe({
+    const userId = Number(localStorage.getItem('userId'));
+    this.recSvc.getByUserId(userId).subscribe({
       next: data => {
         this.recommendations = data;
         this.loading = false;
@@ -67,12 +68,12 @@ export class RecommendationsComponent implements OnInit {
     if (!this.newMessage.trim() || !userId) return;
 
     const payload: Partial<Recommendation> = {
-      userId,
-      nutritionistId: null,
+      userId: userId,
+      nutritionistId: 1, // Asignar un ID de nutricionista predeterminado
       message: this.newMessage.trim(),
       answer: '',
-      type: 'user',
-      status: 'pending',
+      type: 'QUESTION',
+      status: 'PENDING',
       timestamp: new Date().toISOString()
     };
 
