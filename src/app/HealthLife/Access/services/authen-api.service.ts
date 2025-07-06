@@ -56,7 +56,7 @@ export class AuthenApiService {
 
   getUserByEmail(email: string): Observable<any[]> {
     return this.http.get<any[]>(
-      `${this.baseUrl}/api/v1/users/email/${encodeURIComponent(email)}`
+      `${this.baseUrl}/users/email/${encodeURIComponent(email)}`
     );
   }
 }
