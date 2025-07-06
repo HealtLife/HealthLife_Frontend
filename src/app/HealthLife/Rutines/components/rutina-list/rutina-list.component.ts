@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RutinaApiService } from '../../services/rutina-api.service';
-import {NgForOf} from '@angular/common';
+import {NgForOf, NgIf, TitleCasePipe} from '@angular/common';
 import {MatCard} from '@angular/material/card';
 import {MatCardModule} from '@angular/material/card';
 import {TranslateModule} from '@ngx-translate/core';
@@ -8,6 +8,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import {FormsModule} from '@angular/forms';
 import {MatInput} from '@angular/material/input';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatIcon} from '@angular/material/icon';
+import {MatIconButton} from '@angular/material/button';
+import {MatListItem, MatNavList} from '@angular/material/list';
+import {MatLine} from '@angular/material/core';
 
 @Component({
   selector: 'app-rutina-list',
@@ -21,7 +25,14 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     MatFormFieldModule,
     FormsModule,
     MatInput,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatIcon,
+    NgIf,
+    MatIconButton,
+    TitleCasePipe,
+    MatNavList,
+    MatListItem,
+    MatLine
   ],
   styleUrls: ['./rutina-list.component.css']
 })

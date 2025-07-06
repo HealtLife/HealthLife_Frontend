@@ -1,67 +1,83 @@
+<mat-card class="header-card">
+  <mat-icon>fitness_center</mat-icon>
+  <h1>Recomendación de Rutinas</h1>
+</mat-card>
+
 <div class="container">
-  <h1 class="title">Recomendación de Rutinas</h1>
-  <h2>Rutina de {{this.type_of_muscle}}</h2>
+  <!-- Buscador -->
+  <mat-form-field appearance="outline" class="search-field">
+    <mat-label>Buscar músculos</mat-label>
+    <input
+      matInput
+      [(ngModel)]="type_of_muscle"
+      [matAutocomplete]="auto"
+      (input)="filterMuscles()"
+      (ngModelChange)="onSearch()"
+      placeholder="Escribe un músculo..."
+    />
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let muscle of filteredMuscles" [value]="muscle">
+        <mat-icon matPrefix>self_improvement</mat-icon>
+        {{ muscle }}
+      </mat-option>
+    </mat-autocomplete>
+    <button
+      *ngIf="type_of_muscle"
+      matSuffix
+      mat-icon-button
+      aria-label="Limpiar"
+      (click)="type_of_muscle=''; onSearch();"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+
+  <h2 *ngIf="type_of_muscle">Rutina de {{ type_of_muscle | titlecase }}</h2>
 
   <div class="content">
-    <!-- Columna izquierda: Imágenes de los músculos -->
+    <!-- Columna izquierda -->
     <div class="column left-side">
+      <h3><mat-icon>fitness_center</mat-icon> ¿Qué músculos trabajas?</h3>
       <div class="muscle-images">
-        <h3>¿Qué músculos trabajas?</h3>
-        <img src="https://outlift.com/wp-content/uploads/2021/02/musculos-trabajados-con-flexiones-de-brazos.jpg" alt="Músculos trabajados con flexiones de brazos">
-        <img src="https://outlift.com/wp-content/uploads/2021/02/musculos-trabajados-ejercicios-antebrazos.jpg" alt="Músculos trabajados con antebrazos">
-        <img src="https://outlift.com/wp-content/uploads/2021/02/musculos-trabajados-con-chin-up.jpg" alt="Músculos trabajados con chin-ups">
+        <img src="https://outlift.com/wp-content/uploads/2021/02/musculos-trabajados-con-flexiones-de-brazos.jpg" alt="Flexiones">
+        <img src="https://outlift.com/wp-content/uploads/2021/02/musculos-trabajados-ejercicios-antebrazos.jpg" alt="Antebrazos">
+        <img src="https://outlift.com/wp-content/uploads/2021/02/musculos-trabajados-con-chin-up.jpg" alt="Chin-ups">
       </div>
     </div>
 
-    <!-- Columna central: Buscador y tarjetas de rutinas -->
+    <!-- Columna central -->
     <div class="column centered">
-      <!-- Buscador Simplificado -->
-      <mat-form-field appearance="outline" class="search-field">
-        <mat-label>Buscar músculos</mat-label>
-        <input matInput [(ngModel)]="type_of_muscle" [matAutocomplete]="auto" (input)="filterMuscles()" (ngModelChange)="onSearch()" placeholder="Buscar...">
-        <mat-autocomplete #auto="matAutocomplete">
-          <mat-option *ngFor="let muscle of filteredMuscles" [value]="muscle">
-            {{ muscle }}
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
-
-      <!-- Grid container para las tarjetas -->
       <div class="grid-container">
-        <mat-card *ngFor="let rutina of rutinas" class="grid-item">
+        <mat-card *ngFor="let rutina of rutinas" class="rutina-card">
           <mat-card-header>
-            <mat-card-title>
-              <div class="card-text">
-                <p>Nombre: {{ rutina.name }}</p>
-                <p>Tipo: {{ rutina.type }}</p>
-                <p>Músculo trabajado: {{ rutina.muscle }}</p>
-                <p>Equipo necesario: {{ rutina.equipment }}</p>
-                <p>Dificultad: {{ rutina.difficulty }}</p>
-              </div>
-            </mat-card-title>
+            <mat-icon class="card-icon">sports_gymnastics</mat-icon>
+            <mat-card-title>{{ rutina.name }}</mat-card-title>
           </mat-card-header>
           <mat-card-content>
-            <p>{{ rutina.instructions }}</p>
+            <p><mat-icon>category</mat-icon> <strong>Tipo:</strong> {{ rutina.type }}</p>
+            <p><mat-icon>terrain</mat-icon> <strong>Músculo:</strong> {{ rutina.muscle }}</p>
+            <p><mat-icon>build</mat-icon> <strong>Equipo:</strong> {{ rutina.equipment }}</p>
+            <p><mat-icon>trending_up</mat-icon> <strong>Dificultad:</strong> {{ rutina.difficulty }}</p>
+            <p><mat-icon>info</mat-icon> {{ rutina.instructions }}</p>
           </mat-card-content>
         </mat-card>
       </div>
+      <p *ngIf="!rutinas.length && type_of_muscle" class="no-results">
+        <mat-icon>error_outline</mat-icon>
+        No se encontraron rutinas para "{{ type_of_muscle }}"
+      </p>
     </div>
 
-    <!-- Columna derecha: Lista de músculos -->
+    <!-- Columna derecha -->
     <div class="column right-side">
-      <h3>Lista de Músculos</h3>
-      <ul>
-        <li><strong>Pecho</strong> (Chest): Músculo principal del torso que incluye el pectoral mayor.</li>
-        <li><strong>Espalda</strong> (Back): Incluye los músculos dorsales y trapecios.</li>
-        <li><strong>Piernas</strong> (Legs): Abarca cuádriceps, femorales y gemelos.</li>
-        <li><strong>Brazos</strong> (Arms): Compuesto por bíceps, tríceps y antebrazos.</li>
-        <li><strong>Hombros</strong> (Shoulders): Músculos como deltoides que rodean la parte superior del brazo.</li>
-        <li><strong>Core</strong> (Core): Músculos abdominales, lumbares y oblicuos, fundamentales para el equilibrio y fuerza.</li>
-        <li><strong>Trapecios</strong> (Traps): Músculos que ayudan a mover los hombros y el cuello.</li>
-        <li><strong>Glúteos</strong> (Glutes): Músculos grandes de la cadera que ayudan a la movilidad de las piernas.</li>
-        <li><strong>Abdominales</strong> (Abs): Músculos del torso involucrados en la flexión y estabilización del tronco.</li>
-        <li><strong>Antebrazos</strong> (Forearms): Músculos que ayudan en los movimientos de la muñeca y los dedos.</li>
-      </ul>
+      <h3><mat-icon>list</mat-icon> Lista de Músculos</h3>
+
+      <mat-nav-list>
+        <mat-list-item *ngFor="let m of allMuscles">
+          <mat-icon matListIcon>check_circle</mat-icon>
+          <span matLine>{{ m | titlecase }}</span>
+        </mat-list-item>
+      </mat-nav-list>
     </div>
   </div>
 </div>

@@ -1,228 +1,175 @@
-:root {
-  --main-color: #308C83; /* Verde azulado principal */
-  --secondary-color: #F1F1F1; /* Fondo claro */
-  --accent-color: #F25C54; /* Color de acento (rojo suave) */
-  --text-color: #333333; /* Color de texto oscuro */
-  --card-bg-color: #FFFFFF; /* Fondo blanco para las tarjetas */
-  --hover-color: #217C6B; /* Color para efectos hover */
-  --card-border-radius: 12px;
-  --shadow-color: rgba(0, 0, 0, 0.1); /* Color para sombra suave */
-  --gap-s: 1rem;
-  --gap-m: 1.5rem;
-  --gap-l: 2rem;
+/* Paleta de colores basada en #308c83ff y acentos suaves */
+:host {
+  display: block;
+  padding: 1rem;
+  background: #f1f1f1;
+  font-family: Arial, sans-serif;
 }
 
-/* General Styles */
-body {
-  font-family: 'Arial', sans-serif;
-  background-color: var(--secondary-color);
-  margin: 0;
-  padding: 0;
-  color: var(--text-color);
+/* Header */
+.header-card {
+  display: flex;
+  align-items: center;
+  background: #308c83ff;
+  color: white;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.header-card mat-icon {
+  margin-right: 0.5rem;
+}
+
+/* Container general */
+.container {
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* Buscador */
+.search-field {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto 1.5rem;
+  display: block;
+}
+
+.search-field mat-form-field {
+  width: 100%;
+}
+
+/* Título secundario */
+h2 {
+  color: #308c83ff;
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
   text-align: center;
 }
 
-/* Container y Títulos */
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 1rem 0;  /* quitar padding lateral */
-  max-width: 1200px;
-  margin: 0 auto;
-}
-.container h1 {
-  font-size: 2rem;   /* un poco más pequeño */
-  margin: 0.5rem 0;
-  color: var(--main-color);
-  font-weight: bold;
-}
-.container h2 {
-  font-size: 1.5rem; /* un poco más pequeño */
-  margin: 0.5rem 0;
-  color: var(--main-color);
-  font-weight: bold;
-}
-
-/* Content: tres columnas */
+/* Three-column layout */
 .content {
   display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
   justify-content: space-between;
-  gap: var(--gap-l);
-  width: 100%;
-  animation: slideIn 1s ease-out;
 }
 
-/* Column Layout */
+/* Columnas */
 .column {
-  flex: 1;
-  max-width: 300px;
+  background: white;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
-/* Columna izquierda pegada */
-.left-side {
-  margin-left: 0;
-  padding-left: 0;
+.left-side, .right-side {
+  flex: 1 1 200px;
+  max-width: 250px;
 }
 
-/* Columna derecha pegada */
-.right-side {
-  margin-right: 0;
-  padding-right: 0;
+.centered {
+  flex: 2 1 600px;
 }
 
 /* Muscle images */
-.muscle-images {
-  text-align: left;
-}
 .muscle-images img {
   width: 100%;
-  border-radius: var(--card-border-radius);
-  margin-bottom: var(--gap-m);
-  box-shadow: 0 4px 8px var(--shadow-color);
-  transition: transform 0.3s ease;
+  border-radius: 6px;
+  margin-bottom: 0.75rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
 }
 .muscle-images img:hover {
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
 
-/* Buscador simplificado, ancho y desplazado */
-.centered .search-field {
-  width: 90% !important;
-  margin: 2rem auto 1rem;
-}
-.search-field {
-  width: 100%;
-}
-.search-field input {
-  padding: 10px;
-  font-size: 1rem;
-  border-radius: 5px;
-  width: 100%;
-  border: 1px solid #ccc;
-  outline: none;
-}
-.search-field input:focus {
-  border-color: var(--main-color);
-}
-
-/* Grid layout para que las cards sean más anchas */
-/* Cards más anchas, fondo blanco y texto en #308c83ff */
+/* Grid of rutina cards */
 .grid-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-  gap: var(--gap-l);
-  padding: var(--gap-l);
-  width: 100%;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
 }
 
-.grid-item {
-  background-color: #ffffff;       /* fondo blanco */
-  color: #308c83ff !important;     /* texto en verde azulado */
-  padding: var(--gap-m);
-  border-radius: var(--card-border-radius);
-  box-shadow: 0 4px 8px var(--shadow-color);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  font-size: 0.9rem;
-  margin: 0 1rem;
-  min-width: 400px;
-  max-width: 600px;
+.rutina-card {
+  border-radius: 8px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.rutina-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
-/* Asegurarnos que todo el texto dentro de la card sea ese color */
-.grid-item,
-.grid-item p,
-.mat-card-title p,
-.mat-card-content p {
-  color: #308c83ff !important;
+.card-icon {
+  color: #f25c54;
+  margin-right: 0.5rem;
 }
 
-/* Hover mantiene texto y fondo */
-.grid-item:hover {
-  transform: scale(1.05);
-  box-shadow: 0 2px 8px var(--main-color);
-}
-
-/* Encabezado de tarjeta */
-mat-card-header {
-  background-color: #308c83ff;  /* header en verde azulado */
+.rutina-card mat-card-header {
+  background: #308c83ff;
   color: white;
-  padding: var(--gap-s);
+  align-items: center;
 }
 
-mat-card-header .mat-card-title {
-  font-weight: bold;
+.rutina-card mat-card-content p {
+  display: flex;
+  align-items: center;
+  margin: 0.5rem 0;
+  color: #333;
+}
+.rutina-card mat-card-content mat-icon {
+  margin-right: 0.5rem;
+  color: #308c83ff;
+}
+
+/* No results message */
+.no-results {
+  margin-top: 2rem;
+  color: #e53935;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 1.1rem;
 }
-
-
-/* Encabezado de tarjeta */
-mat-card-header {
-  background-color: #308c83ff;
-  color: white;
-  padding: var(--gap-s);
+.no-results mat-icon {
+  margin-right: 0.5rem;
 }
 
-mat-card-header .mat-card-title {
-  font-weight: bold;
-  font-size: 1.1rem;
-}
-
-
-/* Título de contenido dentro de tarjeta */
-.card-text p {
-  color: white !important; /* color específico solicitado */
-  padding: 0 1rem;
-}
-.card-text p:last-child {
-  margin-bottom: 1rem; /* espacio extra después de “Dificultad” */
-}
-
-/* Contenido de tarjeta */
-mat-card-content {
-  text-align: left;
-  padding: var(--gap-m);
-}
-mat-card-content p {
-  font-size: 0.85rem;
-  line-height: 1.4;
-  color: #000; /* instrucciones en negro */
-}
-
-/* Lista derecha */
-.right-side ul {
-  list-style: none;
+/* Lista de músculos */
+mat-nav-list {
   padding: 0;
-  text-align: left;
 }
-.right-side li {
-  font-size: 1rem;
-  margin: var(--gap-s) 0;
-  color: var(--main-color);
-  font-weight: bold;
-  line-height: 1.5;
+mat-list-item {
+  border-bottom: 1px solid #ececec;
+}
+mat-list-item:last-child {
+  border-bottom: none;
 }
 
-/* Animations */
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateY(50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@media (max-width: 768px) {
+/* Responsive */
+@media (max-width: 900px) {
   .content {
     flex-direction: column;
-    gap: 1rem;
   }
   .left-side, .right-side {
     max-width: 100%;
-    margin: 0;
-    padding: 0;
   }
 }
+/* Asegurar espacio y color en los list-items */
+.right-side mat-list-item {
+  align-items: center;
+  padding: 0.5rem 0;
+}
+
+.right-side mat-list-item mat-icon[matListIcon] {
+  margin-right: 0.75rem;
+  color: #308c83ff;
+}
+
+/* Quitar guiones de lista por si acaso */
+.right-side ul, .right-side li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
