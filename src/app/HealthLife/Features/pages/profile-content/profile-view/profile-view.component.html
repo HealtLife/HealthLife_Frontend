@@ -1,32 +1,20 @@
-<!-- profile-view.component.html -->
-<div class="profile-container">
+<div class="profile-container" *ngIf="currentUser">
   <h2>Mi Perfil</h2>
 
   <mat-card class="card">
     <mat-card-content>
       <div class="form-group">
         <mat-label>Nombre:</mat-label>
-        <p>{{ currentUser?.name }}</p>
+        <p>{{ currentUser.name }}</p>
       </div>
       <div class="form-group">
         <mat-label>Apellido:</mat-label>
-        <p>{{ currentUser?.lastname }}</p>
+        <p>{{ currentUser.lastname }}</p>
       </div>
       <div class="form-group">
         <mat-label>Correo electrónico:</mat-label>
-        <p>{{ currentUser?.email }}</p>
+        <p>{{ currentUser.email }}</p>
       </div>
-      <!--
-      <div class="form-group radio-group">
-        <label>Privacidad:</label>
-        <div class="radio-options">
-          <mat-radio-group [value]="currentUser?.privacy" disabled>
-            <mat-radio-button value="public">Público</mat-radio-button>
-            <mat-radio-button value="private">Privado</mat-radio-button>
-          </mat-radio-group>
-        </div>
-      </div>
-      -->
     </mat-card-content>
     <mat-card-actions class="actions-top">
       <button mat-raised-button color="primary" (click)="onEdit()">
@@ -41,14 +29,16 @@
       <h3>Tu Plan Actual</h3>
     </div>
     <mat-card-content>
-      <div class="subscription-info">
-        <mat-label>Suscripción:</mat-label>
-        <p class="sub-name">{{ subscription?.description || 'Ninguna' }}</p>
-        <p class="sub-detail">💲 Precio: <strong>${{ subscription?.price || 0 }}</strong>/mes</p>
-        <p class="sub-detail">⏳ Meses restantes: <strong>{{ subscription?.monthDuration || 0 }}</strong></p>
-        <p class="sub-tag" *ngIf="subscription?.trial">🆓 Prueba gratuita</p>
-        <p class="sub-tag complete" *ngIf="!subscription?.trial">✅ Plan completo</p>
-      </div>
+      <ng-container *ngIf="subscription; else none">
+        <p><strong>{{ subscription.description }}</strong></p>
+        <p>💲 Precio: <strong>${{ subscription.price }}</strong>/mes</p>
+        <p>⏳ Meses restantes: <strong>{{ subscription.monthDuration }}</strong></p>
+        <p *ngIf="subscription.trial" class="sub-tag">🆓 Prueba gratuita</p>
+        <p *ngIf="!subscription.trial" class="sub-tag complete">✅ Plan completo</p>
+      </ng-container>
+      <ng-template #none>
+        <p>No tienes suscripción activa.</p>
+      </ng-template>
       <p class="promo-text">
         {{ subscription?.trial
         ? '¡Disfruta de todas nuestras funciones durante tu prueba!'
