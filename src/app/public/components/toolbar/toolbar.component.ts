@@ -36,17 +36,16 @@ export class ToolbarComponent implements OnInit {
 
   constructor(protected router: Router, public dialog: MatDialog) {}
 
-  features = [
-    { path: 'home', title: 'Home' },
-    { path: 'home/nutrition', title: 'Nutrition' },
-    { path: 'home/activities', title: 'Activities' },
-    { path: 'notifications', title: 'Notifications' },
-    { path: 'home/analysis', title: 'Analysis' },
-    { path: 'home/community', title: 'Community' },
-    { path: 'home/rutines', title: 'Rutines' },
-    { path: 'profile/view', title: 'Profile' },
-    { path: 'access', title: 'Log Out' },
-
+  features: Array<{ path: string; title: string; icon: string }> = [
+    { path: 'home',            title: 'Home',       icon: 'home' },
+    { path: 'home/nutrition',  title: 'Nutrition',  icon: 'restaurant_menu' },
+    { path: 'home/activities',  title: 'Activities', icon: 'directions_run' },
+    { path: 'notifications',    title: 'Notifications', icon: 'notifications' },
+    { path: 'home/analysis',    title: 'Analysis',   icon: 'analytics' },
+    { path: 'home/community',   title: 'Community',  icon: 'groups' },
+    { path: 'home/rutines',     title: 'Rutines',    icon: 'schedule' },
+    { path: 'profile/view',     title: 'Profile',    icon: 'person' },
+    { path: 'access',           title: 'Log Out',    icon: 'logout' },
   ];
 
 access = [

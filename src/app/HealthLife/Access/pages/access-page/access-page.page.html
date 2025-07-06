@@ -1,41 +1,29 @@
-<section class="hero fade-in">
-  <div class="hero-container">
-    <!-- Imagen -->
-    <div class="hero-image">
-      <img
-        src="https://cambiandoeljuego.com/wp-content/uploads/2023/12/App-para-hacer-ejercicio-960x540.webp"
-        alt="App para hacer ejercicio"
-      />
-    </div>
-
-    <!-- Contenido -->
-    <div class="hero-content">
-      <h1>
-        Mejora tu Bienestar con
-        <span class="brand">HealthLife</span>
-      </h1>
-
-      <p class="subtitle">
-        Saca la mejor versión de ti: conecta tu estilo de vida, recibe insights inteligentes y alcanza tus metas de salud.
-      </p>
-
-      <p class="description">
-        Con HealthLife incorporas el seguimiento integral de tu actividad física, nutrición, descanso y estado de ánimo, todo en una sola app. Adapta tus planes según tu progreso y preferencias.
-      </p>
-
-      <h2 class="features-title">Funciones Destacadas</h2>
-      <ul class="features">
-        <li><strong>Seguimiento Personalizado</strong> de pasos, entrenamientos y calorías.</li>
-        <li><strong>Planes de Nutrición Adaptativos</strong> según tus objetivos.</li>
-        <li><strong>Monitoreo de Sueño</strong> y calidad de descanso.</li>
-        <li><strong>Recomendaciones de Dieta</strong> basadas en tu historial y alergias.</li>
-        <li><strong>Gráficos de Progreso</strong> con comparativas semanales y mensuales.</li>
-        <li><strong>Motivación Diaria</strong> con retos, badges y recordatorios.</li>
-        <li><strong>Comunidad y Grupos</strong> para compartir logros y consejos.</li>
-        <li><strong>Análisis Avanzado de datos</strong> para detectar patrones y oportunidades.</li>
-      </ul>
-
-      <a href="#download" class="cta-button">¡Pruébala Gratis!</a>
+<mat-card class="features-card fade-in">
+  <h2>Funciones Destacadas</h2>
+  <div class="features-grid">
+    <div class="feature-item" *ngFor="let f of features">
+      <mat-icon class="feature-icon">{{ f.icon }}</mat-icon>
+      <div class="feature-content">
+        <strong>{{ f.title }}</strong>
+        <p>{{ f.desc }}</p>
+      </div>
     </div>
   </div>
-</section>
+</mat-card>
+
+<mat-card class="hero-card fade-in">
+  <div class="hero-overlay">
+    <div class="hero-text">
+      <h1>Mejora tu Bienestar con <span class="brand">HealthLife</span></h1>
+      <p class="subtitle">
+        Conecta tu estilo de vida, recibe insights inteligentes y alcanza tus metas.
+      </p>
+      <p class="description">
+        Seguimiento integral de actividad, nutrición, descanso y estado de ánimo en una sola app.
+      </p>
+      <button mat-raised-button color="primary" class="cta-button">
+        ¡Pruébala Gratis!
+      </button>
+    </div>
+  </div>
+</mat-card>
