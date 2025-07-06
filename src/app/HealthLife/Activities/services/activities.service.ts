@@ -1,51 +1,48 @@
+// src/app/shared/services/activities.service.ts
+
 import { Injectable } from '@angular/core';
-import { BaseService } from '../../../shared/services/base.service';
 import { HttpClient } from '@angular/common/http';
-import { Recommendation } from '../models/recommendations.entity';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 
-@Injectable({
-  providedIn: 'root',
-})
-export class ActivitiesService extends BaseService<any> {
-  public endpoint = 'activities';        // Recurso de actividades
-  public endpoint2 = 'recommendations';  // Recurso de recomendaciones
+export interface ActivityDto {
+  id?: number;
+  name: string;
+  description: string;
+  duration: number;
+  userId: number;
+  createdAt?: string;
+  updatedAt?: string;
+}
 
-  constructor(protected override http: HttpClient) {
-    super(http);
+@Injectable({ providedIn: 'root' })
+export class ActivitiesService {
+  private baseUrl = environment.serverBasePath; // e.g. "http://localhost:8080/api/v1"
+
+  constructor(private http: HttpClient) {}
+
+  getAll(): Observable<ActivityDto[]> {
+    return this.http.get<ActivityDto[]>(`${this.baseUrl}/activities`);
   }
 
-  // Método para obtener recomendaciones
-  getRecommendations(): Observable<Recommendation[]> {
-    return this.getAll(this.endpoint2);
+  getById(id: number): Observable<ActivityDto> {
+    return this.http.get<ActivityDto>(`${this.baseUrl}/activities/${id}`);
   }
 
-  // CRUD de actividades
-  getAllActivities(): Observable<any[]> {
-    return this.getAll(this.endpoint);
+  searchByName(name: string): Observable<ActivityDto[]> {
+    return this.http.get<ActivityDto[]>(
+      `${this.baseUrl}/activities/search?name=${encodeURIComponent(name)}`
+    );
   }
 
-  getActivityById(id: number): Observable<any> {
-    return this.getById(this.endpoint, id);
+  create(activity: ActivityDto): Observable<ActivityDto> {
+    return this.http.post<ActivityDto>(
+      `${this.baseUrl}/activities`,
+      activity
+    );
   }
 
-  deleteActivity(id: number): Observable<any> {
-    return this.delete(this.endpoint, id);
-  }
-
-  createActivity(data: any): Observable<any> {
-    return this.create(this.endpoint, data);
-  }
-
-  /**
-   * Búsqueda de actividades
-   * Asume endpoint: GET /activities/search?query=...
-   */
-  searchActivities(query: string): Observable<any[]> {
-    const url = `${environment.serverBasePath}/${this.endpoint}/search`;
-    return this.http.get<any[]>(url, {
-      params: { query }
-    });
+  delete(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/activities/${id}`);
   }
 }

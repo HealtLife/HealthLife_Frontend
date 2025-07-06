@@ -1,140 +1,18 @@
-<div class="dashboard">
-  <!-- Título -->
-  <h1 class="welcome">Bienvenido</h1>
-
-  <!-- Casilla de usuario -->
-  <div class="user-card" *ngIf="currentUser">
-    <span class="user-label">Usuario:</span>
-    <span class="user-name">{{ currentUser.name }} {{ currentUser.lastname }}</span>
+<mat-card class="welcome-card">
+  <h1 class="welcome">
+    Bienvenido, {{ currentUser?.name }} {{ currentUser?.lastname }}!
+  </h1>
+  <div class="phrases">
+    <p *ngFor="let phrase of phrases">{{ phrase }}</p>
   </div>
+</mat-card>
 
-  <!-- Gráficos de hidratación y sueño -->
-  <div class="spinner-container">
-    <div class="spinner-item">
-      <p>Hidratación en las últimas 24h</p>
-      <mat-progress-spinner mode="determinate" [value]="progress_hyd" [diameter]="100"></mat-progress-spinner>
-      <div class="spinner-value">{{ progress_hyd }}%</div>
-      <div style="text-align: center; margin-top: 10px;" *ngIf="latestHydrationData">
-        {{ latestHydrationData }} ml de 2500 ml consumidos
-      </div>
-      <div class="input-container">
-        <form [formGroup]="hydrationForm">
-          <div class="inputs">
-            <mat-form-field appearance="outline">
-              <mat-label>Cantidad consumida (ml)</mat-label>
-              <input matInput type="number" formControlName="ml" required min="0" />
-              <mat-error *ngIf="hydrationForm.controls['ml'].invalid">
-                La cantidad debe ser un número válido
-              </mat-error>
-            </mat-form-field>
-          </div>
-          <button mat-raised-button color="primary" (click)="openModal()" [disabled]="hydrationForm.invalid">
-            Actualizar
-          </button>
-        </form>
-      </div>
-    </div>
-
-    <div class="spinner-item">
-      <p>Horas de sueño en las últimas 24h</p>
-      <mat-progress-spinner mode="determinate" [value]="progress_sleep" [diameter]="100"></mat-progress-spinner>
-      <div class="spinner-value">{{ progress_sleep }}%</div>
-      <div style="text-align: center; margin-top: 10px;">
-        {{ latestSleepData || 0 }} de {{ GOAL_SLEEP }} horas de sueño
-      </div>
-      <div class="input-container">
-        <form [formGroup]="sleepForm">
-          <div class="inputs">
-            <mat-form-field appearance="outline" class="input-field">
-              <mat-label>Horas de sueño</mat-label>
-              <input matInput type="number" formControlName="hours" required min="0" />
-              <mat-error *ngIf="sleepForm.controls['hours'].invalid">
-                La cantidad de horas debe ser un número válido
-              </mat-error>
-            </mat-form-field>
-            <mat-form-field appearance="outline" class="input-field">
-              <mat-label>Calidad del sueño</mat-label>
-              <input
-                matInput
-                formControlName="quality"
-                required
-                placeholder="Ingrese la calidad del sueño"
-              />
-              <mat-error *ngIf="sleepForm.controls['quality'].invalid">
-                La calidad del sueño debe ser válida
-              </mat-error>
-            </mat-form-field>
-          </div>
-          <button mat-raised-button color="primary" (click)="openModalSleep()" [disabled]="sleepForm.invalid">
-            Actualizar
-          </button>
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <!-- Información de la meta -->
-  <div class="goal-container">
-    <div class="goal-item" (click)="openEditGoalModal()">
-      <strong>Información de la meta</strong>
-      <p>Tipo de meta: {{ goal?.goal_type || 'Ninguna' }}</p>
-      <p>Fecha de inicio: {{ goal?.start_date || 'Ninguna' }}</p>
-      <p>Fecha de finalización: {{ goal?.end_date || 'Ninguna' }}</p>
-    </div>
-  </div>
-
-  <!-- Logros -->
-  <div class="achievement-container">
-    <h2>Logros</h2>
-
-    <button mat-flat-button color="primary" class="add-button" (click)="addingNewAchievement = true">
-      Agregar
-    </button>
-
-    <ng-container *ngIf="achievement?.length; else noHistory">
-      <div class="grid-container">
-        <mat-card *ngFor="let a of achievement" class="achievement-card">
-          <mat-card-content>
-            <p>
-              <strong>Logro:</strong>
-              {{ a.achievement }}
-            </p>
-            <p>
-              <strong>Fecha:</strong>
-              {{ a.date }}
-            </p>
-          </mat-card-content>
-          <mat-card-actions align="end">
-            <button mat-icon-button color="warn" aria-label="Eliminar" (click)="deleteAchievement(a.id)">
-              <mat-icon>delete</mat-icon>
-            </button>
-          </mat-card-actions>
-        </mat-card>
-      </div>
-    </ng-container>
-
-    <ng-template #noHistory>
-      <p class="no-history">No tienes logros registrados</p>
-    </ng-template>
-
-    <div *ngIf="addingNewAchievement" class="new-record-form">
-      <h3>Nuevo Logro</h3>
-      <form [formGroup]="newAchievementForm" (ngSubmit)="addNewAchievement()">
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Fecha</mat-label>
-          <input matInput type="date" formControlName="date" required />
-        </mat-form-field>
-
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Descripción</mat-label>
-          <input matInput type="text" formControlName="achievement" required />
-        </mat-form-field>
-
-        <div class="form-actions">
-          <button mat-flat-button color="primary" type="submit">Enviar</button>
-          <button mat-stroked-button type="button" (click)="addingNewAchievement = false">Cancelar</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
+<mat-card class="actions-card">
+  <h2>¿Qué puedes hacer?</h2>
+  <mat-list>
+    <mat-list-item *ngFor="let a of actions" (click)="goTo(a.path)" class="action-item">
+      <mat-icon class="action-icon">{{ a.icon }}</mat-icon>
+      <span class="action-text">{{ a.title }}</span>
+    </mat-list-item>
+  </mat-list>
+</mat-card>

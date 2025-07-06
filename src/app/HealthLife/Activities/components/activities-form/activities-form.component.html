@@ -1,52 +1,36 @@
-<div class="mydiet-form-container">
-  <h2 class="form-title">{{ editMode ? 'Editar Actividad' : 'Agregar Actividad' }}</h2>
+<mat-card class="form-card">
+  <h3>Nueva Actividad</h3>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <mat-form-field appearance="fill">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="name" />
+      <mat-error *ngIf="form.get('name')?.hasError('required')">
+        Nombre es obligatorio
+      </mat-error>
+    </mat-form-field>
 
-  <div class="form-grid">
-    <!-- Formulario (izquierda) -->
-    <section class="form-section">
-      <form #activityForm="ngForm" (ngSubmit)="onSubmit()" class="form-column">
-        <div class="input-group">
-          <mat-form-field appearance="outline" class="form-field">
-            <mat-label>Nombre de la Actividad*</mat-label>
-            <input matInput name="name" [(ngModel)]="activity.name" placeholder="Ingresa el nombre de la actividad" required />
-          </mat-form-field>
-        </div>
+    <mat-form-field appearance="fill">
+      <mat-label>Descripción</mat-label>
+      <textarea matInput formControlName="description"></textarea>
+      <mat-error *ngIf="form.get('description')?.hasError('required')">
+        Descripción es obligatoria
+      </mat-error>
+    </mat-form-field>
 
-        <div class="input-group">
-          <mat-form-field appearance="outline" class="form-field">
-            <mat-label>Descripción*</mat-label>
-            <input matInput name="description" [(ngModel)]="activity.description" placeholder="Descripción de la actividad" required />
-          </mat-form-field>
-        </div>
+    <mat-form-field appearance="fill">
+      <mat-label>Duración (minutos)</mat-label>
+      <input matInput type="number" formControlName="duration" />
+      <mat-error *ngIf="form.get('duration')?.hasError('required')">
+        Duración es obligatoria
+      </mat-error>
+      <mat-error *ngIf="form.get('duration')?.hasError('min')">
+        Duración debe ser al menos 1
+      </mat-error>
+    </mat-form-field>
 
-        <div class="input-group">
-          <mat-form-field appearance="outline" class="form-field">
-            <mat-label>Duración (minutos)*</mat-label>
-            <input matInput type="number" name="duration" [(ngModel)]="activity.duration" placeholder="Duración en minutos" required />
-          </mat-form-field>
-        </div>
-
-        <div class="button-container">
-          <button mat-raised-button color="primary" type="submit">{{ editMode ? 'Actualizar' : 'Agregar' }}</button>
-          <button mat-raised-button color="warn" type="button" (click)="onCancel()">Cancelar</button>
-        </div>
-      </form>
-    </section>
-
-    <!-- Definiciones (derecha) -->
-    <section class="definition-section">
-      <div class="definition-box">
-        <h3>¿Cómo deberías rellenar esto?</h3>
-        <p><strong>Nombre de la Actividad:</strong> Nombre que describe la actividad física.</p>
-        <p><strong>Descripción:</strong> Breve descripción de lo que involucra la actividad.</p>
-        <p><strong>Duración (minutos):</strong> Tiempo estimado para completar la actividad en minutos.</p>
-        <h4>Ejemplos de Actividades:</h4>
-        <ul>
-          <li><strong>Correr:</strong> Actividad cardiovascular que mejora la resistencia y salud del corazón.</li>
-          <li><strong>Hacer Yoga:</strong> Mejora la flexibilidad y reduce el estrés.</li>
-          <li><strong>Entrenamiento de Fuerza:</strong> Ayuda a aumentar la masa muscular y mejorar la fuerza.</li>
-        </ul>
-      </div>
-    </section>
-  </div>
-</div>
+    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+      <mat-icon>add_circle</mat-icon>
+      Crear
+    </button>
+  </form>
+</mat-card>

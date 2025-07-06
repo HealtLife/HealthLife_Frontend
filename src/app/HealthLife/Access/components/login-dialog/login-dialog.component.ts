@@ -66,7 +66,7 @@ export class LoginDialogComponent {
 
     // 1) Obtenemos el usuario por email
     this.authenService.getUserByEmail(email).subscribe(
-      users => {
+      (users) => {
         if (!users || users.length === 0) {
           this.errorMessage = 'Email o contraseña incorrectos';
           return;
@@ -79,6 +79,8 @@ export class LoginDialogComponent {
         if (user.password === password) {
           // Login exitoso: navegamos y cerramos el diálogo
           this.router.navigate(['/home']);
+          localStorage.setItem('userEmail', email);
+          localStorage.setItem('userId', user.id.toString());
           this.dialogRef.close();
         } else {
           this.errorMessage = 'Email o contraseña incorrectos';

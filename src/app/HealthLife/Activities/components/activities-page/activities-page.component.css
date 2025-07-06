@@ -1,74 +1,46 @@
-:host {
-  --clr-primary:   #308C83;
-  --clr-secondary: #f9f9f9;
-  --clr-bg:        #ffffff;
-  --clr-text:      #333333;
-  --radius:        8px;
-  --sp:            16px;
-  --font-base:     Arial, sans-serif;
+.page-card {
+  margin: 2rem auto;
+  padding: 1.5rem;
+  max-width: 1000px;
+  border-radius: 1rem;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* CONTENEDOR GENERAL */
-.activities-page-container {
-  animation: fadeIn 0.8s ease-out;
-  font-family: var(--font-base);
-  padding: var(--sp);
+/* Cabecera */
+.header {
   display: flex;
-  flex-direction: column;
-  gap: var(--sp);
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
 }
 
-/* TÍTULO */
-.activities-page-container h2 {
-  color: var(--clr-primary);
-  font-size: 1.6rem;
-  text-align: center;
-}
-
-/* LAYOUT */
-.content-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--sp);
-}
-
-/* TABLA */
-.table-container {
-  flex: 1 1 60%;
-  background: var(--clr-bg);
-  padding: var(--sp);
-  border-radius: var(--radius);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-}
-
-table.mat-table {
+/* Buscador */
+.search-field {
   width: 100%;
+  max-width: 400px;
+  margin: 0 auto 1.5rem;
+  display: block;
 }
-table.mat-table th {
-  background: var(--clr-primary);
-  color: var(--clr-bg);
-  font-weight: 600;
+
+/* Botones */
+button[mat-icon-button] {
+  margin: 0 0.25rem;
+}
+
+/* Tabla */
+mat-table {
+  width: 100%;
+  overflow: auto;
+}
+
+mat-header-cell {
+  font-weight: bold;
+  background: rgba(48, 140, 131, 0.1);
+}
+
+mat-cell, mat-header-cell {
   padding: 0.75rem;
 }
-table.mat-table td {
-  padding: 0.5rem;
-  color: var(--clr-text);
-  text-align: center;
-}
 
-/* PAGINATOR */
-mat-paginator {
-  margin-top: var(--sp);
-  display: flex;
-  justify-content: flex-end;
-}
-
-/* RESPONSIVE */
-@media (max-width: 800px) {
-  .content-container { flex-direction: column; }
+button[mat-flat-button]{
+  background: #308c83ff;
 }

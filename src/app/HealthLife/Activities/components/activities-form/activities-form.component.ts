@@ -1,83 +1,65 @@
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
-import {FormsModule, NgForm, ReactiveFormsModule} from '@angular/forms';  // Asegúrate de que NgForm esté bien importado
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatTableModule, MatTableDataSource } from '@angular/material/table';
-import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
-import { MatCardModule } from '@angular/material/card';
-import { AuthenApiService } from '../../../Access/services/authen-api.service';
-import { Activities } from '../../models/activities.entity';  // Ajusta la ruta de tu modelo
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
+import { HttpClient }                            from '@angular/common/http';
+import {MatError, MatFormField, MatLabel} from '@angular/material/form-field';
+import {MatButton} from '@angular/material/button';
+import {NgIf} from '@angular/common';
+import {MatInput} from '@angular/material/input';
+import {MatCard} from '@angular/material/card';
+import {MatIconModule} from '@angular/material/icon';
+import {ActivitiesService, ActivityDto} from '../../services/activities.service';
+
 
 @Component({
   selector: 'app-activities-form',
+  templateUrl: './activities-form.component.html',
   standalone: true,
   imports: [
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatCardModule,
+    MatError,
+    MatButton,
+    NgIf,
+    MatLabel,
+    MatInput,
+    MatFormField,
+    MatIconModule,
     ReactiveFormsModule,
-    FormsModule,
+    MatCard
   ],
-  templateUrl: './activities-form.component.html',
   styleUrls: ['./activities-form.component.css']
 })
-export class ActivitiesFormComponent {
-  @Input() activity!: Activities;
-  @Input() editMode: boolean = false;
-  @Output() activityAddRequested = new EventEmitter<Activities>();
-  @Output() activityUpdateRequested = new EventEmitter<Activities>();
-  @Output() cancelRequested = new EventEmitter<void>();
-  @ViewChild('activityForm', { static: false }) activityForm!: NgForm;
+export class ActivitiesFormComponent implements OnInit {
+  @Output() created = new EventEmitter<void>();
+  form!: FormGroup;
 
-  currentUser: any = null;
+  constructor(
+    private fb: FormBuilder,
+    private activitiesSvc: ActivitiesService
+  ) {}
 
-  constructor(private authenService: AuthenApiService) {
-    this.authenService.getCurrentUser().subscribe((user) => {
-      this.currentUser = user;
+  ngOnInit(): void {
+    this.form = this.fb.group({
+      name:        ['', Validators.required],
+      description: ['', Validators.required],
+      duration:    [null, [Validators.required, Validators.min(1)]]
     });
-
-    this.activity = new Activities({});
-    this.activity.userId = this.currentUser.id;
   }
 
-  // Restablece el estado de la edición
-  private resetEditState() {
-    this.activity = new Activities({});
-    this.editMode = false;
-    this.activityForm.reset();
-  }
+  submit(): void {
+    if (this.form.invalid) return
+      ;
+    const userId = Number(localStorage.getItem('userId'));
+    const newActivity: ActivityDto = {
+      ...this.form.value,
+      userId
+    };
 
-  // Método para cancelar la edición o el registro
-  protected onCancel() {
-    this.cancelRequested.emit();
-    this.resetEditState();
-  }
-
-  // Validación del formulario
-  private isValid = () => this.activityForm.valid;
-
-  // Verifica si está en modo edición
-  protected isEditMode = (): boolean => this.editMode;
-
-  // Enviar formulario (agregar o actualizar)
-  protected onSubmit() {
-    if (this.isValid()) {
-      if (this.currentUser) {
-        this.activity.userId = this.currentUser.id;
-      } else {
-        console.error('Usuario no disponible al momento de enviar la actividad');
-        return;
-      }
-
-      const emitter = this.isEditMode() ? this.activityUpdateRequested : this.activityAddRequested;
-      emitter.emit(this.activity);
-      this.resetEditState();
-    } else {
-      console.error('Formulario inválido');
-    }
+    this.activitiesSvc.create(newActivity).subscribe({
+      next: () => {
+        this.form.reset();
+        this.created.emit();
+      },
+      error: err => console.error('Error al crear actividad', err)
+    });
   }
 }
+

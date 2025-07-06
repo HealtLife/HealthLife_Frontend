@@ -1,119 +1,17 @@
-:host {
-  --clr-primary:   #308C83;
-  --clr-secondary: #f9f9f9;
-  --clr-bg:        #ffffff;
-  --clr-text:      #333333;
-  --radius:        6px;
-  --sp:            12px;
-  --font-base:     Arial, sans-serif;
+.form-card {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1rem;
+  border-radius: 1rem;
 }
-
-/* Animaciones */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* Contenedor Principal */
-.mydiet-form-container {
-  animation: fadeIn 0.5s ease-out;
-  padding: var(--sp);
-  background: var(--clr-secondary);
-  border-radius: var(--radius);
-  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-  font-family: var(--font-base);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: var(--sp);
-}
-
-/* Título */
-h2.form-title {
-  font-size: 1.8rem;
-  color: var(--clr-primary);
-  text-align: center;
-  margin-bottom: calc(var(--sp) / 2);
-}
-
-/* Grid de dos columnas */
-.form-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr; /* Dos columnas: formulario a la izquierda y definiciones a la derecha */
-  gap: calc(var(--sp) * 0.8);
+mat-form-field {
   width: 100%;
-  max-width: 1200px;
-}
-
-/* Sección del Formulario y Definición */
-.form-section,
-.definition-section {
-  background: var(--clr-bg);
-  padding: calc(var(--sp) * 0.75);
-  border-radius: var(--radius);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-}
-
-/* Centrar el formulario en la columna izquierda */
-.form-column {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-/* Grupo de Inputs */
-.input-group {
-  margin-bottom: calc(var(--sp) * 0.5);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-/* Campos Mat-Form-Field */
-.mat-form-field {
-  width: 100%;
-  margin-bottom: 0;
-}
-.mat-form-field-appearance-outline .mat-form-field-outline {
-  border-color: var(--clr-primary);
-}
-.mat-form-field-label {
-  color: var(--clr-primary);
-  font-weight: 600;
-}
-
-/* Botones */
-.button-container {
-  display: flex;
-  justify-content: center;
-  gap: var(--sp);
-  margin-top: var(--sp);
+  margin-bottom: 1rem;
 }
 button {
-  min-width: 100px;
-  border-radius: var(--radius);
-  padding: 0.5rem 1.2rem;
-  transition: transform 0.2s ease;
+  display: flex;
+  align-items: center;
 }
-button:hover:not(:disabled) {
-  transform: scale(1.05);
-}
-
-/* Sección de Definiciones */
-.definition-box h3,
-.definition-box h4 {
-  color: var(--clr-primary);
-  margin: 0.5rem 0 0.75rem;
-  font-size: 1.2rem;
-}
-.definition-box p,
-.definition-box li {
-  color: var(--clr-text);
-  font-size: 0.95rem;
-  line-height: 1.4;
-  margin: 0.3rem 0;
-}
-.definition-box ul {
-  padding-left: 1.2rem;
+button mat-icon {
+  margin-right: 0.5rem;
 }

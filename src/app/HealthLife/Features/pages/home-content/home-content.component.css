@@ -1,338 +1,64 @@
-/* ----------------------------------------
-   Espaciador flexible
-   ---------------------------------------- */
-.spacer {
-  flex: 1 1 auto;
-}
-
-/* ----------------------------------------
-   Layout general del Dashboard
-   ---------------------------------------- */
-.dashboard {
+/* Card de bienvenida */
+.welcome-card {
+  background: linear-gradient(45deg, #308c83ff, #80d0c7);
+  color: #fff;
+  padding: 2rem;
+  border-radius: 1rem;
   text-align: center;
-  font-family: Arial, sans-serif;
+  margin: 2rem auto;
+  max-width: 800px;
 }
 
-/* ----------------------------------------
-   Gráficos de hidratación y sueño
-   (sin modificar su tamaño ni lógica)
-   ---------------------------------------- */
-.spinner-container {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  margin-top: 20px;
-}
-
-.spinner-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-width: 150px;
-  padding: 10px;
-  position: relative;
-
-  background-color: #f2f2f2;
-  border: 2px solid #308C83;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-  width: 100%;
-  max-width: 500px;
-  text-align: center;
-}
-
-.spinner-item:hover {
-  transition: 0.5s;
-  transform: scale(1.05);
-}
-
-.spinner-value {
-  position: absolute;
-  top: 23%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 1.1em;
-}
-
-/* ----------------------------------------
-   Inputs dentro de los gráficos
-   ---------------------------------------- */
-.input-field {
-  margin-right: 16px;
-  width: 100%;
-  max-width: 300px;
-}
-.input-container {
-  margin-top: 50px;
-}
-button {
-  margin-top: 16px;
-}
-
-/* ----------------------------------------
-   Título principal de bienvenida
-   ---------------------------------------- */
 .welcome {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.phrases p {
+  font-size: 1.2rem;
+  margin: 0.5rem 0;
+}
+
+/* Card de acciones */
+.actions-card {
+  background: #ffffff;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  margin: 2rem auto;
+  max-width: 800px;
+}
+
+.actions-card h2 {
+  color: #308c83ff;
+  margin-bottom: 1rem;
   text-align: center;
-  margin-top: 10px;
-  font-family: "Helvetica Neue", sans-serif;
 }
 
-/* ----------------------------------------
-   Meta del usuario
-   ---------------------------------------- */
-.goal-container {
+/* Lista de acciones */
+mat-list {
+  padding: 0;
+}
+
+.action-item {
   display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  margin-top: 5%;
-  padding-bottom: 5%;
-  width: 100%;
-  font-size: 20px;
-}
-
-.goal-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.goal-item {
-  padding: 20px;
-  background-color: #f2f2f2;
-  border: 2px solid #308C83;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  align-items: center;
   cursor: pointer;
-  width: 100%;
-  max-width: 500px;
-  text-align: center;
-  transition: background-color 0.3s, transform 0.3s;
-}
-.goal-item:hover {
-  background-color: #e8f5f4;
-  transform: scale(1.05);
+  transition: background 0.3s, transform 0.2s;
 }
 
-/* ----------------------------------------
-   Achievements / Historial
-   ---------------------------------------- */
-.achievement-container h2 {
-  font-size: 2rem;
-  color: #308C83;
-  margin-bottom: 12px;
+.action-item:hover {
+  background: rgba(48, 140, 131, 0.1);
+  transform: translateX(4px);
 }
 
-.add-button {
-  margin-bottom: 16px;
-  animation: pulse 2s infinite;
+/* Icono antes del texto */
+.action-icon {
+  color: #308c83ff;
+  margin-right: 1rem;
+  font-size: 24px;
 }
 
-.delete-button {
-  margin-top: 8px;
-}
-
-/* Layout de acciones en el formulario */
-.new-record-form .form-actions {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  margin-top: 16px;
-}
-
-/* Asegura que los mat-form-field ocupen todo el ancho */
-.new-record-form .full-width {
-  width: 100%;
-  margin-bottom: 12px;
-}
-
-/* Mensaje “no achievements” */
-.no-history {
-  color: #777;
-  margin: 16px 0;
-}
-
-/* Contenedor general */
-.achievement-container {
-  padding: 24px;
-}
-
-/* Título */
-.achievement-container h2 {
-  font-size: 2rem;
-  color: #308C83;
-  margin-bottom: 16px;
-}
-
-/* Botón Add */
-.add-button {
-  margin-bottom: 16px;
-  animation: pulse 2s infinite ease-in-out;
-}
-
-/* Estado “no achievements” */
-.no-history {
-  color: #777;
-  margin: 24px 0;
-  font-style: italic;
-}
-
-/* Grid responsive de cards */
-.grid-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 16px;
-}
-
-/* Card de logro */
-.achievement-card {
-  border: 1px solid #308C83;
-  border-radius: 8px;
-}
-
-/* Formulario de nuevo logro */
-.new-record-form {
-  background-color: #e8f5f4;
-  border-radius: 8px;
-  padding: 24px;
-  max-width: 600px;
-  margin: 24px auto 0;
-}
-
-/* Campos a ancho completo */
-.full-width {
-  width: 100%;
-  margin-bottom: 16px;
-}
-
-/* Acciones del formulario */
-.form-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 12px;
-  margin-top: 16px;
-}
-
-/* Animación pulse (ya la tenías, la volvemos a usar) */
-@keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50%      { transform: scale(1.05); }
-}
-
-/* Reusa keyframes pulse (ya definidos) */
-@keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50%      { transform: scale(1.05); }
-}
-/* ----------------------------------------
-   Formulario de nuevo logro
-   ---------------------------------------- */
-.new-record-form {
-  background-color: #f1f8f6;
-  border-radius: 10px;
-  padding: 20px;
-  margin-top: 20px;
-}
-
-.new-record-form input,
-.new-record-form textarea {
-  width: 90%;
-  padding: 10px;
-  margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-.new-record-form button {
-  background-color: #308C83;
-  padding: 10px 20px;
-}
-
-.new-record-form button[type="button"] {
-  background-color: #a1a1a1;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-.new-record-form label {
-  font-weight: bold;
-  color: #308C83;
-}
-
-/* ----------------------------------------
-   Animación de pulse (para botones)
-   ---------------------------------------- */
-@keyframes pulse {
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-}
-
-/* ----------------------------------------
-   AÑADIDO: Colores de marca en títulos
-   ---------------------------------------- */
-.welcome,
-.spinner-item > p,
-.goal-item strong,
-.achievement-container h2 {
-  color: #308C83;
-}
-
-/* ----------------------------------------
-   AÑADIDO: Casilla de Usuario
-   ---------------------------------------- */
-.user-card {
-  display: inline-block;
-  background: #f2f2f2;
-  border: 2px solid #308C83;
-  border-radius: 8px;
-  padding: 12px 24px;
-  margin: 16px auto 32px;
-  text-align: center;
-  max-width: 400px;
-}
-
-.user-card .user-label {
-  display: block;
-  font-size: 0.9rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 4px;
-  color: #555;
-}
-
-.user-card .user-name {
-  font-size: 1.5rem;
-  font-weight: 600;
+.action-text {
+  font-size: 1rem;
   color: #333;
 }
-
-/* ----------------------------------------
-   AÑADIDO: Diseño y animación para botones
-   ---------------------------------------- */
-button,
-button[mat-raised-button] {
-  background-color: #308C83 !important;
-  color: #fff !important;
-  border-radius: 5px;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-  animation: pulse 2s infinite ease-in-out;
-}
-
-button:disabled,
-button[mat-raised-button]:disabled {
-  background-color: #ccc !important;
-  animation: none;
-  opacity: 0.7;
-  cursor: not-allowed;
-}
-
-button:hover:not(:disabled),
-button[mat-raised-button]:hover:not(:disabled) {
-  transform: scale(1.05);
-}
-
