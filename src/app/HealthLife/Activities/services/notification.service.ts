@@ -1,18 +1,27 @@
+// src/app/HealthLife/Activities/services/notification.service.ts
+
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../../../environments/environment';
 
-@Injectable({
-  providedIn: 'root'
-})
+export interface Notification {
+  id?: number;
+  userId: number;
+  message: string;
+  type: string;
+  status: string;
+  timestamp: string;
+}
+
+@Injectable({ providedIn: 'root' })
 export class NotificationService {
-  private apiUrl = 'http://localhost:8640/api/v1/recomendations/user';  // Base URL para obtener las recomendaciones por usuario
+  private baseUrl = environment.serverBasePath; // http://localhost:8080/api/v1
 
   constructor(private http: HttpClient) {}
 
-  // Método para obtener las notificaciones de un usuario específico usando su userId
-  getNotificationsByUser(userId: string): Observable<any> {
-    const url = `${this.apiUrl}/${userId}`;  // Concatenamos el userId en la URL
-    return this.http.get<any>(url);  // Hacemos la solicitud GET
+  /** GET /notisender/user/{userId} */
+  getByUser(userId: number): Observable<Notification[]> {
+    return this.http.get<Notification[]>(`${this.baseUrl}/notisender/user/${userId}`);
   }
 }

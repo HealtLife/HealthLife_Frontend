@@ -12,6 +12,7 @@ import {CommunityContentComponent} from './HealthLife/Features/pages/community-c
 import {ActivitiesPageComponent} from './HealthLife/Activities/components/activities-page/activities-page.component';
 import {NotificationsComponent} from './HealthLife/Activities/components/notifications/notifications.component';
 import {SubscriptionComponent} from './HealthLife/Features/pages/profile-content/subscription/subscription.component';
+import {RecommendationsComponent} from './HealthLife/Activities/components/recommendations/recommendations.component';
 
 
 export const routes: Routes = [
@@ -25,7 +26,7 @@ export const routes: Routes = [
   { path: 'profile/view', component: ProfileViewComponent }, //{ path: 'profile/view', component: ProfileViewComponent, canActivate: [AuthGuard] },
   { path: 'profile/edit', component: ProfileEditComponent}, // { path: 'profile/edit', component: ProfileEditComponent, canActivate: [AuthGuard] },
   { path: 'profile/payment', component: SubscriptionComponent},
-  { path: 'home/community', component: CommunityContentComponent },
+  { path: 'recommendations', component: RecommendationsComponent },
   { path: '', redirectTo: '/access', pathMatch: 'full' },
   { path: '**', component: NotFoundPage },
 ];

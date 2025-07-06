@@ -1,24 +1,30 @@
-<div class="notification-container">
-  <!-- Mensaje mientras no hay notificaciones -->
-  <div *ngIf="notifications.length === 0 && !loading" class="no-notifications">
-    <p>Esperando mensajes...</p>
-  </div>
-  <!-- Mensaje mientras se cargan las notificaciones -->
-  <div *ngIf="loading" class="loading">
-    <p>Cargando notificaciones...</p>
-  </div>
+<mat-toolbar color="primary" class="toolbar">
+  <mat-icon>notifications_active</mat-icon>
+  <span>Tus notificaciones</span>
+</mat-toolbar>
 
-  <!-- Mostrar las notificaciones -->
-  <div class="notification" *ngFor="let notification of notifications">
-    <div class="notification-header">
-      <h3>{{ notification.title }}</h3>
-      <span class="notification-time">{{ notification.timestamp | date: 'short' }}</span>
+<mat-list class="notif-list" *ngIf="notifications.length; else noNotif">
+  <mat-divider></mat-divider>
+  <mat-list-item *ngFor="let n of notifications">
+    <mat-icon matListAvatar color="accent">chat_bubble_outline</mat-icon>
+    <div matLine class="message">{{ n.message }}</div>
+    <div matLine class="meta">
+      <span class="time">{{ n.timestamp | date:'short' }}</span>
+      <span
+        matBadge="{{ n.status === 'unread' ? '!' : '' }}"
+        matBadgeColor="warn"
+        matBadgeOverlap="false"
+        class="status">{{ n.status | uppercase }}</span>
     </div>
-    <p>{{ notification.message }}</p>
-  </div>
+    <mat-divider></mat-divider>
+  </mat-list-item>
+</mat-list>
 
-  <!-- Mostrar error si no se pudieron cargar las notificaciones -->
-  <div *ngIf="error" class="error">
-    <p>Error al cargar las notificaciones. Intenta nuevamente.</p>
-  </div>
-</div>
+<ng-template #noNotif>
+  <mat-card class="empty-card">
+    <mat-card-content>
+      <mat-icon>hourglass_empty</mat-icon>
+      <p>No tienes notificaciones.</p>
+    </mat-card-content>
+  </mat-card>
+</ng-template>

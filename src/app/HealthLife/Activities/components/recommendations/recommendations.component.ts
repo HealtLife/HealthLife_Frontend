@@ -1,62 +1,87 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {Recommendation} from '../../models/recommendations.entity';
-import {ActivitiesService} from '../../services/activities.service';
-import {NgForOf} from '@angular/common';
-import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from '@angular/material/card';
-import {TranslateModule} from '@ngx-translate/core';
+import { Component, OnInit }                       from '@angular/core';
+import { CommonModule, DatePipe }                  from '@angular/common';
+import { FormsModule }                             from '@angular/forms';
+
+// Angular Material
+import { MatToolbarModule }                        from '@angular/material/toolbar';
+import { MatIconModule }                           from '@angular/material/icon';
+import { MatCardModule }                           from '@angular/material/card';
+import { MatExpansionModule }                      from '@angular/material/expansion';
+import { MatChipsModule }                          from '@angular/material/chips';
+import { MatButtonModule }                         from '@angular/material/button';
+import { MatDividerModule }                        from '@angular/material/divider';
+import { MatProgressSpinnerModule }                from '@angular/material/progress-spinner';
+
+import { Recommendation, RecommendationService }   from '../../services/recommendations.service';
+import {MatFormField, MatLabel} from '@angular/material/form-field';
+import {MatInput} from '@angular/material/input';
 
 @Component({
   selector: 'app-recommendations',
   standalone: true,
   imports: [
-    NgForOf,
-    MatCard,
-    MatCardHeader,
-    MatCardContent,
-    MatCardTitle,
-    TranslateModule
+    CommonModule,                // NgIf, NgFor, DatePipe
+    FormsModule,                 // ngModel
+
+    MatChipsModule,
+    MatToolbarModule,            // <mat-toolbar>
+    MatIconModule,               // <mat-icon>
+    MatCardModule,               // <mat-card>
+    MatExpansionModule,          // <mat-accordion>, <mat-expansion-panel>, <mat-expansion-panel-header>
+    MatChipsModule,              // <mat-chip-list>, <mat-chip>
+    MatButtonModule,             // mat-button, mat-stroked-button, etc.
+    MatDividerModule,            // <mat-divider>
+    MatProgressSpinnerModule,
+    MatFormField,
+    MatInput,
+    MatLabel
+    // <mat-spinner>
   ],
   templateUrl: './recommendations.component.html',
-  styleUrl: './recommendations.component.css'
+  styleUrls: ['./recommendations.component.css']
 })
 export class RecommendationsComponent implements OnInit {
-  @ViewChild('recommendationsList', { static: false }) recommendationsList!: ElementRef;
   recommendations: Recommendation[] = [];
+  loading = false;
+  newMessage = '';
 
-  constructor(private activitiesService: ActivitiesService) {}
+  constructor(private recSvc: RecommendationService) {}
 
   ngOnInit(): void {
-    this.loadRecommendations();
+    this.fetch();
   }
 
-  private loadRecommendations() {
-    this.activitiesService.getRecommendations().subscribe({
-      next: (data: Recommendation[]) => {
+  fetch(): void {
+    this.loading = true;
+    this.recSvc.getAll().subscribe({
+      next: data => {
         this.recommendations = data;
+        this.loading = false;
       },
-      error: (err) => {
-        console.error('Error fetching recommendations', err);
-      }
+      error: () => this.loading = false
     });
   }
 
-  scrollLeft() {
-    const scrollAmount = 300;
-    this.recommendationsList.nativeElement.scrollBy({
-      top: 0,
-      left: -scrollAmount,
-      behavior: 'smooth'
+  send(): void {
+    const userId = Number(localStorage.getItem('userId'));
+    if (!this.newMessage.trim() || !userId) return;
+
+    const payload: Partial<Recommendation> = {
+      userId,
+      nutritionistId: null,
+      message: this.newMessage.trim(),
+      answer: '',
+      type: 'user',
+      status: 'pending',
+      timestamp: new Date().toISOString()
+    };
+
+    this.recSvc.create(payload).subscribe({
+      next: () => {
+        this.newMessage = '';
+        this.fetch();
+      },
+      error: err => console.error('Error al enviar recomendación', err)
     });
   }
-
-  scrollRight() {
-    const scrollAmount = 300;
-    this.recommendationsList.nativeElement.scrollBy({
-      top: 0,
-      left: scrollAmount,
-      behavior: 'smooth'
-    });
-  }
-
-
 }

@@ -1,54 +1,57 @@
-import { Component, OnInit } from '@angular/core';
-import { NotificationService } from '../../services/notification.service';
-import {DatePipe, NgForOf, NgIf} from '@angular/common';
+// src/app/HealthLife/Activities/components/notifications/notifications.component.ts
+
+import { Component, OnInit }             from '@angular/core';
+import { CommonModule }        from '@angular/common';
+import { FormsModule }         from '@angular/forms';
+import { MatIconModule }       from '@angular/material/icon';
+import { MatCardModule }       from '@angular/material/card';
+import { MatFormFieldModule }  from '@angular/material/form-field';
+import { MatInputModule }      from '@angular/material/input';
+import { MatButtonModule }     from '@angular/material/button';
+import { MatDividerModule }    from '@angular/material/divider';
+
+import {
+  Notification,
+  NotificationService
+} from '../../services/notification.service';
+import {MatBadge} from '@angular/material/badge';
+import {MatList, MatListItem} from '@angular/material/list';
+import {MatToolbar} from '@angular/material/toolbar';
+import {MatLine} from '@angular/material/core';
 
 @Component({
   selector: 'app-notifications',
-  templateUrl: './notifications.component.html',
   standalone: true,
   imports: [
-    DatePipe,
-    NgIf,
-    NgForOf
+    CommonModule,
+    FormsModule,
+    MatIconModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatDividerModule,
+    MatBadge,
+    MatListItem,
+    MatList,
+    MatToolbar,
+    MatLine
   ],
+  templateUrl: './notifications.component.html',
   styleUrls: ['./notifications.component.css']
 })
 export class NotificationsComponent implements OnInit {
-  notifications: Array<any> = [];
-  loading: boolean = true;
-  error: boolean = false;
-  errorMessage: string = '';
-  userId: string = '123';  // Aquí puedes pasar el userId de alguna fuente, por ejemplo, el usuario logueado
+  notifications: Notification[] = [];
 
-  constructor(private notificationService: NotificationService) {}
+  constructor(private notifSvc: NotificationService) {}
 
   ngOnInit(): void {
-    this.loadNotifications();
-  }
-
-  // Llamamos al servicio para obtener las notificaciones del usuario específico
-  loadNotifications(): void {
-    this.notificationService.getNotificationsByUser(this.userId).subscribe(
-      (data: any) => {
-        this.notifications = data;  // Asignamos las notificaciones obtenidas
-        this.loading = false;        // Deja de mostrar "Cargando"
-      },
-      (error: any) => {
-        console.error('Error al obtener las notificaciones:', error);
-        this.error = true;           // Muestra el mensaje de error
-        this.loading = false;        // Deja de mostrar "Cargando"
-
-        // Asignar el mensaje de error adecuado
-        if (error.status === 0) {
-          this.errorMessage = 'No se pudo conectar al servidor. Por favor, revisa tu conexión.';
-        } else if (error.status >= 500) {
-          this.errorMessage = 'Hubo un problema en el servidor. Intenta nuevamente más tarde.';
-        } else if (error.status >= 400) {
-          this.errorMessage = 'Hubo un error al obtener las notificaciones. Por favor, intenta nuevamente.';
-        } else {
-          this.errorMessage = 'Ocurrió un error inesperado. Intenta nuevamente.';
-        }
-      }
-    );
+    const userId = Number(localStorage.getItem('userId'));
+    if (userId) {
+      this.notifSvc.getByUser(userId).subscribe(
+        list => this.notifications = list,
+        err  => console.error('Error al cargar notificaciones', err)
+      );
+    }
   }
 }

@@ -42,7 +42,7 @@ export class ToolbarComponent implements OnInit {
     { path: 'home/activities',  title: 'Activities', icon: 'directions_run' },
     { path: 'notifications',    title: 'Notifications', icon: 'notifications' },
     { path: 'home/analysis',    title: 'Analysis',   icon: 'analytics' },
-    { path: 'home/community',   title: 'Community',  icon: 'groups' },
+    { path: 'recommendations',   title: 'Recommendations',  icon: 'recommendations' },
     { path: 'home/rutines',     title: 'Rutines',    icon: 'schedule' },
     { path: 'profile/view',     title: 'Profile',    icon: 'person' },
     { path: 'access',           title: 'Log Out',    icon: 'logout' },
