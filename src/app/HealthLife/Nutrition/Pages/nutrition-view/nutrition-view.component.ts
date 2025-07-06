@@ -53,20 +53,34 @@ export class NutritionViewComponent implements OnInit {
   ngOnInit(): void {
     const dni = localStorage.getItem('userDni')!;
 
-    // 1) Construir el formulario con FormArrays y FormGroups
+    // 1) Inicializa el FormGroup
     this.form = this.fb.group({
       personalInfo: this.fb.group({
-        dni:       [dni, Validators.required],
-        firstName: ['', Validators.required],
-        lastName: ['', Validators.required],
-        birthDate: ['', Validators.required],
-        gender: ['', Validators.required],
+        dni:             [dni, Validators.required],
+        fechaNacimiento: ["", Validators.required],
+        genero:          ["", Validators.required],
+        tipoCuerpo:      [""],
+        imc:             [""]
       }),
-      allergies: this.fb.array([]),
-      weightHeight: this.fb.array([]),
-      vaccines: this.fb.array([]),
-      prescriptions: this.fb.array([]),
-      medicalNotes: this.fb.array([])
+      allergies:      this.fb.array([]),
+      weightHeight:   this.fb.array([]),
+      vaccines:       this.fb.array([]),
+      prescriptions:  this.fb.array([]),
+      medicalNotes:   this.fb.array([])
+    });
+
+    // 2) Carga y mapea PersonalInfo (una sola vez)
+    this.svc.getPersonalInfo(dni).subscribe({
+      next: pi => {
+        this.form.get('personalInfo')!.patchValue({
+          dni:             pi.dni,
+          fechaNacimiento: pi.fechaNacimiento,
+          genero:          pi.genero,
+          tipoCuerpo:      pi.tipoCuerpo,
+          imc:             pi.imc
+        });
+      },
+      error: err => console.error('Error cargando info personal', err)
     });
 
     // 2) Cargar datos de backend y parchear los FormGroups/FormArrays
@@ -232,25 +246,20 @@ export class NutritionViewComponent implements OnInit {
 
   /** Crea un nuevo registro de PersonalInfo */
   createPersonalInfo(): void {
-    const piRaw = this.form.get('personalInfo')!.getRawValue() as Models.PersonalInfo;
-    this.svc.createPersonalInfo(piRaw).subscribe({
-      next: created => {
-        console.log('Personal info creada', created);
-      },
+    const payload = this.form.get('personalInfo')!.value;
+    console.log('Payload creación:', payload);
+    this.svc.createPersonalInfo(payload).subscribe({
+      next: created => console.log('Personal info creada', created),
       error: err => console.error('Error al crear personal info', err)
     });
   }
 
   /** Actualiza el registro existente de PersonalInfo */
   savePersonalInfo(): void {
-    const piRaw = this.form.get('personalInfo')!.getRawValue() as Models.PersonalInfo;
-    this.svc.updatePersonalInfo(piRaw.dni, piRaw).subscribe({
-      next: updated => {
-        console.log('Personal info actualizada', updated);
-      },
+    const payload = this.form.get('personalInfo')!.value;
+    this.svc.updatePersonalInfo(payload.dni, payload).subscribe({
+      next: updated => console.log('Personal info actualizada', updated),
       error: err => console.error('Error al actualizar personal info', err)
     });
   }
 }
-
-

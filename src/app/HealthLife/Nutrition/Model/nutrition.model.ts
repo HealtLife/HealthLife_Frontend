@@ -29,13 +29,13 @@ export interface Muscle {
 }
 
 export interface PersonalInfo {
-  id?: number;
-  dni: string;
-  firstName: string;
-  lastName: string;
-  birthDate: string;
-  gender: string;
+  dni:             string;
+  fechaNacimiento: string;
+  genero:          string;
+  tipoCuerpo?:     string;
+  imc?:            number;
 }
+
 
 export interface Prescription {
   id?: number;

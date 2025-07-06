@@ -26,16 +26,17 @@
         </mat-form-field>
       </div>
 
-      <!-- Segunda fila: Apellido + Género -->
       <div class="grid-two-cols">
+        <!-- Apellido -->
         <mat-form-field appearance="fill" class="full-width">
           <mat-label>Apellido</mat-label>
           <input matInput formControlName="lastName">
         </mat-form-field>
+
+        <!-- Género (solo select, sin input) -->
         <mat-form-field appearance="fill" class="full-width">
           <mat-label>Género</mat-label>
-          <input matInput formControlName="gender">
-          <mat-select formControlName="gender" placeholder="Selecciona...">
+          <mat-select formControlName="genero" placeholder="Selecciona...">
             <mat-option value="Masculino">Masculino</mat-option>
             <mat-option value="Femenino">Femenino</mat-option>
             <mat-option value="Otro">Otro</mat-option>
@@ -47,7 +48,7 @@
       <div class="grid-two-cols">
         <mat-form-field appearance="fill" class="full-width">
           <mat-label>Fecha de Nacimiento</mat-label>
-          <input matInput type="date" formControlName="birthDate">
+          <input matInput type="date" formControlName="fechaNacimiento">
         </mat-form-field>
         <div></div>
       </div>
@@ -64,7 +65,7 @@
         </mat-form-field>
         <mat-form-field appearance="fill" class="full-width">
           <mat-label>IMC</mat-label>
-          <input matInput type="number" formControlName="imc" readonly>
+          <input matInput type="number" formControlName="imc">
           <mat-hint align="end">
             ¿No sabes tu IMC?
             <a routerLink="/home/analysis">Calcúlalo aquí</a>
