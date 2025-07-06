@@ -12,11 +12,13 @@ export class AuthenApiService {
 
   /** Registro de usuario sin suscripción */
   register(userData: any): Observable<any> {
+    console.log('Registering user with data:', userData);
     return this.http.post(`${this.baseUrl}/users`, userData);
   }
 
   /** Registro de suscripción para un usuario */
   registerSubscription(userId: number, subscriptionData: any): Observable<any> {
+    console.log('Registering subscription for user ID:', userId);
     return this.http.post(
       `${this.baseUrl}/users/${userId}/subscription`,
       subscriptionData

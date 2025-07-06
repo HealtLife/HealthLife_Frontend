@@ -84,19 +84,7 @@ export class RegisterDialogComponent implements OnInit {
           // Llamamos correctamente con dos argumentos:
           // 1) userResponse.id
           // 2) subscriptionData
-          this.authenService.registerSubscription(userResponse.id, subscriptionData)
-            .subscribe(
-              subscriptionResponse => {
-                console.log('Subscription Created:', subscriptionResponse);
-                this.router.navigate(['/access']);
-                alert("Registro completado");
-                this.dialogRef.close();
-              },
-              err => {
-                console.error('Error al crear la suscripción', err);
-                this.errorMessage = 'Error al crear la suscripción';
-              }
-            );
+          
         },
         err => {
           console.error('Error creating user:', err);
