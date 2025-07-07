@@ -81,7 +81,7 @@ export class LoginDialogComponent {
           this.router.navigate(['/home']);
           localStorage.setItem('userEmail', email);
           localStorage.setItem('userId', user.id.toString());
-          localStorage.setItem('userDni', user.userDni || ''); // Guardamos el DNI si existe
+          localStorage.setItem('userDni', user.userDni || '');
           localStorage.setItem('userName', user.name || '');
           localStorage.setItem('userLastname', user.lastname || '');
           this.dialogRef.close();

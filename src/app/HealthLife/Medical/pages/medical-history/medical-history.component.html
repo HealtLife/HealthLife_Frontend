@@ -11,7 +11,7 @@
         <mat-accordion multi>
 
           <!-- Información Personal -->
-          <mat-expansion-panel>
+          <mat-expansion-panel  *ngIf="personalInfo">
             <mat-expansion-panel-header>
               <mat-panel-title>
                 <mat-icon>person</mat-icon>
@@ -19,7 +19,7 @@
               </mat-panel-title>
             </mat-expansion-panel-header>
             <mat-list>
-              <mat-list-item><strong>DNI:</strong> {{ personalInfo?.dni }}</mat-list-item>
+              <mat-list-item><strong>DNI:</strong> {{ personalInfo.dni }}</mat-list-item>
               <mat-list-item><strong>Fecha Nac.:</strong> {{ personalInfo?.fechaNacimiento }}</mat-list-item>
               <mat-list-item><strong>Género:</strong> {{ personalInfo?.genero }}</mat-list-item>
               <mat-list-item><strong>Tipo Cuerpo:</strong> {{ personalInfo?.tipoCuerpo }}</mat-list-item>
@@ -28,37 +28,46 @@
           </mat-expansion-panel>
 
           <!-- Peso & Altura -->
-          <mat-expansion-panel>
+          <mat-expansion-panel *ngIf="weightHeight.length > 0">
             <mat-expansion-panel-header>
               <mat-panel-title>
                 <mat-icon>fitness_center</mat-icon>
                 Peso & Altura
               </mat-panel-title>
             </mat-expansion-panel-header>
+
             <mat-list>
               <mat-list-item *ngFor="let w of weightHeight">
-                {{ w.date }} — {{ w.weightKg }} kg / {{ w.heightCm }} cm
+                {{ w.peso }} kg / {{ w.altura }} cm
               </mat-list-item>
             </mat-list>
           </mat-expansion-panel>
 
+          <ng-container *ngIf="weightHeight.length === 0">
+            <p>No hay registros de peso y altura.</p>
+          </ng-container>
+
+
           <!-- Vacunas -->
-          <mat-expansion-panel>
+          <mat-expansion-panel *ngIf="vaccines.length > 0">
             <mat-expansion-panel-header>
               <mat-panel-title>
                 <mat-icon>vaccines</mat-icon>
                 Vacunas
               </mat-panel-title>
             </mat-expansion-panel-header>
+
             <mat-list>
               <mat-list-item *ngFor="let v of vaccines">
-                {{ v.date }} — {{ v.name }}
+                {{ v.vacuna }} — {{ v.fechaAplicacion | date:'dd/MM/yyyy' }}
               </mat-list-item>
             </mat-list>
           </mat-expansion-panel>
+          <p *ngIf="vaccines.length === 0">No hay registros de vacunas.</p>
+
 
           <!-- Prescripciones -->
-          <mat-expansion-panel>
+          <mat-expansion-panel *ngIf="prescriptions.length > 0">
             <mat-expansion-panel-header>
               <mat-panel-title>
                 <mat-icon>medication</mat-icon>
@@ -67,13 +76,15 @@
             </mat-expansion-panel-header>
             <mat-list>
               <mat-list-item *ngFor="let p of prescriptions">
-                {{ p.medication }} — {{ p.dosage }} / {{ p.frequency }}
+                <!-- Aquí decides el formato: nombre — médico (fecha) -->
+                {{ p.prescripcion }} — Dr. {{ p.medico }} ({{ p.fecha_receta | date:'dd/MM/yyyy' }})
               </mat-list-item>
             </mat-list>
           </mat-expansion-panel>
+          <p *ngIf="prescriptions.length === 0">No hay prescripciones registradas.</p>
 
-          <!-- Notas Médicas -->
-          <mat-expansion-panel>
+
+          <mat-expansion-panel *ngIf="medicalNotes.length > 0">
             <mat-expansion-panel-header>
               <mat-panel-title>
                 <mat-icon>note_add</mat-icon>
@@ -82,10 +93,16 @@
             </mat-expansion-panel-header>
             <mat-list>
               <mat-list-item *ngFor="let n of medicalNotes">
-                {{ n.date }} — {{ n.note }}
+                <!-- Comprueba si hay fecha -->
+                <ng-container *ngIf="n.fecha_nota">
+                  {{ n.fecha_nota | date:'dd/MM/yyyy' }} —
+                </ng-container>
+                {{ n.notes }} (Dr. {{ n.autor }})
               </mat-list-item>
             </mat-list>
           </mat-expansion-panel>
+          <p *ngIf="medicalNotes.length === 0">No hay notas médicas.</p>
+
 
           <!-- Alergias -->
           <mat-expansion-panel>
@@ -97,11 +114,11 @@
             </mat-expansion-panel-header>
             <mat-list>
               <mat-list-item *ngFor="let a of allergies">
-                {{ a.name }} (Sev.: {{ a.severity }})
+                {{ a.alergia }} (Sev.: {{ a.reaccion }})
               </mat-list-item>
             </mat-list>
           </mat-expansion-panel>
-
+          <p *ngIf="allergies.length === 0">No hay registros de alergias.</p>
         </mat-accordion>
       </mat-card-content>
     </mat-card>

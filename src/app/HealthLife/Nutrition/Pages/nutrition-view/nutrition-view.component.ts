@@ -59,6 +59,7 @@ export class NutritionViewComponent implements OnInit {
     const dni = localStorage.getItem('userDni')!;
     const name = localStorage.getItem('userName') || 'Usuario';
     const lastname = localStorage.getItem('userLastname') || 'Desconocido';
+    const stored = localStorage.getItem('userDni');
     console.log('DNI cargado desde localStorage:', dni);
     console.log('Nombre cargado desde localStorage:', name);
     console.log('Apellido cargado desde localStorage:', lastname);
@@ -81,37 +82,36 @@ export class NutritionViewComponent implements OnInit {
       medicalNotes:   this.fb.array([])
     });
 
-    // 2) Carga y mapea PersonalInfo (una sola vez)
     this.svc.getPersonalInfo(dni).subscribe({
       next: pi => {
-        console.log('✅ Personal Info recibida:', pi); // 👈 aquí verás "Mesomorfo" y más
+        console.log('✅ Personal Info recibida:', pi);
         this.form.get('personalInfo')!.patchValue(pi);
       },
       error: err => console.error('Error cargando info personal', err)
     });
 
 
-    
+
     if(this.showAllergies) {
       this.svc.getAllergies(dni).subscribe({
         next: list => this.setFormArray('allergies', list),
         error: err => console.error('Error cargando alergias', err)
       });
     }
-    
+
     if(this.showWeightHeight) {
       this.svc.getWeightHeights(dni).subscribe({
         next: list => this.setFormArray('weightHeight', list),
         error: err => console.error('Error cargando peso/altura', err)
       });
-    } 
+    }
 
     if(this.showVaccines) {
       this.svc.getVaccines(dni).subscribe({
         next: list => this.setFormArray('vaccines', list),
         error: err => console.error('Error cargando vacunas', err)
       });
-    } 
+    }
 
     if(this.showPrescriptions) {
       this.svc.getPrescriptions(dni).subscribe({
@@ -119,7 +119,7 @@ export class NutritionViewComponent implements OnInit {
         error: err => console.error('Error cargando prescripciones', err)
       });
     }
-    
+
     if(this.showMedicalNotes) {
       this.svc.getMedicalNotes(dni).subscribe({
         next: list => this.setFormArray('medicalNotes', list),
@@ -127,7 +127,7 @@ export class NutritionViewComponent implements OnInit {
       });
     }
 
-    
+
 
     /*// 3) Cargar catálogos de fitness (para selects, si procede)
     this.svc.getMuscles().subscribe({
@@ -223,7 +223,7 @@ export class NutritionViewComponent implements OnInit {
     }
   }
 
-  
+
   addAllergy(): void {
     const dni = this.form.get('personalInfo')!.value.dni;
     this.allergies.push(this.fb.group({
@@ -364,7 +364,7 @@ export class NutritionViewComponent implements OnInit {
   }
 }
 
-  
+
 
   addMedicalNote(): void {
   const dni = this.form.get('personalInfo')!.value.dni;
@@ -390,18 +390,25 @@ export class NutritionViewComponent implements OnInit {
     const payload = this.form.get('personalInfo')!.value;
     console.log('Payload creación:', payload);
     this.svc.createPersonalInfo(payload).subscribe({
-      next: created => console.log('Personal info creada', created),
+      next: created => {
+        console.log('Personal info creada', created);
+        // guarda DNI con tu clave personalizada:
+        localStorage.setItem('miDniPersonalizado', String(payload.dni));
+        console.log(`DNI guardado: ${payload.dni}`);
+      },
       error: err => console.error('Error al crear personal info', err)
     });
   }
 
-  /** Actualiza el registro existente de PersonalInfo */
   savePersonalInfo(): void {
     const payload = this.form.get('personalInfo')!.value;
     this.svc.updatePersonalInfo(payload.dni, payload).subscribe({
-      next: updated => console.log('Personal info actualizada', updated),
+      next: updated => {
+        console.log('Personal info actualizada', updated);
+        // guarda DNI con tu clave personalizada:
+        localStorage.setItem('miDniPersonalizado', String(payload.dni));
+      },
       error: err => console.error('Error al actualizar personal info', err)
     });
-    localStorage.setItem('userDni', String(payload.dni));
   }
 }

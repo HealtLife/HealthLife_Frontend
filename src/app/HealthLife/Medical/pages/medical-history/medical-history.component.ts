@@ -51,68 +51,125 @@ import {MatDividerModule} from '@angular/material/divider';
   styleUrls: ['./medical-history.component.css']
 })
 export class MedicalHistoryComponent implements OnInit {
-  dni = localStorage.getItem('userDni') || '';
-
-  personalInfo?: PersonalInfo;
+  // ——— Variables principales ———
+  dni: string = '';
+  personalInfo!: PersonalInfo;
   weightHeight: WeightHeight[] = [];
   vaccines: Vaccine[] = [];
   prescriptions: Prescription[] = [];
   medicalNotes: MedicalNote[] = [];
   allergies: Allergy[] = [];
-
-  reportForm: FormGroup;
   reports: Report[] = [];
 
-  // Campos para IMC
+  // ——— IMC ———
   imcWeight: number = 0;
-  imcHeight: number = 0; // en centímetros
+  imcHeight: number = 0;
   calculatedImc: number | null = null;
 
+  // ——— Formulario de reportes ———
+  reportForm: FormGroup;
+
   constructor(
+    private fb: FormBuilder,
     private svc: MedicalHistoryService,
-    private reportSvc: ReportService,
-    private fb: FormBuilder
+    private reportSvc: ReportService
   ) {
+    // Inicializa el form de reportes
     this.reportForm = this.fb.group({
-      titulo:       ['Historial ' + this.dni],
-      info:         [true],
-      weightHeight: [true],
-      vaccine:      [true],
-      prescription: [true],
-      notes:        [true],
-      allergies:    [true]
+      titulo: [''],
+      info: [false],
+      weightHeight: [false],
+      vaccine: [false],
+      prescription: [false],
+      notes: [false],
+      allergies: [false]
     });
   }
 
   ngOnInit(): void {
-    // Carga de datos
-    this.svc.getPersonalInfo(this.dni).subscribe(pi => this.personalInfo = pi);
-    this.svc.getWeightHeight(this.dni).subscribe(w => this.weightHeight = w);
-    this.svc.getVaccines(this.dni).subscribe(v => this.vaccines = v);
-    this.svc.getPrescriptions(this.dni).subscribe(p => this.prescriptions = p);
-    this.svc.getMedicalNotes(this.dni).subscribe(n => this.medicalNotes = n);
-    this.svc.getAllergies(this.dni).subscribe(a => this.allergies = a);
+    // 1) Cargo el DNI desde localStorage
+    this.dni = localStorage.getItem('miDniPersonalizado') || '';
+    if (!this.dni) {
+      console.warn('No hay DNI configurado en localStorage');
+      return;
+    }
+
+    // 2) Consultas al backend
+    this.svc.getPersonalInfo(this.dni)
+      .subscribe({
+        next: pi => this.personalInfo = pi,
+        error: err => console.error('Error personalInfo', err)
+      });
+
+    this.svc.getWeightHeight(this.dni)
+      .subscribe({
+        next: w => this.weightHeight = w,
+        error: err => console.error('Error peso/altura', err)
+      });
+
+    this.svc.getVaccines(this.dni)
+      .subscribe({
+        next: v => this.vaccines = v,
+        error: err => console.error('Error vacunas', err)
+      });
+
+    this.svc.getPrescriptions(this.dni)
+      .subscribe({
+        next: p => this.prescriptions = p,
+        error: err => console.error('Error prescripciones', err)
+      });
+
+    this.svc.getMedicalNotes(this.dni)
+      .subscribe({
+        next: n => this.medicalNotes = n,
+        error: err => console.error('Error notas médicas', err)
+      });
+
+    this.svc.getAllergies(this.dni)
+      .subscribe({
+        next: a => this.allergies = a,
+        error: err => console.error('Error alergias', err)
+      });
+
+    // 3) Cargo también los reportes ya generados
     this.loadReports();
   }
 
   private loadReports(): void {
-    this.reportSvc.listByUser(this.dni).subscribe(r => this.reports = r);
+    this.reportSvc.listByUser(this.dni)
+      .subscribe({
+        next: r => this.reports = r,
+        error: err => console.error('Error reportes', err)
+      });
   }
 
+  /** Genera un nuevo reporte */
   onGenerate(): void {
-    const req: ReportRequest = { userDni: this.dni, ...this.reportForm.value };
-    this.reportSvc.create(req).subscribe(() => this.loadReports());
+    const req: ReportRequest = {
+      userDni: this.dni,
+      ...this.reportForm.value
+    };
+    this.reportSvc.create(req)
+      .subscribe({
+        next: () => this.loadReports(),
+        error: err => console.error('Error al generar reporte', err)
+      });
   }
 
+  /** Descarga el blob PDF que venga del servidor */
   onDownload(r: Report): void {
-    this.reportSvc.download(r.url).subscribe(blob => {
-      const url = window.URL.createObjectURL(blob);
-      const a   = document.createElement('a');
-      a.href    = url;
-      a.download = r.url;
-      a.click();
-      window.URL.revokeObjectURL(url);
-    });
+    this.reportSvc.download(r.url)
+      .subscribe({
+        next: blob => {
+          const url = window.URL.createObjectURL(blob);
+          const a   = document.createElement('a');
+          a.href    = url;
+          a.download = r.url;
+          a.click();
+          window.URL.revokeObjectURL(url);
+        },
+        error: err => console.error('Error al descargar reporte', err)
+      });
   }
 
   /** Calcula el IMC: kg / (m * m) */

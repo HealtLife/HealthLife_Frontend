@@ -72,7 +72,7 @@ export class RegisterDialogComponent implements OnInit {
       this.authenService.register(newUser).subscribe(
         userResponse => {
           console.log('User Created:', userResponse);
-
+          this.errorMessage = 'Usuario creado exitosamente';
           // Ahora preparamos sólo los datos de suscripción
           const subscriptionData = {
             description: plan,
@@ -84,7 +84,7 @@ export class RegisterDialogComponent implements OnInit {
           // Llamamos correctamente con dos argumentos:
           // 1) userResponse.id
           // 2) subscriptionData
-          
+
         },
         err => {
           console.error('Error creating user:', err);
