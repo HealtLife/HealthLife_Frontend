@@ -13,20 +13,21 @@ import {NotificationsComponent} from './HealthLife/Activities/components/notific
 import {SubscriptionComponent} from './HealthLife/Features/pages/profile-content/subscription/subscription.component';
 import {RecommendationsComponent} from './HealthLife/Activities/components/recommendations/recommendations.component';
 import {NutritionViewComponent} from './HealthLife/Nutrition/Pages/nutrition-view/nutrition-view.component';
+import {MedicalHistoryComponent} from './HealthLife/Medical/pages/medical-history/medical-history.component';
 
 
 export const routes: Routes = [
-  { path: 'home', component: HomeContentComponent}, // { path: 'home', component: HomeContentComponent, canActivate: [AuthGuard] },
-  { path: 'home/analysis', component: AnalysisContentPage },
-  { path: 'home/nutrition', component: NutritionViewComponent},
+  { path: 'home', component: HomeContentComponent}, // { path: 'home', component: HomeContentComponent,  },
+  { path: 'medical', component: MedicalHistoryComponent},
+  { path: 'nutrition', component: NutritionViewComponent},
   {path: 'home/rutines', component: RutinaListComponent},
-  { path: 'home/activities', component: ActivitiesPageComponent},
+  { path: 'activities', component: ActivitiesPageComponent},
   { path: 'notifications', component: NotificationsComponent},
-  { path: 'access', component: AccessPagePage },
-  { path: 'profile/view', component: ProfileViewComponent }, //{ path: 'profile/view', component: ProfileViewComponent, canActivate: [AuthGuard] },
+  { path: 'access', component: AccessPagePage},
+  { path: 'profile/view', component: ProfileViewComponent}, //{ path: 'profile/view', component: ProfileViewComponent, canActivate: [AuthGuard] },
   { path: 'profile/edit', component: ProfileEditComponent}, // { path: 'profile/edit', component: ProfileEditComponent, canActivate: [AuthGuard] },
   { path: 'profile/payment', component: SubscriptionComponent},
-  { path: 'recommendations', component: RecommendationsComponent },
+  { path: 'recommendations', component: RecommendationsComponent},
   { path: '', redirectTo: '/access', pathMatch: 'full' },
   { path: '**', component: NotFoundPage },
 ];

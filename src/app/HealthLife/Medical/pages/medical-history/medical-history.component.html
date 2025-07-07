@@ -1,0 +1,188 @@
+<div class="two-col-container">
+  <!-- IZQUIERDA -->
+  <div class="left-col">
+    <mat-card class="section-card">
+      <mat-card-header>
+        <mat-icon>medical_services</mat-icon>
+        <h2>Historial Médico</h2>
+      </mat-card-header>
+      <mat-divider></mat-divider>
+      <mat-card-content>
+        <mat-accordion multi>
+
+          <!-- Información Personal -->
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <mat-icon>person</mat-icon>
+                Información Personal
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-list>
+              <mat-list-item><strong>DNI:</strong> {{ personalInfo?.dni }}</mat-list-item>
+              <mat-list-item><strong>Fecha Nac.:</strong> {{ personalInfo?.fechaNacimiento }}</mat-list-item>
+              <mat-list-item><strong>Género:</strong> {{ personalInfo?.genero }}</mat-list-item>
+              <mat-list-item><strong>Tipo Cuerpo:</strong> {{ personalInfo?.tipoCuerpo }}</mat-list-item>
+              <mat-list-item><strong>IMC:</strong> {{ personalInfo?.imc?.toFixed(1) }}</mat-list-item>
+            </mat-list>
+          </mat-expansion-panel>
+
+          <!-- Peso & Altura -->
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <mat-icon>fitness_center</mat-icon>
+                Peso & Altura
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-list>
+              <mat-list-item *ngFor="let w of weightHeight">
+                {{ w.date }} — {{ w.weightKg }} kg / {{ w.heightCm }} cm
+              </mat-list-item>
+            </mat-list>
+          </mat-expansion-panel>
+
+          <!-- Vacunas -->
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <mat-icon>vaccines</mat-icon>
+                Vacunas
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-list>
+              <mat-list-item *ngFor="let v of vaccines">
+                {{ v.date }} — {{ v.name }}
+              </mat-list-item>
+            </mat-list>
+          </mat-expansion-panel>
+
+          <!-- Prescripciones -->
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <mat-icon>medication</mat-icon>
+                Prescripciones
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-list>
+              <mat-list-item *ngFor="let p of prescriptions">
+                {{ p.medication }} — {{ p.dosage }} / {{ p.frequency }}
+              </mat-list-item>
+            </mat-list>
+          </mat-expansion-panel>
+
+          <!-- Notas Médicas -->
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <mat-icon>note_add</mat-icon>
+                Notas Médicas
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-list>
+              <mat-list-item *ngFor="let n of medicalNotes">
+                {{ n.date }} — {{ n.note }}
+              </mat-list-item>
+            </mat-list>
+          </mat-expansion-panel>
+
+          <!-- Alergias -->
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <mat-icon>healing</mat-icon>
+                Alergias
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-list>
+              <mat-list-item *ngFor="let a of allergies">
+                {{ a.name }} (Sev.: {{ a.severity }})
+              </mat-list-item>
+            </mat-list>
+          </mat-expansion-panel>
+
+        </mat-accordion>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Calcular IMC -->
+    <mat-card class="section-card imc-card">
+      <mat-card-header>
+        <mat-icon>calculate</mat-icon>
+        <h2>Calcular IMC</h2>
+      </mat-card-header>
+      <mat-divider></mat-divider>
+      <mat-card-content>
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Peso (kg)</mat-label>
+          <input matInput type="number" [(ngModel)]="imcWeight" />
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Altura (cm)</mat-label>
+          <input matInput type="number" [(ngModel)]="imcHeight" />
+        </mat-form-field>
+        <div class="actions">
+          <button mat-flat-button color="primary" (click)="calculateImc()">
+            <mat-icon>fitness_center</mat-icon>
+            Calcular
+          </button>
+        </div>
+        <div *ngIf="calculatedImc !== null" class="result">
+          <strong>Tu IMC es:</strong> {{ calculatedImc.toFixed(2) }}
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- DERECHA -->
+  <div class="right-col">
+    <!-- Generar Reporte -->
+    <mat-card class="section-card">
+      <mat-card-header>
+        <mat-icon>assignment</mat-icon>
+        <h2>Generar Reporte</h2>
+      </mat-card-header>
+      <mat-divider></mat-divider>
+      <mat-card-content [formGroup]="reportForm">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Título</mat-label>
+          <input matInput formControlName="titulo" />
+        </mat-form-field>
+        <mat-checkbox formControlName="info">Información Personal</mat-checkbox>
+        <mat-checkbox formControlName="weightHeight">Peso & Altura</mat-checkbox>
+        <mat-checkbox formControlName="vaccine">Vacunas</mat-checkbox>
+        <mat-checkbox formControlName="prescription">Prescripciones</mat-checkbox>
+        <mat-checkbox formControlName="notes">Notas Médicas</mat-checkbox>
+        <mat-checkbox formControlName="allergies">Alergias</mat-checkbox>
+
+        <div class="actions">
+          <button mat-flat-button class="btn-reportar" (click)="onGenerate()">
+            <mat-icon>picture_as_pdf</mat-icon>
+            Generar Reporte
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Reportes Existentes -->
+    <mat-card class="section-card">
+      <mat-card-header>
+        <mat-icon>cloud_download</mat-icon>
+        <h2>Reportes Existentes</h2>
+      </mat-card-header>
+      <mat-divider></mat-divider>
+      <mat-card-content>
+        <mat-list>
+          <mat-list-item *ngFor="let r of reports">
+            {{ r.titulo }} — {{ r.fecha_creacion }}
+            <button mat-button color="accent" (click)="onDownload(r)">
+              <mat-icon>download</mat-icon>
+              Descargar
+            </button>
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
