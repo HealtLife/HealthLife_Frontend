@@ -22,7 +22,7 @@
         </mat-form-field>
         <mat-form-field appearance="fill" class="full-width">
           <mat-label>Nombre</mat-label>
-          <input matInput formControlName="firstName">
+          <input matInput formControlName="nombre">
         </mat-form-field>
       </div>
 
@@ -30,7 +30,7 @@
         <!-- Apellido -->
         <mat-form-field appearance="fill" class="full-width">
           <mat-label>Apellido</mat-label>
-          <input matInput formControlName="lastName">
+          <input matInput formControlName="apellido">
         </mat-form-field>
 
         <!-- Género (solo select, sin input) -->
@@ -58,9 +58,9 @@
         <mat-form-field appearance="fill" class="full-width">
           <mat-label>Tipo de Cuerpo</mat-label>
           <mat-select formControlName="tipoCuerpo" placeholder="Selecciona...">
-            <mat-option value="ectomorfo">Ectomorfo</mat-option>
-            <mat-option value="mesomorfo">Mesomorfo</mat-option>
-            <mat-option value="endomorfo">Endomorfo</mat-option>
+            <mat-option value="Ectomorfo">Ectomorfo</mat-option>
+            <mat-option value="Mesomorfo">Mesomorfo</mat-option>
+            <mat-option value="Endomorfo">Endomorfo</mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field appearance="fill" class="full-width">
@@ -93,8 +93,16 @@
   </mat-card>
 
 
-  <!-- Alergias -->
-  <mat-card class="section-card">
+  <!-- Botón para mostrar/ocultar el card de Alergias -->
+  <div class="actions">
+    <button mat-stroked-button color="accent" (click)="toggleAllergies()">
+      <mat-icon>{{ showAllergies ? 'expand_less' : 'expand_more' }}</mat-icon>
+      {{ showAllergies ? 'Ocultar Alergias' : 'Mostrar Alergias' }}
+    </button>
+  </div>
+
+  <!-- Card de Alergias, se muestra solo si `showAllergies` es true -->
+  <mat-card class="section-card" *ngIf="showAllergies">
     <mat-card-header class="header-flex">
       <mat-card-title>
         <mat-icon>healing</mat-icon>
@@ -105,23 +113,24 @@
       </button>
     </mat-card-header>
     <mat-card-content>
-      <div formArrayName="allergies">
+      <div *ngIf="allergies.length > 0" formArrayName="allergies">
         <div *ngFor="let ctrl of allergies.controls; let i = index"
-             [formGroupName]="i"
-             class="grid-three-cols">
+            [formGroupName]="i"
+            class="grid-three-cols">
           <mat-form-field appearance="outline">
             <mat-label>Alergia</mat-label>
-            <input matInput formControlName="name">
+            <input matInput formControlName="alergia">
           </mat-form-field>
           <mat-form-field appearance="outline">
             <mat-label>Severidad</mat-label>
-            <input matInput formControlName="severity">
+            <input matInput formControlName="reaccion">
           </mat-form-field>
           <button mat-icon-button color="warn" (click)="allergies.removeAt(i)">
             <mat-icon>delete</mat-icon>
           </button>
         </div>
       </div>
+
       <div class="actions">
         <button mat-flat-button class="btn-save" (click)="saveAllergies()">
           <mat-icon>save</mat-icon>
@@ -131,8 +140,17 @@
     </mat-card-content>
   </mat-card>
 
-  <!-- Peso & Altura -->
-  <mat-card class="section-card">
+  <!-- Botón para mostrar/ocultar Peso y Altura -->
+<div class="actions">
+  <button mat-stroked-button color="accent" (click)="toggleWeightHeight()">
+
+    <mat-icon>{{ showWeightHeight ? 'expand_less' : 'expand_more' }}</mat-icon>
+    {{ showWeightHeight ? 'Ocultar Peso & Altura' : 'Mostrar Peso & Altura' }}
+  </button>
+</div>
+
+<!-- Card de Peso y Altura -->
+  <mat-card class="section-card" *ngIf="showWeightHeight">
     <mat-card-header class="header-flex">
       <mat-card-title>
         <mat-icon>fitness_center</mat-icon>
@@ -143,21 +161,21 @@
       </button>
     </mat-card-header>
     <mat-card-content>
-      <div formArrayName="weightHeight">
+      <div *ngIf="weightHeight.length > 0" formArrayName="weightHeight">
         <div *ngFor="let ctrl of weightHeight.controls; let i = index"
-             [formGroupName]="i"
-             class="grid-three-cols">
+            [formGroupName]="i"
+            class="grid-three-cols">
           <mat-form-field appearance="outline">
             <mat-label>Peso (kg)</mat-label>
-            <input matInput type="number" formControlName="weightKg">
+            <input matInput type="number" formControlName="peso">
           </mat-form-field>
           <mat-form-field appearance="outline">
             <mat-label>Altura (cm)</mat-label>
-            <input matInput type="number" formControlName="heightCm">
+            <input matInput type="number" formControlName="altura">
           </mat-form-field>
           <mat-form-field appearance="outline">
             <mat-label>Fecha</mat-label>
-            <input matInput type="date" formControlName="date">
+            <input matInput type="date" formControlName="fechaRegistro">
           </mat-form-field>
           <button mat-icon-button color="warn" (click)="weightHeight.removeAt(i)">
             <mat-icon>delete</mat-icon>
@@ -167,121 +185,170 @@
       <div class="actions">
         <button mat-flat-button class="btn-save" (click)="saveWeight()">
           <mat-icon>save</mat-icon>
-          Guardar Peso
+          Guardar Peso & Altura
         </button>
       </div>
     </mat-card-content>
   </mat-card>
 
-  <!-- Vacunas -->
-  <mat-card class="section-card">
-    <mat-card-header class="header-flex">
-      <mat-card-title>
-        <mat-icon>vaccines</mat-icon>
-        Vacunas
-      </mat-card-title>
-      <button mat-mini-fab class="btn-add" (click)="addVaccine()">
-        <mat-icon>add</mat-icon>
+
+  <!-- Botón para mostrar/ocultar Vacunas -->
+<div class="actions">
+  <button mat-stroked-button color="accent" (click)="toggleVaccines()">
+    <mat-icon>{{ showVaccines ? 'expand_less' : 'expand_more' }}</mat-icon>
+    {{ showVaccines ? 'Ocultar Vacunas' : 'Mostrar Vacunas' }}
+  </button>
+</div>
+
+<!-- Card de Vacunas -->
+<mat-card class="section-card" *ngIf="showVaccines">
+  <mat-card-header class="header-flex">
+    <mat-card-title>
+      <mat-icon>vaccines</mat-icon>
+      Vacunas
+    </mat-card-title>
+    <button mat-mini-fab class="btn-add" (click)="addVaccine()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </mat-card-header>
+  <mat-card-content formArrayName="vaccines">
+    <div *ngFor="let ctrl of vaccines.controls; let i = index"
+         [formGroupName]="i"
+         class="grid-three-cols">
+
+      <mat-form-field appearance="outline">
+        <mat-label>Vacuna</mat-label>
+        <input matInput formControlName="vacuna">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Fecha Aplicación</mat-label>
+        <input matInput type="date" formControlName="fechaAplicacion">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Dosis</mat-label>
+        <input matInput formControlName="dosis">
+      </mat-form-field>
+
+      <button mat-icon-button color="warn" (click)="vaccines.removeAt(i)">
+        <mat-icon>delete</mat-icon>
       </button>
-    </mat-card-header>
-    <mat-card-content formArrayName="vaccines">
-      <div *ngFor="let ctrl of vaccines.controls; let i = index"
-           [formGroupName]="i"
-           class="grid-three-cols">
-        <mat-form-field appearance="outline">
-          <mat-label>Vacuna</mat-label>
-          <input matInput formControlName="name">
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Fecha</mat-label>
-          <input matInput type="date" formControlName="date">
-        </mat-form-field>
-        <button mat-icon-button color="warn" (click)="vaccines.removeAt(i)">
-          <mat-icon>delete</mat-icon>
-        </button>
-      </div>
-      <div class="actions">
-        <button mat-flat-button class="btn-save" (click)="saveVaccines()">
-          <mat-icon>save</mat-icon>
-          Guardar Vacunas
-        </button>
-      </div>
-    </mat-card-content>
-  </mat-card>
+    </div>
+
+    <div class="actions">
+      <button mat-flat-button class="btn-save" (click)="saveVaccines()">
+        <mat-icon>save</mat-icon>
+        Guardar Vacunas
+      </button>
+    </div>
+  </mat-card-content>
+</mat-card>
+
 
   <!-- Prescripciones -->
-  <mat-card class="section-card">
-    <mat-card-header class="header-flex">
-      <mat-card-title>
-        <mat-icon>medication</mat-icon>
-        Prescripciones
-      </mat-card-title>
-      <button mat-mini-fab class="btn-add" (click)="addPrescription()">
-        <mat-icon>add</mat-icon>
-      </button>
-    </mat-card-header>
-    <mat-card-content formArrayName="prescriptions">
-      <div *ngFor="let ctrl of prescriptions.controls; let i = index"
-           [formGroupName]="i"
-           class="grid-three-cols">
-        <mat-form-field appearance="outline">
-          <mat-label>Medicamento</mat-label>
-          <input matInput formControlName="medication">
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Dosificación</mat-label>
-          <input matInput formControlName="dosage">
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Frecuencia</mat-label>
-          <input matInput formControlName="frequency">
-        </mat-form-field>
-        <button mat-icon-button color="warn" (click)="prescriptions.removeAt(i)">
-          <mat-icon>delete</mat-icon>
-        </button>
-      </div>
-      <div class="actions">
-        <button mat-flat-button class="btn-save" (click)="savePrescriptions()">
-          <mat-icon>save</mat-icon>
-          Guardar Prescripciones
-        </button>
-      </div>
-    </mat-card-content>
-  </mat-card>
+   <div class="actions">
+    <button mat-stroked-button color="accent" (click)="togglePrescriptions()">
+      <mat-icon>{{ showPrescriptions ? 'expand_less' : 'expand_more' }}</mat-icon>
+      {{ showPrescriptions ? 'Ocultar Prescripciones' : 'Mostrar Prescripciones' }}
+    </button>
+  </div>
+  <!-- Prescripciones -->
+<mat-card class="section-card" *ngIf="showPrescriptions">
+  <mat-card-header class="header-flex">
+    <mat-card-title>
+      <mat-icon>medication</mat-icon>
+      Prescripciones
+    </mat-card-title>
+    <button mat-mini-fab class="btn-add" (click)="addPrescription()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </mat-card-header>
 
+  <mat-card-content formArrayName="prescriptions">
+    <div *ngFor="let ctrl of prescriptions.controls; let i = index"
+         [formGroupName]="i"
+         class="grid-three-cols">
+
+      <mat-form-field appearance="outline">
+        <mat-label>Medicamento</mat-label>
+        <input matInput formControlName="prescripcion">
+      </mat-form-field>
+
+      
+
+      <mat-form-field appearance="outline">
+        <mat-label>Fecha Receta</mat-label>
+        <input matInput type="date" formControlName="fecha_receta">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Médico</mat-label>
+        <input matInput formControlName="medico">
+      </mat-form-field>
+
+      <button mat-icon-button color="warn" (click)="prescriptions.removeAt(i)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+
+    <div class="actions">
+      <button mat-flat-button class="btn-save" (click)="savePrescriptions()">
+        <mat-icon>save</mat-icon>
+        Guardar Prescripciones
+      </button>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<div class="actions">
+    <button mat-stroked-button color="accent" (click)="toggleMedicalNotes()">
+      <mat-icon>{{ showMedicalNotes ? 'expand_less' : 'expand_more' }}</mat-icon>
+      {{ showMedicalNotes ? 'Ocultar Notas medicas' : 'Mostrar Notas medicas' }}
+    </button>
+  </div>
   <!-- Notas Médicas -->
-  <mat-card class="section-card">
+  <mat-card class="section-card" *ngIf="showMedicalNotes">
     <mat-card-header class="header-flex">
       <mat-card-title>
         <mat-icon>note_add</mat-icon>
         Notas Médicas
-      </mat-card-title>
-      <button mat-mini-fab class="btn-add" (click)="addMedicalNote()">
-        <mat-icon>add</mat-icon>
-      </button>
-    </mat-card-header>
-    <mat-card-content formArrayName="medicalNotes">
-      <div *ngFor="let ctrl of medicalNotes.controls; let i = index"
-           [formGroupName]="i"
-           class="grid-three-cols">
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Nota</mat-label>
-          <textarea matInput formControlName="note"></textarea>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Fecha</mat-label>
-          <input matInput type="date" formControlName="date">
-        </mat-form-field>
+    </mat-card-title>
+    <button mat-mini-fab class="btn-add" (click)="addMedicalNote()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </mat-card-header>
+
+  <mat-card-content *ngIf="showMedicalNotes" formArrayName="medicalNotes">
+    <div *ngFor="let ctrl of medicalNotes.controls; let i = index" [formGroupName]="i" class="grid-three-cols">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Nota</mat-label>
+        <textarea matInput formControlName="notes" rows="2"></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Fecha</mat-label>
+        <input matInput type="date" formControlName="fecha_nota">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Autor</mat-label>
+        <input matInput type="text" formControlName="autor">
+      </mat-form-field>
+
+      <div class="actions-column">
         <button mat-icon-button color="warn" (click)="medicalNotes.removeAt(i)">
           <mat-icon>delete</mat-icon>
         </button>
       </div>
-      <div class="actions">
-        <button mat-flat-button class="btn-save" (click)="saveMedicalNotes()">
-          <mat-icon>save</mat-icon>
-          Guardar Notas Médicas
-        </button>
-      </div>
-    </mat-card-content>
-  </mat-card>
+    </div>
+
+    <div class="actions">
+      <button mat-flat-button color="primary" (click)="saveMedicalNotes()">
+        <mat-icon>save</mat-icon>
+        Guardar Notas Médicas
+      </button>
+    </div>
+  </mat-card-content>
+</mat-card>
+
 </div>

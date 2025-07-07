@@ -1,9 +1,9 @@
 // src/app/Nutrition/Model/Nutrition.model.ts
 
 export interface Allergy {
-  id?: number;
-  name: string;
-  severity: string;
+  dni: string;
+  alergia: string;
+  reaccion: string;
 }
 
 export interface Equipment {
@@ -18,9 +18,10 @@ export interface Exercise {
 }
 
 export interface MedicalNote {
-  id?: number;
-  note: string;
-  date: string;
+  dni: string;
+  fecha_nota: string;
+  notes: string;
+  autor: string;
 }
 
 export interface Muscle {
@@ -34,25 +35,28 @@ export interface PersonalInfo {
   genero:          string;
   tipoCuerpo?:     string;
   imc?:            number;
+  userId?:         number;
 }
 
 
 export interface Prescription {
-  id?: number;
-  medication: string;
-  dosage: string;
-  frequency: string;
+  dni: string;
+  prescripcion: string;
+  
+  fecha_receta: string;
+  medico: string;
 }
 
 export interface Vaccine {
-  id?: number;
-  name: string;
-  date: string;
+  dni: string;
+  vacuna: string;
+  fechaAplicacion: string;
+  dosis: string;
 }
 
 export interface WeightHeight {
-  id?: number;
-  weightKg: number;
-  heightCm: number;
-  date: string;
+  dni: string;
+  peso: number;
+  altura: number;
+  fechaRegistro: string;
 }

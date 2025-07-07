@@ -38,6 +38,11 @@ import {RouterLink} from '@angular/router';
 })
 export class NutritionViewComponent implements OnInit {
   form!: FormGroup;
+  showAllergies = false; // 👈 solución al error
+  showWeightHeight = false; // 👈 para mostrar/ocultar peso/altura
+  showVaccines = false; // 👈 para mostrar/ocultar vacunas
+  showPrescriptions = false; // 👈 para mostrar/ocultar prescripciones
+  showMedicalNotes = false; // 👈 para mostrar/ocultar notas médicas
 
   // catálogos para selects si los necesitas
   muscles: Models.Muscle[] = [];
@@ -52,15 +57,22 @@ export class NutritionViewComponent implements OnInit {
 
   ngOnInit(): void {
     const dni = localStorage.getItem('userDni')!;
-
+    const name = localStorage.getItem('userName') || 'Usuario';
+    const lastname = localStorage.getItem('userLastname') || 'Desconocido';
+    console.log('DNI cargado desde localStorage:', dni);
+    console.log('Nombre cargado desde localStorage:', name);
+    console.log('Apellido cargado desde localStorage:', lastname);
     // 1) Inicializa el FormGroup
     this.form = this.fb.group({
       personalInfo: this.fb.group({
         dni:             [dni, Validators.required],
+        nombre:          [name, Validators.required],
+        apellido:        [lastname, Validators.required],
         fechaNacimiento: ["", Validators.required],
         genero:          ["", Validators.required],
         tipoCuerpo:      [""],
-        imc:             [""]
+        imc:             [""],
+        userId:          [Number(localStorage.getItem('userId')) || null, Validators.required]
       }),
       allergies:      this.fb.array([]),
       weightHeight:   this.fb.array([]),
@@ -72,49 +84,52 @@ export class NutritionViewComponent implements OnInit {
     // 2) Carga y mapea PersonalInfo (una sola vez)
     this.svc.getPersonalInfo(dni).subscribe({
       next: pi => {
-        this.form.get('personalInfo')!.patchValue({
-          dni:             pi.dni,
-          fechaNacimiento: pi.fechaNacimiento,
-          genero:          pi.genero,
-          tipoCuerpo:      pi.tipoCuerpo,
-          imc:             pi.imc
-        });
+        console.log('✅ Personal Info recibida:', pi); // 👈 aquí verás "Mesomorfo" y más
+        this.form.get('personalInfo')!.patchValue(pi);
       },
       error: err => console.error('Error cargando info personal', err)
     });
 
-    // 2) Cargar datos de backend y parchear los FormGroups/FormArrays
-    this.svc.getPersonalInfo(dni).subscribe({
-      next: pi => this.form.get('personalInfo')!.patchValue(pi),
-      error: err => console.error('Error cargando info personal', err)
-    });
 
-    this.svc.getAllergies(dni).subscribe({
-      next: list => this.setFormArray('allergies', list),
-      error: err => console.error('Error cargando alergias', err)
-    });
+    
+    if(this.showAllergies) {
+      this.svc.getAllergies(dni).subscribe({
+        next: list => this.setFormArray('allergies', list),
+        error: err => console.error('Error cargando alergias', err)
+      });
+    }
+    
+    if(this.showWeightHeight) {
+      this.svc.getWeightHeights(dni).subscribe({
+        next: list => this.setFormArray('weightHeight', list),
+        error: err => console.error('Error cargando peso/altura', err)
+      });
+    } 
 
-    this.svc.getWeightHeights(dni).subscribe({
-      next: list => this.setFormArray('weightHeight', list),
-      error: err => console.error('Error cargando peso/altura', err)
-    });
+    if(this.showVaccines) {
+      this.svc.getVaccines(dni).subscribe({
+        next: list => this.setFormArray('vaccines', list),
+        error: err => console.error('Error cargando vacunas', err)
+      });
+    } 
 
-    this.svc.getVaccines(dni).subscribe({
-      next: list => this.setFormArray('vaccines', list),
-      error: err => console.error('Error cargando vacunas', err)
-    });
+    if(this.showPrescriptions) {
+      this.svc.getPrescriptions(dni).subscribe({
+        next: list => this.setFormArray('prescriptions', list),
+        error: err => console.error('Error cargando prescripciones', err)
+      });
+    }
+    
+    if(this.showMedicalNotes) {
+      this.svc.getMedicalNotes(dni).subscribe({
+        next: list => this.setFormArray('medicalNotes', list),
+        error: err => console.error('Error cargando notas médicas', err)
+      });
+    }
 
-    this.svc.getPrescriptions(dni).subscribe({
-      next: list => this.setFormArray('prescriptions', list),
-      error: err => console.error('Error cargando prescripciones', err)
-    });
+    
 
-    this.svc.getMedicalNotes(dni).subscribe({
-      next: list => this.setFormArray('medicalNotes', list),
-      error: err => console.error('Error cargando notas médicas', err)
-    });
-
-    // 3) Cargar catálogos de fitness (para selects, si procede)
+    /*// 3) Cargar catálogos de fitness (para selects, si procede)
     this.svc.getMuscles().subscribe({
       next: m => this.muscles = m,
       error: err => console.error('Error cargando músculos', err)
@@ -126,7 +141,7 @@ export class NutritionViewComponent implements OnInit {
     this.svc.getEquipments().subscribe({
       next: eq => this.equipments = eq,
       error: err => console.error('Error cargando equipamientos', err)
-    });
+    });*/
   }
 
 
@@ -142,12 +157,79 @@ export class NutritionViewComponent implements OnInit {
     return this.form.get('allergies') as FormArray;
   }
 
+  toggleAllergies(): void {
+    const dni = this.form.get('personalInfo')!.value.dni;
+    if (!this.showAllergies) {
+      this.svc.getAllergies(dni).subscribe({
+        next: list => {
+          this.setFormArray('allergies', list);
+          // Si no hay alergias, añade una por defecto para evitar errores
+          if (this.allergies.length === 0) {
+            this.addAllergy();
+          }
+          this.showAllergies = true;
+        },
+        error: err => {
+          console.error('Error cargando alergias', err);
+          this.showAllergies = true;
+        }
+      });
+    } else {
+      this.showAllergies = false;
+    }
+  }
+  toggleWeightHeight(): void {
+    const dni = this.form.get('personalInfo')!.value.dni;
+    if (!this.showWeightHeight) {
+      this.svc.getWeightHeights(dni).subscribe({
+        next: list => {
+          this.setFormArray('weightHeight', list);
+          // Si no hay entradas, añade una por defecto
+          if (this.weightHeight.length === 0) {
+            this.addWeightEntry();
+          }
+          this.showWeightHeight = true;
+        },
+        error: err => {
+          console.error('Error cargando peso/altura', err);
+          this.showWeightHeight = true;
+        }
+      });
+    } else {
+      this.showWeightHeight = false;
+    }
+  }
+
+
+  togglePrescriptions(): void {
+    const dni = this.form.get('personalInfo')!.value.dni;
+    if (!this.showPrescriptions) {
+      this.svc.getPrescriptions(dni).subscribe({
+        next: list => {
+          this.setFormArray('prescriptions', list);
+          // Si no hay entradas, añade una por defecto
+          if (this.prescriptions.length === 0) {
+            this.addPrescription();
+          }
+          this.showPrescriptions = true;
+        },
+        error: err => {
+          console.error('Error cargando prescripciones', err);
+          this.showPrescriptions = true;
+        }
+      });
+    } else {
+      this.showPrescriptions = false;
+    }
+  }
+
+  
   addAllergy(): void {
     const dni = this.form.get('personalInfo')!.value.dni;
     this.allergies.push(this.fb.group({
       dni: [dni],
-      name: ['', Validators.required],
-      severity: ['', Validators.required]
+      alergia: ['', Validators.required],
+      reaccion: ['', Validators.required]
     }));
   }
 
@@ -167,9 +249,9 @@ export class NutritionViewComponent implements OnInit {
     const dni = this.form.get('personalInfo')!.value.dni;
     this.weightHeight.push(this.fb.group({
       dni: [dni],
-      weightKg: [null, Validators.required],
-      heightCm: [null, Validators.required],
-      date: [new Date().toISOString().substr(0, 10), Validators.required]
+      peso: [null, Validators.required],
+      altura: [null, Validators.required],
+      fecha_registro: [new Date().toISOString().substr(0, 10), Validators.required]
     }));
   }
 
@@ -180,26 +262,56 @@ export class NutritionViewComponent implements OnInit {
     });
   }
 
+
   // ── Vacunas ─────────────────────────────────────────────────────────
+
+  toggleVaccines(): void {
+    const dni = this.form.get('personalInfo')!.value.dni;
+    if (!this.showVaccines) {
+      this.svc.getVaccines(dni).subscribe({
+        next: list => {
+          this.setFormArray('vaccines', list);
+          if (this.vaccines.length === 0) {
+            this.addVaccine();
+          }
+          this.showVaccines = true;
+        },
+        error: err => {
+          console.error('Error cargando vacunas', err);
+          this.showVaccines = true;
+        }
+      });
+    } else {
+      this.showVaccines = false;
+    }
+  }
+
   get vaccines(): FormArray {
     return this.form.get('vaccines') as FormArray;
   }
+
 
   addVaccine(): void {
     const dni = this.form.get('personalInfo')!.value.dni;
     this.vaccines.push(this.fb.group({
       dni: [dni],
-      name: ['', Validators.required],
-      date: ['', Validators.required]
+      vacuna: ['', Validators.required],
+      fechaAplicacion: ['', Validators.required],
+      dosis: ['', Validators.required]
     }));
   }
+
 
   saveVaccines(): void {
     this.vaccines.controls.forEach(ctrl => {
       const v = ctrl.value as Models.Vaccine;
-      this.svc.createVaccine(v).subscribe();
+      this.svc.createVaccine(v).subscribe({
+        next: () => console.log("Vacuna guardada", v),
+        error: err => console.error("Error al guardar vacuna", err)
+      });
     });
   }
+
 
   // ── Prescripciones ───────────────────────────────────────────────────
   get prescriptions(): FormArray {
@@ -210,10 +322,12 @@ export class NutritionViewComponent implements OnInit {
     const dni = this.form.get('personalInfo')!.value.dni;
     this.prescriptions.push(this.fb.group({
       dni: [dni],
-      medication: ['', Validators.required],
+      prescripcion: ['', Validators.required],
       dosage: ['', Validators.required],
-      frequency: ['', Validators.required]
+      fecha_receta: ['', Validators.required],
+      medico: ['Médico predeterminado']  // Puedes setearlo dinámicamente si tienes login
     }));
+
   }
 
   savePrescriptions(): void {
@@ -224,25 +338,52 @@ export class NutritionViewComponent implements OnInit {
   }
 
   // ── Notas Médicas ────────────────────────────────────────────────────
+
+
   get medicalNotes(): FormArray {
-    return this.form.get('medicalNotes') as FormArray;
+      return this.form.get('medicalNotes') as FormArray;
+    }
+  toggleMedicalNotes(): void {
+  const dni = this.form.get('personalInfo')!.value.dni;
+  if (!this.showMedicalNotes) {
+    this.svc.getMedicalNotes(dni).subscribe({
+      next: list => {
+        this.setFormArray('medicalNotes', list);
+        if (this.medicalNotes.length === 0) {
+          this.addMedicalNote();
+        }
+        this.showMedicalNotes = true;
+      },
+      error: err => {
+        console.error('Error cargando notas médicas', err);
+        this.showMedicalNotes = true;
+      }
+    });
+  } else {
+    this.showMedicalNotes = false;
   }
+}
+
+  
 
   addMedicalNote(): void {
-    const dni = this.form.get('personalInfo')!.value.dni;
-    this.medicalNotes.push(this.fb.group({
-      dni: [dni],
-      note: ['', Validators.required],
-      date: ['', Validators.required]
-    }));
-  }
+  const dni = this.form.get('personalInfo')!.value.dni;
+  this.medicalNotes.push(this.fb.group({
+    dni: [dni],
+    notes: ['', Validators.required],
+    fecha_nota: ['', Validators.required],
+    autor: ['']
+  }));
+}
+
 
   saveMedicalNotes(): void {
-    this.medicalNotes.controls.forEach(ctrl => {
-      const m = ctrl.value as Models.MedicalNote;
-      this.svc.createMedicalNote(m).subscribe();
-    });
-  }
+  this.medicalNotes.controls.forEach(ctrl => {
+    const nota = ctrl.value as Models.MedicalNote;
+    this.svc.createMedicalNote(nota).subscribe();
+  });
+}
+
 
   /** Crea un nuevo registro de PersonalInfo */
   createPersonalInfo(): void {
@@ -261,5 +402,6 @@ export class NutritionViewComponent implements OnInit {
       next: updated => console.log('Personal info actualizada', updated),
       error: err => console.error('Error al actualizar personal info', err)
     });
+    localStorage.setItem('userDni', String(payload.dni));
   }
 }

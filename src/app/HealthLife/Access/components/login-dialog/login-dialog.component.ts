@@ -74,13 +74,16 @@ export class LoginDialogComponent {
 
         // 2) Tomamos el primer (único) usuario
         const user = users[0];
-
+        console.log('Usuario encontrado:', user);
         // 3) Comparamos contraseña
         if (user.password === password) {
           // Login exitoso: navegamos y cerramos el diálogo
           this.router.navigate(['/home']);
           localStorage.setItem('userEmail', email);
           localStorage.setItem('userId', user.id.toString());
+          localStorage.setItem('userDni', user.userDni || ''); // Guardamos el DNI si existe
+          localStorage.setItem('userName', user.name || '');
+          localStorage.setItem('userLastname', user.lastname || '');
           this.dialogRef.close();
         } else {
           this.errorMessage = 'Email o contraseña incorrectos';
