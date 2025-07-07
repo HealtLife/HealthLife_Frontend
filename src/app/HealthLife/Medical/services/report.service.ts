@@ -25,20 +25,37 @@ export interface ReportRequest {
   weightHeight: boolean;
 }
 
+export interface Report{
+  usuarioDni: string;
+  titulo: string;
+  fecha_creacion: string;
+  url: string;
+  estado: string;
+}
+
 @Injectable({ providedIn: 'root' })
 export class ReportService {
-  private base = `${environment.serverBasePath}/reports`;
+  private base =`${environment.serverBasePath}/nutrition`;
 
-  create(request: ReportRequest): Observable<Report> {
-    return this.http.post<Report>(this.base, request);
-  }
+  constructor(private http: HttpClient) { }
+
+  /** Create Report **/
+  create(request: ReportRequest): Observable<Report>{
+    return this.http.post<Report>(
+      `${this.base}/generate-report`, request
+    )
+  };
+
+  /** GET **/
   listByUser(dni: string): Observable<Report[]> {
-    return this.http.get<Report[]>(`${this.base}/usuario/${encodeURIComponent(dni)}`);
-  }
-  download(filename: string): Observable<Blob> {
-    const params = new HttpParams().set('filename', filename);
-    return this.http.get(this.base + '/descargar', { params, responseType: 'blob' });
+    return this.http.get<Report[]>(`${this.base}/reports/${encodeURIComponent(dni)}`);
   }
 
-  constructor(private http: HttpClient) {}
+  /** Descarga un archivo PDF con su nombre **/
+  download(filename: string): Observable<Blob> {
+    return this.http.get(`${this.base}/download-report`, {
+      params: new HttpParams().set('filename', filename),
+      responseType: 'blob'
+    });
+  }
 }

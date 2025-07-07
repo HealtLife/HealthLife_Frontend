@@ -156,8 +156,10 @@ export class MedicalHistoryComponent implements OnInit {
       });
   }
 
+
   /** Descarga el blob PDF que venga del servidor */
   onDownload(r: Report): void {
+    // r.url es el filename que el endpoint espera
     this.reportSvc.download(r.url)
       .subscribe({
         next: blob => {
@@ -171,6 +173,7 @@ export class MedicalHistoryComponent implements OnInit {
         error: err => console.error('Error al descargar reporte', err)
       });
   }
+
 
   /** Calcula el IMC: kg / (m * m) */
   calculateImc(): void {
