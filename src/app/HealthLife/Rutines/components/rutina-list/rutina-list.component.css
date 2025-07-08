@@ -1,82 +1,78 @@
-/* Paleta de colores basada en #308c83ff y acentos suaves */
+/* rutina-list.component.css */
+
+/* Host ocupa todo el ancho y añade padding lateral */
 :host {
   display: block;
+  width: 100%;
   padding: 1rem;
   background: #f1f1f1;
+  box-sizing: border-box;
   font-family: Arial, sans-serif;
 }
 
-/* Header */
+/* Cabecera */
 .header-card {
   display: flex;
   align-items: center;
   background: #308c83ff;
   color: white;
-  padding: 0.75rem 1rem;
+  padding: 1rem;
   border-radius: 8px;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .header-card mat-icon {
-  margin-right: 0.5rem;
-}
-
-/* Container general */
-.container {
-  max-width: 1200px;
-  margin: auto;
+  margin-right: 0.75rem;
+  font-size: 1.5rem;
 }
 
 /* Buscador */
 .search-field {
   width: 100%;
-  max-width: 400px;
-  margin: 0 auto 1.5rem;
-  display: block;
+  max-width: 500px;
+  margin: 0 auto 2rem;
 }
 
 .search-field mat-form-field {
   width: 100%;
 }
 
-/* Título secundario */
+/* Texto secundario */
 h2 {
   color: #308c83ff;
-  font-size: 1.4rem;
-  margin-bottom: 1rem;
+  font-size: 1.6rem;
+  margin: 1rem 0;
   text-align: center;
 }
 
-/* Three-column layout */
+/* Contenedor de tres columnas flexibles */
 .content {
   display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
+  gap: 1.5rem;
   justify-content: space-between;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-/* Columnas */
+/* Cada columna se ajusta automáticamente */
+.left-side   { flex: 0 1 20%; min-width: 200px; }
+.centered    { flex: 1 1 50%; min-width: 300px; }
+.right-side  { flex: 0 1 20%; min-width: 200px; }
+
+/* Fondo y padding de cada columna */
 .column {
   background: white;
   padding: 1rem;
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  box-sizing: border-box;
 }
 
-.left-side, .right-side {
-  flex: 1 1 200px;
-  max-width: 250px;
-}
-
-.centered {
-  flex: 2 1 600px;
-}
-
-/* Muscle images */
+/* Imágenes de músculos */
 .muscle-images img {
   width: 100%;
   border-radius: 6px;
-  margin-bottom: 0.75rem;
+  margin-bottom: 1rem;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   transition: transform 0.2s;
 }
@@ -84,33 +80,39 @@ h2 {
   transform: scale(1.03);
 }
 
-/* Grid of rutina cards */
+/* Grid de tarjetas */
 .grid-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
+/* Estilo de cada tarjeta de rutina */
 .rutina-card {
   border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   transition: transform 0.2s, box-shadow 0.2s;
+  overflow: hidden;
 }
 .rutina-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
-.card-icon {
-  color: #f25c54;
-  margin-right: 0.5rem;
-}
-
+/* Cabecera interna */
 .rutina-card mat-card-header {
   background: #308c83ff;
   color: white;
+  display: flex;
   align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+}
+.rutina-card .card-icon {
+  font-size: 1.4rem;
 }
 
+/* Contenido interno */
 .rutina-card mat-card-content p {
   display: flex;
   align-items: center;
@@ -122,7 +124,7 @@ h2 {
   color: #308c83ff;
 }
 
-/* No results message */
+/* Mensaje “no resultados” */
 .no-results {
   margin-top: 2rem;
   color: #e53935;
@@ -135,41 +137,32 @@ h2 {
   margin-right: 0.5rem;
 }
 
-/* Lista de músculos */
+/* Lista de músculos en la columna derecha */
 mat-nav-list {
   padding: 0;
 }
 mat-list-item {
   border-bottom: 1px solid #ececec;
+  padding: 0.75rem 0;
+  display: flex;
+  align-items: center;
 }
 mat-list-item:last-child {
   border-bottom: none;
 }
-
-/* Responsive */
-@media (max-width: 900px) {
-  .content {
-    flex-direction: column;
-  }
-  .left-side, .right-side {
-    max-width: 100%;
-  }
-}
-/* Asegurar espacio y color en los list-items */
-.right-side mat-list-item {
-  align-items: center;
-  padding: 0.5rem 0;
-}
-
 .right-side mat-list-item mat-icon[matListIcon] {
   margin-right: 0.75rem;
   color: #308c83ff;
 }
 
-/* Quitar guiones de lista por si acaso */
-.right-side ul, .right-side li {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+/* Responsive: en pantallas estrechas pasa a una sola columna */
+@media (max-width: 900px) {
+  .content {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .left-side, .centered, .right-side {
+    flex: 1 1 100%;
+    min-width: auto;
+  }
 }
-

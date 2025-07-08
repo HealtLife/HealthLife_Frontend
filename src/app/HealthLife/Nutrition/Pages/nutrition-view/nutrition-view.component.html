@@ -5,6 +5,7 @@
 
 <div class="page-container" [formGroup]="form">
 
+  <div class="left-column">
   <!-- Información Personal -->
   <mat-card class="section-card">
     <mat-card-header class="header-flex">
@@ -91,8 +92,9 @@
       </div>
     </mat-card-content>
   </mat-card>
+  </div>
 
-
+  <div class="right-column">
   <!-- Botón para mostrar/ocultar el card de Alergias -->
   <div class="actions">
     <button mat-stroked-button color="accent" (click)="toggleAllergies()">
@@ -275,7 +277,7 @@
         <input matInput formControlName="prescripcion">
       </mat-form-field>
 
-      
+
 
       <mat-form-field appearance="outline">
         <mat-label>Fecha Receta</mat-label>
@@ -350,5 +352,5 @@
     </div>
   </mat-card-content>
 </mat-card>
-
+  </div>
 </div>

@@ -11,25 +11,42 @@
   z-index: 10;
   background: #308c83ff;
   color: white;
-  font-size: 1.2rem;
+  font-size: 1.25rem;
+  padding: 0.5rem 1rem;
 }
 
-/* Contenedor principal */
+/* Contenedor principal: dos columnas */
 .page-container {
-  max-width: 960px;
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 1.5rem;
+  max-width: 1200px;
   margin: 1rem auto;
+}
+
+/* Columnas */
+.left-column,
+.right-column {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
 }
 
+/* Que la columna derecha quede scrollable si es muy larga */
+.right-column {
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
 /* Tarjeta de sección */
 .section-card {
   border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background: white;
 }
 
-/* Grid de dos columnas */
+/* Grid de dos columnas dentro de cada card */
 .grid-two-cols {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -37,16 +54,16 @@
   margin-bottom: 2rem;
 }
 
-/* Grid de tres columnas para arrays */
+/* Grid de tres columnas para listas dinámicas */
 .grid-three-cols {
   display: grid;
   grid-template-columns: 2fr 2fr auto;
   gap: 1rem;
   align-items: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
-/* Full width para campos en grid */
+/* Campos full-width */
 .full-width {
   width: 100%;
 }
@@ -56,29 +73,26 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background: #308c83ff;
+  color: white;
+  padding: 0.75rem 1rem;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
 }
 
-/* Asegura padding interno a mat-card-content */
+/* Asegura padding interno y uniformidad */
 mat-card-content {
   padding: 1.5rem;
 }
 
-/* Un poco más de espacio vertical entre filas */
-.grid-two-cols,
-.grid-three-cols {
-  margin-bottom: 2rem;
-}
-
-/* Campos con más altura y fondo suave */
-mat-form-field.full-width {
-  min-height: 80px;
-}
+/* Campos con fondo suave y mayor altura */
 mat-form-field.full-width .mat-form-field-flex {
   background-color: #f1f3f5;
-  padding: 1rem;
+  padding: 0.75rem;
   border-radius: 4px;
 }
-mat-form-field.full-width .mat-input-element {
+mat-form-field.full-width .mat-input-element,
+mat-form-field.full-width .mat-select-trigger {
   height: 1.5rem;
   line-height: 1.5rem;
 }
@@ -87,21 +101,6 @@ mat-form-field .mat-form-field-label {
   color: #666;
   padding-left: 0.5rem;
 }
-mat-form-field .mat-form-field-subscript-wrapper {
-  margin-top: 0.25rem;
-  font-size: 0.85rem;
-  color: #666;
-}
-
-/* Styling de selects para igualar inputs */
-mat-form-field.full-width .mat-select-trigger {
-  height: 56px;
-  display: flex;
-  align-items: center;
-}
-mat-form-field.full-width.mat-focused .mat-form-field-ripple {
-  background-color: #308c83ff !important;
-}
 
 /* Botones “+” y “Guardar” */
 .btn-add,
@@ -109,21 +108,24 @@ mat-form-field.full-width.mat-focused .mat-form-field-ripple {
 button[mat-stroked-button] {
   background: #308c83ff;
   color: white;
-  margin-top: 1rem;
-}
-.btn-save {
-  margin-top: 1rem;
 }
 button[mat-stroked-button] {
   margin-right: 1rem;
 }
 
-/* Contenedor para alinear botones al extremo derecho */
+/* Alinear botones al final */
 .actions {
   display: flex;
   justify-content: flex-end;
   gap: 1rem;
   margin-top: 1.5rem;
+}
+
+/* Tooltip / hint links */
+.mat-hint a {
+  font-weight: 600;
+  text-decoration: none;
+  color: #308c83ff;
 }
 
 /* Sección de tipos de cuerpo */
@@ -136,9 +138,13 @@ button[mat-stroked-button] {
   color: #333;
 }
 
-/* Hint y enlaces */
-.mat-hint a {
-  font-weight: 600;
-  text-decoration: none;
-  color: #308c83ff;
+/* Responsive: una columna en pantallas estrechas */
+@media (max-width: 900px) {
+  .page-container {
+    grid-template-columns: 1fr;
+  }
+  .right-column {
+    max-height: none;
+    overflow: visible;
+  }
 }
