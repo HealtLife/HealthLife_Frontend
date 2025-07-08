@@ -14,6 +14,7 @@ import {SubscriptionComponent} from './HealthLife/Features/pages/profile-content
 import {RecommendationsComponent} from './HealthLife/Activities/components/recommendations/recommendations.component';
 import {NutritionViewComponent} from './HealthLife/Nutrition/Pages/nutrition-view/nutrition-view.component';
 import {MedicalHistoryComponent} from './HealthLife/Medical/pages/medical-history/medical-history.component';
+import {ChatPageComponent} from './HealthLife/IA/pages/chat-page/chat-page.component';
 
 
 export const routes: Routes = [
@@ -28,6 +29,7 @@ export const routes: Routes = [
   { path: 'profile/edit', component: ProfileEditComponent}, // { path: 'profile/edit', component: ProfileEditComponent, canActivate: [AuthGuard] },
   { path: 'profile/payment', component: SubscriptionComponent},
   { path: 'recommendations', component: RecommendationsComponent},
+  { path: 'intelligence', component: ChatPageComponent},
   { path: '', redirectTo: '/access', pathMatch: 'full' },
   { path: '**', component: NotFoundPage },
 ];

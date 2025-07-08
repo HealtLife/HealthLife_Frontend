@@ -1,0 +1,82 @@
+<mat-card class="chat-card">
+  <div class="app-toolbar chat-header">
+    <span class="chat-emoji">🤖</span>
+    <span class="chat-title">Chatea con nuestra IA</span>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div class="container-two-columns">
+    <!-- COLUMNA IZQUIERDA: Guías y ejemplos de prompt -->
+    <aside class="sidebar">
+      <h3>📝 Guías y Ejemplos de Prompt</h3>
+
+      <!-- Seguridad -->
+      <section class="guide-section">
+        <h4>🔒 Seguridad</h4>
+        <p>Las conversaciones son <strong>temporales</strong>. Al cambiar de página se borrarán.</p>
+      </section>
+      <!-- Prompt para Dieta -->
+      <section class="guide-section">
+        <h4>🍎 Prompt de Dieta</h4>
+        <p>Usuario: <code>Quiero bajar de peso</code></p>
+        <p><strong>IA:</strong> “¿Cuál es tu peso actual, tu estatura y en cuánto tiempo quieres alcanzar tu objetivo?”</p>
+        <p>Al responder, la IA generará un borrador de mensaje para tu nutricionista con toda la información.</p>
+      </section>
+
+      <!-- Prompt para Rutinas -->
+      <section class="guide-section">
+        <h4>🏋️ Prompt de Rutinas</h4>
+        <p>Usuario: <code>Dame una lista de rutinas para tonificar glúteos</code></p>
+        <p><strong>IA:</strong> “¿Cuántas veces por semana puedes entrenar y cuánto tiempo tienes por sesión?”</p>
+        <p>Tras tu respuesta, la IA te entregará un plan paso a paso y un mensaje modelo para tu entrenador.</p>
+      </section>
+
+      <!-- Moderación -->
+      <section class="guide-section">
+        <h4>⚠️ Moderación y Ban</h4>
+        <p>Máximo 5 mensajes por sesión. Si envías algo fuera de tema:</p>
+        <ol>
+          <li>Corte inmediato de comunicación.</li>
+          <li>Ban de 30 s.</li>
+          <li>Ban de 1 h.</li>
+          <li>Ban de 1 día.</li>
+          <li>Contacto a soporte de healthlife<a href="mailto:soporte@healthlife"></a>.</li>
+        </ol>
+      </section>
+
+
+    </aside>
+
+    <!-- COLUMNA DERECHA: Chat -->
+    <div class="chat-column">
+      <!-- Banner de límite de mensajes -->
+      <div class="limit-banner">
+        ⚠️ Límite de 5 mensajes por sesión
+      </div>
+
+      <mat-list #messageList class="message-list">
+        <mat-list-item *ngFor="let msg of messages">
+          <div [ngClass]="{ 'user': msg.author === 'user', 'bot': msg.author === 'bot' }">
+            <mat-icon class="avatar">
+              {{ msg.author === 'user' ? 'person' : 'smart_toy' }}
+            </mat-icon>
+            <div class="bubble">{{ msg.text }}</div>
+          </div>
+        </mat-list-item>
+      </mat-list>
+
+      <div class="input-row">
+        <mat-form-field class="input-field" appearance="outline">
+          <input matInput
+                 placeholder="Escribe tu mensaje…"
+                 [formControl]="inputControl"
+                 (keyup.enter)="send()" />
+        </mat-form-field>
+        <button mat-icon-button color="primary" (click)="send()">
+          <mat-icon>send</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</mat-card>
