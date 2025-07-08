@@ -36,16 +36,17 @@ import { RegisterDialogComponent } from '../../../HealthLife/Access/components/r
 })
 export class ToolbarComponent implements OnInit {
   /** Definición de rutas con título e ícono */
-  features: Array<{ path: string; title: string; icon: string }> = [
-    { path: 'home',            title: 'Home',            icon: 'home' },
-    { path: 'nutrition',  title: 'Nutrition',       icon: 'restaurant_menu' },
-    { path: 'activities', title: 'Activities',      icon: 'directions_run' },
-    { path: 'notifications',   title: 'Notifications',   icon: 'notifications' },
-    { path: 'medical',   title: 'Medical History', icon: 'medical_services' },
-    { path: 'recommendations', title: 'Recommendations', icon: 'recommendations' },
-    { path: 'home/rutines',    title: 'Rutines',         icon: 'schedule' },
-    { path: 'profile/view',    title: 'Profile',         icon: 'person' },
-    { path: 'access',          title: 'Log Out',         icon: 'logout' },
+  features: Array<{ path: string; title: string }> = [
+    { path: 'home',            title: '🏠 Home'},
+    { path: 'nutrition',  title: '🍎 Nutrition'},
+    { path: 'activities', title: '🏋️Activities'},
+    { path: 'notifications',   title: '🔔 Notifications' },
+    { path: 'medical',   title: '🩺 Medical History' },
+    { path: 'recommendations', title: '💡 Recommendations'},
+    { path: 'intelligence', title: '🧠 Intelligence'},
+    { path: 'home/rutines',    title: '🗓 Rutines'},
+    { path: 'profile/view',    title: '👤 Profile'},
+    { path: 'access',          title: '🚪 Log Out'},
   ];
 
   /** Texto del título activo */
